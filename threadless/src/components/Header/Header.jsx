@@ -529,6 +529,7 @@ function Header() {
         <Link to="/shop">WALL ART</Link>
         <Link to="/shop">HOME DECOR</Link>
         <Link to="/shop">COMMUNITY</Link>
+        <Link to="/resources">RESOURCES</Link>
       </div>
     </nav>
   );

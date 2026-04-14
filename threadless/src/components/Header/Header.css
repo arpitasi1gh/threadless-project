@@ -1,0 +1,521 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Oswald:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@800;900&family=Bebas+Neue&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  background: repeating-linear-gradient(
+    -45deg,
+    #f9f9f9,
+    #f9f9f9 1px,
+    #ffffff 1px,
+    #ffffff 8px
+  );
+  border-bottom: none;
+  width: 100%;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding: 18px 90px;
+  gap: 14px;
+  background: transparent;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding: 12px 60px;
+  border-top: 1px solid #e8e8e8;
+  background: transparent;
+}
+
+.logo {
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 20px;
+  position: relative;
+  left: -30px;
+}
+
+.logo img {
+  height: auto;
+  width: 130px;
+  position: relative;
+  left: 100px;
+}
+.search-wrap {
+  flex: 1;
+  max-width: 600px;
+  margin: 0 auto 0 400px;
+  position: relative;
+}
+
+.search-border {
+  background: linear-gradient(90deg, #a855f7, #ec4899, #3b82f6, #06b6d4, #a855f7);
+  background-size: 300% 300%;
+  animation: borderMove 2s linear infinite;
+  border-radius: 16px;
+  padding: 2px;
+}
+
+.search-border input {
+  width: 100%;
+  padding: 10px 44px 10px 18px;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  outline: none;
+  color: #555;
+  background: white;
+  display: block;
+  height: 40px;
+}
+@keyframes borderMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.search-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.search-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.right-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.icon-wrap {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.icon-wrap svg {
+  width: 24px;
+  height: 24px;
+  stroke: #000000;
+  fill: #000000;
+}
+.badge {
+  position: absolute;
+  top: -7px;
+  right: -8px;
+  background: #e91e8c;
+  color: white;
+  font-size: 10px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.sell-login-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+
+}
+
+
+.sell-art {
+  font-size: 11px;
+  color: #1a73e8;
+  text-align: center;
+  line-height: 1.3;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+
+.sell-art:hover {
+  color: #1a73e8;
+}
+
+.join-login-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.join-btn {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Bebas Neue', sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.join-btn:hover {
+  background: #1557b0;
+}
+
+.login-lnk {
+  font-size: 11px;
+  color: #1a73e8;
+  text-decoration: none;
+  text-align: center;
+}
+
+.login-lnk:hover {
+  color: #1a73e8;
+}
+
+.divider {
+  width: 1px;
+  height: 36px;
+  background: #e0e0e0;
+}
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding: 12px 60px;
+  border-top: 1px solid #e8e8e8;
+  background: transparent;
+  position: relative;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #111;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  font-family: 'Nunito', sans-serif;
+  padding: 2px 0;
+}
+
+.nav-menu a:hover {
+  color: #1a73e8;
+  border-bottom: 2px solid #1a73e8;
+}
+.icon-wrap img {
+  width: 24px;
+  height: 24px;
+  opacity: 0.79;
+}
+.icon-wrap:hover img {
+  filter: invert(29%) sepia(98%) saturate(1500%) hue-rotate(210deg) brightness(95%);
+}
+.sell-art:hover {
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.join-btn:hover {
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.login-lnk:hover {
+  text-decoration: none;
+  border-bottom: none;
+}
+.nav-item {
+  position: static;
+}
+
+.nav-item > a {
+  text-decoration: none;
+  color: #111;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  font-family: 'Nunito', sans-serif;
+  padding: 2px 0;
+}
+
+.nav-item:hover > a {
+  color: #1a73e8;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #1a73e8;
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-top: 3px solid #1a73e8;
+  border-radius: 0 0 8px 8px;
+  padding: 20px;
+  width: 850px;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.nav-item:hover .dropdown {
+  display: block;
+}
+
+.dropdown-desc {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.dropdown-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.dropdown-col h4 {
+  font-size: 14px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: #111;
+  font-family: 'Nunito', sans-serif;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 6px;
+}
+
+.new-badge {
+  background: #e91e8c;
+  color: white;
+  font-size: 9px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+  vertical-align: middle;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.artist-box {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  text-align: center;
+  color: #333;
+  cursor: pointer;
+  background: #f9f9f9;
+}
+
+.artist-box:hover {
+  border-color: #1a73e8;
+}
+
+.artist-box.dark {
+  background: #111;
+  color: white;
+}
+
+.artist-box.pop {
+  background: white;
+}
+
+.sell-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sell-art-box {
+  background: #e8f4ff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: 100px;
+}
+
+.sell-art-icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.sell-art-box p {
+  font-size: 12px;
+  font-weight: 700;
+  color: #111;
+}
+
+.themes-dropdown {
+  width: 750px;
+}
+
+.apparel-dropdown {
+  width: 850px;
+}
+
+.headwear-dropdown {
+  width: 650px;
+}
+
+.accessories-dropdown {
+  width: 700px;
+}
+
+.dropdown-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-list li {
+  margin-bottom: 6px;
+}
+.dropdown-list li a {
+  font-size: 13px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.dropdown-list li a:hover {
+  color: #1a73e8;
+}
+
+.themes-img {
+  width: 120px;
+  text-align: center;
+}
+
+.themes-dropdown {
+  width: 850px;
+}
+
+.dropdown-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-list li {
+  margin-bottom: 6px;
+}
+
+.dropdown-list li a {
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-list li a:hover {
+  color: #1a73e8;
+}
+
+.themes-img {
+  width: 120px;
+  text-align: center;
+}
+
+.themes-img p {
+  font-size: 11px;
+  font-weight: 900;
+  color: #111;
+  margin-top: 8px;
+}
+
+.headwear-dropdown {
+  width: 650px;
+}
+
+.hat-img-col {
+  display: flex;
+  align-items: flex-start;
+}
+
+.hat-img-box {
+  position: relative;
+  width: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.hat-img-box img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.hat-img-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1a73e8;
+  color: white;
+  text-align: center;
+  padding: 8px;
+}
+
+.hat-img-label strong {
+  font-size: 12px;
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+}
+
+.hat-img-label p {
+  font-size: 11px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+}

@@ -1,0 +1,393 @@
+/* Resources Page Styles - Pure CSS, no Tailwind */
+
+* {
+  box-sizing: border-box;
+}
+
+.resources-page {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  background: #fff;
+}
+
+/* ===== HEADER / NAV ===== */
+.resources-header {
+  background: #222;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.resources-nav {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 60px;
+}
+
+.nav-logo {
+  height: 45px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #ccc;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-search-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+
+.nav-search-btn:hover {
+  opacity: 0.7;
+}
+
+.nav-cta {
+  background: #e91e63;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.nav-cta:hover {
+  background: #c2185b;
+  transform: scale(1.03);
+}
+
+/* ===== MAIN CONTENT ===== */
+.resources-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.resources-page {
+  padding-top: 60px;
+}
+
+/* ===== POST GRID ===== */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 40px 0;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card-image-wrapper {
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.post-card-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.post-card:hover .post-card-image {
+  transform: scale(1.05);
+}
+
+.post-date {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.post-title {
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 0 0 12px 0;
+  color: #222;
+}
+
+.post-title a {
+  color: #222;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.post-title a:hover {
+  color: #e91e63;
+}
+
+.post-excerpt {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #555;
+  margin: 0;
+}
+
+.post-excerpt .read-more {
+  color: #00bcd4;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.post-excerpt .read-more:hover {
+  color: #0097a7;
+  text-decoration: underline;
+}
+
+/* ===== BANNER / DIVIDER ===== */
+.banner-divider {
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+.banner-divider img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.banner-divider:hover img {
+  transform: scale(1.02);
+}
+
+/* ===== COLOR BAR DIVIDER ===== */
+.color-bar {
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #e91e63 0%,
+    #e91e63 16.66%,
+    #ff9800 16.66%,
+    #ff9800 33.33%,
+    #ffeb3b 33.33%,
+    #ffeb3b 50%,
+    #4caf50 50%,
+    #4caf50 66.66%,
+    #2196f3 66.66%,
+    #2196f3 83.33%,
+    #9c27b0 83.33%,
+    #9c27b0 100%
+  );
+  margin: 0;
+}
+
+/* ===== PAGINATION ===== */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 30px 0;
+}
+
+.pagination a {
+  color: #333;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+
+.pagination a:hover {
+  color: #e91e63;
+}
+
+/* ===== FOOTER ===== */
+.resources-footer {
+  border-top: 1px solid #eee;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+}
+
+.footer-column h3 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #333;
+  margin: 0 0 16px 0;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 6px;
+}
+
+.footer-column ul li a {
+  color: #00bcd4;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer-column ul li a:hover {
+  color: #0097a7;
+  text-decoration: underline;
+}
+
+/* ===== START ARTIST SHOP SECTION ===== */
+.start-shop-section {
+  margin-top: 8px;
+}
+
+.start-shop-section p {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 14px 0;
+}
+
+.start-shop-btn {
+  background: #e91e63;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.start-shop-btn:hover {
+  background: #c2185b;
+  transform: scale(1.05);
+}
+
+/* ===== COPYRIGHT ===== */
+.copyright {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 20px 30px;
+  border-top: 1px solid #eee;
+  font-size: 11px;
+  color: #999;
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .post-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .footer-columns {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 650px) {
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #222;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .post-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 24px 0;
+  }
+
+  .post-title {
+    font-size: 20px;
+  }
+
+  .resources-nav {
+    padding: 0 16px;
+  }
+
+  .banner-divider img {
+    height: 140px;
+  }
+}

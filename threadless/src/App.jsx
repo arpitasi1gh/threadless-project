@@ -1,13 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import React from "react";
 import './App.css'
 import Footer from './components/footer/Footer'
+import Login from './components/login/Login'
 
 function App() {
-
   return (
     <>
+      <Login />
       <Footer />
     </>
   )

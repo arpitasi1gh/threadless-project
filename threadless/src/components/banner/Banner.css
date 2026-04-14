@@ -1,0 +1,17 @@
+.banner {
+    width: 100%;
+    margin: 0;
+    background: #d9ef4f;
+}
+
+.banner:hover {
+    cursor: pointer;
+}
+
+.banner img {
+    display: block;
+    width: 100%;
+    max-width: 1258px;
+    height: auto;
+    margin: 0 auto;
+}

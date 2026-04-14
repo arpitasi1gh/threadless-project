@@ -1,14 +1,13 @@
 import './App.css'
-import Footer from './components/footer/Footer'
-import Home from './pages/home/home'
+import AppRoutes from './routes/AppRoutes'
+import { DataProvider } from './context/DataProvider'
 
 function App() {
   return (
-    <>
-      <Home />
-      <Footer />
-    </>
-  )
+      <DataProvider>
+      <AppRoutes />
+    </DataProvider>
+    )
 }
 
 export default App

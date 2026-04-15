@@ -13,7 +13,7 @@ import img9 from './images/9.webp'
 
 const gridItems = [
   { src: img1, to: '/product/1' },
-  { src: img2, to: '/product/2' },
+  { src: img2, to: '/shop' },
   { src: img3, to: '/product/3' },
   { src: img4, to: '/product/4' },
   { src: img5, to: '/product/5' },
@@ -40,7 +40,7 @@ export default function Home() {
       <p className="bottom-para">
         **$15 price applies to select tee styles where available. Sale prices as marked. For a limited time only.
         <br />
-        *Savings percentage and strikethrough pricing based on comparison to regular prices of the same items at full-price in Artist Shops or third party retail locations. Savings may vary over time.
+        *Savings percentage and strikethrough pricing based on comparison to regular prices of the same items at full-price in Artist Shops or third party retail locations and may vary over time.
       </p>
     </div>
   )

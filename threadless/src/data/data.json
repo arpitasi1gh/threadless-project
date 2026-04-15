@@ -1,0 +1,802 @@
+[
+  {
+    "id": 1,
+    "design": {
+      "id": 1,
+      "title": "Yearn For The Bog",
+      "artist": "DinoMike",
+      "about": "A whimsical illustration featuring a frog dressed in office attire, including a shirt and tie, sitting at a vintage computer. The frog appears to be working and is positioned under a clock showing time passing. Above, the phrase 'I YEAR FOR THE BOG' is displayed in bold, playful letters. The design uses a limited color palette of greens and beige, combining a humorous and nostalgic vibe.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072971/1-1_yowolg.webp",
+      "type": ["illustration", "digital-art"],
+      "subType": ["humor", "retro", "office-culture"],
+      "tags": ["featured", "trending"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072972/1-2_mdohvx.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Double-lined hood with matching drawcord", "1x1 rib with spandex", "Pouch pocket for storage"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072971/1-3_djqm3k.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Microwave safe", "Dishwasher safe", "Gloss finish"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072972/1-6_her5ch.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Slim fit", "Impact resistant", "Precise cutouts"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072972/1-4_mqd3sd.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Breathable mesh back", "Adjustable snapback", "Mid-profile design"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072972/1-5_xy3gxk.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "design": {
+      "id": 2,
+      "title": "Oh Lawd She Feral",
+      "artist": "kilkennycat",
+      "about": "The image shows a fluffy, calico-patterned cat standing on a patch of green grass. The cat has wide eyes and holds a knife in its mouth. A snake-like tail wraps around its legs. Below the cat, the text reads 'OH LAWD SHE FERAL'. The design is quirky and humorous with a playful take on the 'Gadsden flag' style, often associated with slogans and symbols in political contexts.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072971/2_uiyv0j.webp",
+      "type": ["illustration", "pop-art"],
+      "subType": ["animals", "memes", "quirky"],
+      "tags": ["popular", "new"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072973/1-2_cdq7mx.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Double-lined hood", "Reduced pilling", "Comfort fit"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072973/1-3_bh8e9w.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["11 oz or 15 oz available", "Wraparound color", "Smooth finish"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072972/1-6_ll4mzp.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Crisp details", "Cool and sleek", "One or two piece options"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072972/1-4_xudw4g.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Double snapback closure", "Breathable mesh", "Trucker style"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072973/1-5_cgplgz.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "design": {
+      "id": 3,
+      "title": "Plant A Tree Save The Forest",
+      "artist": "Li_Ro_Vi",
+      "about": "The design features a white silhouette of a kangaroo in mid-leap against a large circular background with stripes. The background depicts a forest scene in shades of red and orange, suggesting a sunset or sunrise. Birds can be seen in the distance, flying across the top of the circle. The overall design has a serene and natural feel with an emphasis on the kangaroo and the Australian outback.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073119/3-1_wmpqxe.webp",
+      "type": ["illustration", "vector-art"],
+      "subType": ["nature", "wildlife", "minimalist"],
+      "tags": ["relevant", "popular"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073120/3-2_ppznja.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Double-lined hood", "Fleece knit", "Durable stitching"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073120/3-3_mfmmzo.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Microwave safe", "Dishwasher safe", "Wraparound art"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073120/3-6_vfq2mz.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Durable shell", "Minimal profile", "Crisp print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073119/3-4_vmsuqn.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Five-panel structure", "Breathable mesh", "Pre-curved visor"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073122/3-5_lkzpkf.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "design": {
+      "id": 4,
+      "title": "Dinosaur Island Adventure Camp",
+      "artist": "sachpica",
+      "about": "The image is a vintage-style badge for 'Isla Nublar Adventure Camp', featuring a dinosaur silhouette against a colorful landscape with a volcano, sun, and trees. The text establishes the camp in 1993. The overall design has a retro, adventurous feel, incorporating natural elements like the sky, clouds, and flying birds.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073120/4-1_tqq3jh.webp",
+      "type": ["illustration", "graphic-design"],
+      "subType": ["retro", "adventure", "dinosaurs"],
+      "tags": ["featured", "on-sale"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073120/4-2_ck0oax.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Warm fleece", "Reduced pilling", "Vintage feel"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073119/4-3_h54sbv.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Ceramic", "High-quality print", "Microwave safe"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073121/4-6_ovkxas.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Protective", "Sleek profile", "Vibrant colors"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073120/4-4_zea4zp.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Mesh back", "Snapback", "Adventure badge print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073121/4-5_sczvog.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "design": {
+      "id": 5,
+      "title": "Howling Wolf",
+      "artist": "Coffee_man",
+      "about": "A silhouetted wolf stands on a rocky outcrop, howling against a vivid orange full moon. The moon appears to be melting, with drips cascading downward, adding an eerie element to the design.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072973/5-1_srhopl.webp",
+      "type": ["illustration", "graphic-art"],
+      "subType": ["animals", "surreal", "nature"],
+      "tags": ["new", "featured"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072973/5-2_nh58rs.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Double-lined hood", "Fleece knit", "Surreal wolf print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072973/5-3_kjfwtu.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Ceramic", "Wraparound orange moon print", "Microwave safe"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072973/5-6_xl5nom.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Protective", "Sleek profile", "Drip moon effect"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072974/5-4_lnnuga.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Snapback closure", "Mesh back", "Mid-profile design"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072974/5-5_wtazoh.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "design": {
+      "id": 6,
+      "title": "Mid-Century Birds",
+      "artist": "trabu",
+      "about": "The image features a minimalist and colorful design of four birds in abstract form, perched on a horizontal branch. Each bird is built using simple geometric shapes in various bold colors including yellow, green, blue, red, and beige. The background is plain, allowing the vibrant hues to stand out, evoking a sense of modern art and mid-century design.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072975/6-1_zrjpvi.webp",
+      "type": ["illustration", "abstract"],
+      "subType": ["mid-century-modern", "minimalist", "birds"],
+      "tags": ["trending"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072974/6-2_rbtkni.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Warm fleece", "Reduced pilling", "Comfort fit"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072974/6-3_zp3ksp.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Dishwasher safe", "Microwave safe", "Mid-century style"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072975/6-6_a1aet4.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Cool and sleek", "Crisp details", "Durable"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072975/6-4_legmzp.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Mesh back", "Mid-profile", "Adjustable"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072975/6-5_libxsp.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "design": {
+      "id": 7,
+      "title": "Anime Fighter",
+      "artist": "Ilustrata",
+      "about": "The image features a playful, retro-style fighter game screen with cute, cartoonish animal characters preparing for battle. The title 'Fighter' is boldly displayed at the top with several characters shown in a grid below, resembling a video game character selection screen. The background is dark to highlight the vibrant and whimsical designs of the animals.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073122/7-1_fjlki1.webp",
+      "type": ["illustration", "gaming"],
+      "subType": ["anime", "retro", "pixel-art"],
+      "tags": ["featured", "popular"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073122/7-2_vpbeqn.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Durable fleece", "Double-lined hood", "Anime character print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073122/7-3_csch31.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Ceramic", "High-gloss", "Game screen wraparound"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073121/7-6_hrm43c.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Durable shell", "Impact protection", "Sleek"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073122/7-4_mlfjh1.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Trucker cap", "Breathable mesh", "Adjustable closure"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073122/7-5_uc0il2.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "design": {
+      "id": 8,
+      "title": "Radical Empathy",
+      "artist": "EsterKay",
+      "about": "The design features a cheerful flower with a smiling face, hands making a heart shape, and a butterfly nearby. It encourages 'Practice Radical Empathy' in bold letters, symbolizing kindness and connection.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073123/8-1_sbhlsv.webp",
+      "type": ["illustration", "typography"],
+      "subType": ["inspirational", "floral", "whimsical"],
+      "tags": ["relevant", "trending"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073123/8-2_suo9h5.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Warm fleece", "Durable print", "Comfort fit"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073123/8-3_krprvt.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Gloss finish", "Microwave safe", "Dishwasher safe"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073124/8-6_znik4j.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Durable", "Minimal profile", "Vivid colors"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073123/8-4_rlbczu.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Adjustable closure", "Mesh back", "Trucker style"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073123/8-5_x2at8j.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "design": {
+      "id": 9,
+      "title": "Yeti Or Not Here I Come",
+      "artist": "tobefonseca",
+      "about": "The image features a cute cartoon yeti holding a coffee mug with a pink heart. The yeti appears fluffy, white, and friendly, with small horns. Snowflakes and circles decorate the background. Above and below the yeti are the words 'Yeti or Not Here I Come' in bold, playful lettering. The overall style is whimsical and light-hearted.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072976/9-1_yxjudf.webp",
+      "type": ["illustration", "cartoon"],
+      "subType": ["seasonal", "coffee", "winter"],
+      "tags": ["on-sale", "new"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072976/9-2_i0kh5a.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Fleece", "Durable print", "Warm"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072976/9-3_fyih4o.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Ceramic", "Dishwasher safe", "Microwave safe"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072976/9-6_hcmdwp.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Sleek", "Durable", "Vibrant colors"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072977/9-4_vuqc6e.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Mesh back", "Adjustable snapback", "Mid-profile"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072978/9-5_urodya.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "design": {
+      "id": 10,
+      "title": "Rainbow Cat",
+      "artist": "SkyeRaiin",
+      "about": "The design features two white, cartoon-like cats with cute expressions, appearing to playfully create a vibrant, arched rainbow. One cat is positioned on each end of the rainbow, with colorful paint splashes blending into the arch. The background is black, making the colors of the rainbow and the white cats stand out vividly.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072978/10-1_gwhxlr.webp",
+      "type": ["illustration", "digital-art"],
+      "subType": ["cats", "rainbow", "whimsical"],
+      "tags": ["featured", "trending"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072978/10-2_edi0bq.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Double-lined hood", "Fleece", "Durable print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072978/10-3_npwlrp.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Gloss finish", "Microwave safe", "Dishwasher safe"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072977/10-6_iwq4p5.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Durable", "Sleek", "Crisp details"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072978/10-4_py9h1g.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Five-panel structure", "Mesh back", "Adjustable snapback"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072979/10-5_cfsali.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "design": {
+      "id": 11,
+      "title": "Catsune Neko-Chan",
+      "artist": "kooky love",
+      "about": "A cute, fantasy-style nine-tailed fox with large, bright eyes and a playful expression. Its tails fan out dramatically in shades of red and orange. The fox sits contentedly, adorned with swirling red markings. Below it is Japanese text.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073125/11-1_ztopre.webp",
+      "type": ["illustration", "fantasy"],
+      "subType": ["mythical", "fox", "japanese-style"],
+      "tags": ["popular", "new"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073124/11-2_fvtmam.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Double-lined hood", "Fleece", "Durable print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073124/11-3_xdu8nb.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Dishwasher safe", "Microwave safe", "Gloss finish"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073125/11-6_fz3cfd.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Minimal profile", "Durable", "Crisp print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073124/11-4_wj9fez.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Snapback", "Mesh back", "Five-panel"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073125/11-5_xve2m9.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "design": {
+      "id": 12,
+      "title": "Think Fasta Eat Pasta - Funny Hungry Cat",
+      "artist": "Snouleaf",
+      "about": "The design features a cute black and white cat happily eating spaghetti from a bowl. The background is a warm orange semicircle, resembling a sunset. Above the cat, the text reads 'THINK FASTA' and below it says 'EAT PASTA', both in a bold, playful font. The vibrant contrast of colors and the whimsical subject give it a fun, pop-culture feel.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073125/12-1_gqhm0m.webp",
+      "type": ["illustration", "pop-art"],
+      "subType": ["cats", "food", "humor"],
+      "tags": ["relevant", "popular"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073126/12-2_tqrxqi.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Double-lined hood", "Fleece knit", "Funny pasta cat print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073126/12-3_tnrdtn.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Ceramic", "High-quality pasta cat print", "Microwave safe"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073125/12-6_duajir.webp",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Durable shell", "Minimal profile", "Bright pasta colors"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073126/12-4_q6t5d6.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Mesh back", "Snapback", "Funny cat badge"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073126/12-5_ytnuvf.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "design": {
+      "id": 13,
+      "title": "I Need More Books",
+      "artist": "EduEly",
+      "about": "A whimsical design features a large, green dragon curled protectively around a hoard of books and coins. The dragon has a content expression, with books stacked and papers scattered around it. Above the dragon, in a decorative, old-world font, are the words 'I Need More Books'. The composition suggests a fantasy theme with a cozy and humorous touch.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072980/13-1_mbjrsy.webp",
+      "type": ["illustration", "fantasy"],
+      "subType": ["dragons", "books", "humor"],
+      "tags": ["popular", "relevant"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072979/13-2_meajud.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Fleece", "Durable print", "Comfort fit"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072979/13-3_zqlast.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Gloss finish", "Microwave safe", "Dishwasher safe"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072981/13-6_kaqprd.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Protective", "Minimal profile", "Vivid colors"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072980/13-4_qhvalj.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Trucker style", "Adjustable", "Mesh back"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072980/13-5_ouqutz.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "design": {
+      "id": 14,
+      "title": "Dragon Anatomy - Cute Creepy Cartoon Dragon Gift",
+      "artist": "EduEly",
+      "about": "The design features a cute dragon with an anatomical twist, showcasing its internal organs and skeletal structure in a cartoonish, playful manner. The dragon has half of its body intact and half exposed, showing bones and organs. Various parts of the dragon are labeled in Japanese, adding a quirky, educational feel reminiscent of scientific diagrams.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072981/14-1_kzbyjb.webp",
+      "type": ["illustration", "cartoon"],
+      "subType": ["educational", "monsters", "anatomy"],
+      "tags": ["on-sale", "trending"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072982/14-2_cwnoiu.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Double-lined hood", "Fleece", "Durable print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072982/14-3_aldjwr.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Dishwasher safe", "Microwave safe", "Wraparound art"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072981/14-6_alhu5f.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Cool and sleek", "Crisp details", "Minimal profile"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072982/14-4_t6lng9.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Mesh back", "Trucker style", "Adjustable snapback"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776072981/14-5_p7f2oh.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "design": {
+      "id": 15,
+      "title": "Chonky Kitty Coffee - Funny Cat",
+      "artist": "Snouleaf",
+      "about": "The image features a cute, dark-colored cartoon cat with large, round eyes holding a steaming coffee cup. Around the cat, the text reads 'Infused with Bean Juice.' The background includes coffee beans and green leaves, giving a natural coffee vibe. The overall style is playful and whimsical, reminiscent of modern cartoon designs.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073127/15-1_dnyikb.webp",
+      "type": ["illustration", "cartoon"],
+      "subType": ["cats", "coffee", "humor"],
+      "tags": ["popular", "new"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073127/15-2_nky59d.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Warm fleece", "Reduced pilling", "Durable print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073127/15-3_bqftgs.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Dishwasher safe", "Microwave safe", "Gloss finish"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073128/15-6_dyg60x.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Sleek profile", "Protective", "Crisp details"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073127/15-4_l9sntk.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Breathable mesh", "Five-panel structure", "Trucker style"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073127/15-5_zgqrvz.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "design": {
+      "id": 16,
+      "title": "Things Are Constantly Happening",
+      "artist": "EduEly",
+      "about": "The image features three raccoons illustrated in a playful, slightly cartoonish style. The central raccoon is smiling, while the two others strike curious and whimsical poses. Above them, in bold pink text, are the words 'Things Are Constantly Happening,' and below, 'And I Would Like For It To Stop.' The overall vibe is humorous and relatable, invoking the overstimulation of modern life in a comic way.",
+      "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073128/16-1_y6a912.webp",
+      "type": ["illustration", "cartoon"],
+      "subType": ["raccoons", "humor", "modern-life"],
+      "tags": ["featured", "popular"]
+    },
+    "products": [
+      {
+        "type": "T-Shirt",
+        "about": "Our premium tee provides a structured fit in an elevated garment with a handful of subtle but noticeable flourishes. The heavier combed cotton results in a mid-weight fabric with a buttery smooth touch.",
+        "features": ["Regular unisex fit, streetwear look with a structured body", "100% combed cotton (heathers 15% viscose)"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073128/16-2_yrxovi.webp",
+        "variants": [{"size": "S", "price": 24.99}, {"size": "M", "price": 25.99}, {"size": "L", "price": 26.99}, {"size": "XL", "price": 27.99}, {"size": "2XL", "price": 28.99}, {"size": "3XL", "price": 29.99}]
+      },
+      {
+        "type": "hoodie",
+        "about": "Preshrunk fleece knit made from 50% cotton/50% polyester (heather colors are 60% cotton/40% polyester). Features a double-lined hood and kangaroo pocket for storage. Air-jet yarn for softer feel and reduced pilling.",
+        "features": ["Reduced pilling", "Fleece", "Relatable print"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073129/16-3_hgbi8n.webp",
+        "variants": [{"size": "S", "price": 34.99}, {"size": "M", "price": 35.99}, {"size": "L", "price": 36.99}, {"size": "XL", "price": 37.99}, {"size": "2XL", "price": 38.99}, {"size": "3XL", "price": 39.99}]
+      },
+      {
+        "type": "mug",
+        "about": "his premium ceramic coffee mug is available in both 11 oz and 15 oz. Features top to bottom wraparound color and single-sided art print with a smooth finish. Dishwasher and microwave safe.",
+        "features": ["Gloss finish", "Microwave safe", "Dishwasher safe"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073128/16-6_ovqknq.png",
+        "variants": [{"size": "11\" x 11\"", "price": 14.99}]
+      },
+      {
+        "type": "phonecase",
+        "about": "A phone case that is as protective against bumps as it is cool and sleek. These custom printed phone cases pop with crisp details and colors. Durable with minimal profile. Available as a one-piece or two-piece.",
+        "features": ["Durable", "Sleek", "Crisp details"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073128/16-4_hmocuo.webp",
+        "variants": [{"size": "6\" x 3\"", "price": 19.99}]
+      },
+      {
+        "type": "headwear",
+        "about": "Printed trucker-style hat with 100% polyester foam front and breathable mesh back. Five-panel structure and mid-profile design. Pre-curved visor. Adjustable double snapback closure. 10 solid and two-tone color options.",
+        "features": ["Mesh back", "Snapback closure", "Mid-profile"],
+        "image": "https://res.cloudinary.com/dlpu9lhp0/image/upload/v1776073128/16-5_nazomd.png",
+        "variants": [{"size": "One Size (~22\")", "price": 17.99}]
+      }
+    ]
+  }
+]

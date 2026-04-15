@@ -101,21 +101,6 @@ const postsRow4 = [
   },
 ];
 
-const recentPosts = [
-  'Your Shop, Connected: Introducing Threadless Links',
-  'Holiday Promo Toolkit: Create Festive Social Media Posts That Drive Sales',
-  'Get Holiday Shoppers to Spend a Little More with Stocking Stuffers',
-  'Holiday Marketing Guide: Your Ultimate Checklist for the Peak Shopping Season',
-  'How to Turn One Design into a Full Marketing Campaign',
-];
-
-const categories = [
-  'Art Trends', 'Creative Inspiration', 'Design Trends', 'Ecommerce SEO',
-  'Email Marketing', 'Facebook Marketing', 'Features & Announcements',
-  'Freebies', 'How to Start an Artist Shop', 'News', 'Shop Promotion',
-  'Store Inspiration', 'Social Media Marketing', 'Tumblr', 'Uncategorized',
-];
-
 const PostCard = ({ image, date, title, excerpt }) => (
   <article className="post-card">
     <div className="post-card-image-wrapper">

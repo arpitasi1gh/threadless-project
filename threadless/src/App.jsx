@@ -1,15 +1,12 @@
 import './App.css'
-import Footer from './components/footer/Footer'
-import Home from './pages/home/home'
-import Signup from './components/signup/Signup'
+import { DataProvider } from './context/DataProvider'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
   return (
-    <>
-      <Home />
-      <Signup />
-      <Footer />
-    </>
+    <DataProvider>
+      <AppRoutes />
+    </DataProvider>
   )
 }
 

@@ -1,7 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Oswald:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@800;900&family=Bebas+Neue&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -11,10 +7,10 @@
 .navbar {
   background: repeating-linear-gradient(
     -45deg,
-    #f9f9f9,
-    #f9f9f9 1px,
-    #ffffff 1px,
-    #ffffff 8px
+    #efefef,
+    #efefef 1px,
+    #f5f5f5 1px,
+    #f5f5f5 8px
   );
   border-bottom: none;
   width: 100%;
@@ -54,12 +50,19 @@
 .search-wrap {
   flex: 1;
   max-width: 600px;
-  margin: 0 auto 0 400px;
+  margin: 0 auto 0 350px;
   position: relative;
 }
 
 .search-border {
-  background: linear-gradient(90deg, #a855f7, #ec4899, #3b82f6, #06b6d4, #a855f7);
+  background: linear-gradient(
+    90deg,
+    #a855f7,
+    #ec4899,
+    #3b82f6,
+    #06b6d4,
+    #a855f7
+  );
   background-size: 300% 300%;
   animation: borderMove 2s linear infinite;
   border-radius: 16px;
@@ -79,9 +82,15 @@
   height: 40px;
 }
 @keyframes borderMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .search-icon {
@@ -141,72 +150,170 @@
   font-weight: bold;
 }
 
+.cart-badge {
+  top: -9px;
+  right: -10px;
+  min-width: 18px;
+  width: auto;
+  padding: 0 5px;
+  background: #e91e8c;
+  box-shadow: 0 0 0 2px #f5f5f5;
+}
+
 .sell-login-group {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  padding: 8px 12px;
+  padding: 6px 8px;
   border-radius: 4px;
   position: relative;
   overflow: hidden;
-
 }
 
-
 .sell-art {
-  font-size: 11px;
+  min-width: 62px;
+  min-height: 34px;
+  padding: 3px 4px 6px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 13px;
+  font-weight: 900;
+  font-family: "Nunito", sans-serif;
   color: #1a73e8;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.15;
   cursor: pointer;
   text-decoration: none;
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
 }
 
-.sell-art:hover {
-  color: #1a73e8;
+.sell-art::before {
+  content: none;
+}
+
+.sell-art::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 999px;
+  background: #1a73e8;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+}
+
+.sell-art span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  white-space: nowrap;
+  transition: transform 160ms ease;
+}
+
+.sell-art:hover,
+.sell-art:focus-visible {
+  color: #1557b0;
+  transform: translateY(-1px);
+}
+
+.sell-art:hover::before,
+.sell-art:focus-visible::before {
+  content: none;
+}
+
+.sell-art:hover::after,
+.sell-art:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.sell-art:hover span,
+.sell-art:focus-visible span {
+  transform: translateY(-1px);
 }
 
 .join-login-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   position: relative;
   z-index: 1;
+  min-width: 82px;
 }
 
 .join-btn {
   background: #1a73e8;
   color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: bold;
-  font-family: 'Bebas Neue', sans-serif;
+  border: 1px solid #145fc6;
+  min-height: 30px;
+  min-width: 74px;
+  padding: 5px 9px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  font-family: "Nunito", sans-serif;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 0;
   text-decoration: none;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
 }
 
-.join-btn:hover {
-  background: #1557b0;
+.join-btn:hover,
+.join-btn:focus-visible {
+  background: #145fc6;
+  border-color: #0f4ea8;
+  box-shadow: 0 9px 18px rgba(26, 115, 232, 0.32);
+  transform: translateY(-1px);
 }
 
 .login-lnk {
-  font-size: 11px;
+  min-width: 72px;
+  font-size: 13px;
+  font-weight: 900;
+  font-family: "Nunito", sans-serif;
   color: #1a73e8;
   text-decoration: none;
   text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
 }
 
-.login-lnk:hover {
-  color: #1a73e8;
+.login-lnk:hover,
+.login-lnk:focus-visible {
+  color: #0f4ea8;
+  background: #e8f1ff;
 }
 
 .divider {
@@ -231,7 +338,7 @@
   font-weight: 900;
   letter-spacing: 0px;
   text-transform: uppercase;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   padding: 2px 0;
 }
 
@@ -245,19 +352,22 @@
   opacity: 0.79;
 }
 .icon-wrap:hover img {
-  filter: invert(29%) sepia(98%) saturate(1500%) hue-rotate(210deg) brightness(95%);
+  filter: invert(29%) sepia(98%) saturate(1500%) hue-rotate(210deg)
+    brightness(95%);
 }
 .sell-art:hover {
   text-decoration: none;
   border-bottom: none;
 }
 
-.join-btn:hover {
+.join-btn:hover,
+.join-btn:focus-visible {
   text-decoration: none;
   border-bottom: none;
 }
 
-.login-lnk:hover {
+.login-lnk:hover,
+.login-lnk:focus-visible {
   text-decoration: none;
   border-bottom: none;
 }
@@ -272,7 +382,7 @@
   font-weight: 900;
   letter-spacing: 0px;
   text-transform: uppercase;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   padding: 2px 0;
 }
 
@@ -291,10 +401,12 @@
   border: 1px solid #e8e8e8;
   border-top: 3px solid #1a73e8;
   border-radius: 0 0 8px 8px;
-  padding: 20px;
-  width: 850px;
+  padding: 18px;
+  width: max-content;
+  max-width: calc(100vw - 48px);
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .nav-item:hover .dropdown {
@@ -309,7 +421,9 @@
 
 .dropdown-grid {
   display: flex;
-  gap: 20px;
+  gap: 18px;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .dropdown-col h4 {
@@ -317,20 +431,20 @@
   font-weight: 900;
   margin-bottom: 10px;
   color: #111;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   border-bottom: 1px solid #e8e8e8;
   padding-bottom: 6px;
 }
 
 .new-badge {
-  background: #e91e8c;
-  color: white;
+  background: transparent;
+  color: #e91e8c;
   font-size: 9px;
-  padding: 2px 5px;
-  border-radius: 3px;
-  margin-left: 5px;
+  padding: 0;
+  border-radius: 0;
+  margin-left: 4px;
   vertical-align: middle;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   display: inline-block;
 }
@@ -350,6 +464,7 @@
   align-items: center;
   justify-content: center;
   font-size: 9px;
+  font-weight: 400;
   text-align: center;
   color: #333;
   cursor: pointer;
@@ -395,19 +510,56 @@
 }
 
 .themes-dropdown {
-  width: 750px;
+  width: 720px;
+  left: 50%;
+  transform: translateX(-50%);
 }
-
+.artist-dropdown {
+  width: 760px;
+  left: 45%;
+  transform: translateX(calc(-50% - 20px));
+}
 .apparel-dropdown {
-  width: 850px;
+  width: 800px;
 }
 
 .headwear-dropdown {
-  width: 650px;
+  width: min(820px, calc(100vw - 24px));
+  padding: 22px 28px 26px;
+}
+
+.headwear-dropdown .dropdown-desc {
+  display: none;
+}
+
+.headwear-dropdown .dropdown-grid {
+  display: grid;
+  grid-template-columns: 150px 145px 180px 145px;
+  gap: 42px;
+  align-items: start;
+  justify-content: center;
+}
+
+.headwear-dropdown .dropdown-col {
+  min-width: 0;
+}
+
+.headwear-dropdown .dropdown-col h4 {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.headwear-dropdown .dropdown-list li {
+  margin-bottom: 7px;
+}
+
+.headwear-dropdown .dropdown-list li a {
+  font-size: 15px;
+  line-height: 1.25;
 }
 
 .accessories-dropdown {
-  width: 700px;
+  width: 650px;
 }
 
 .dropdown-list {
@@ -419,12 +571,11 @@
 .dropdown-list li {
   margin-bottom: 6px;
 }
+/* Make dropdown text plain */
 .dropdown-list li a {
-  font-size: 13px;
-  color: #333;
-  text-decoration: none;
-  font-weight: 400;
-  text-transform: none;
+  font-family: Arial, Helvetica, sans-serif; /* or just sans-serif */
+  font-weight: 400; /* normal */
+  text-transform: none; /* remove uppercase if applied */
 }
 
 .dropdown-list li a:hover {
@@ -434,10 +585,6 @@
 .themes-img {
   width: 120px;
   text-align: center;
-}
-
-.themes-dropdown {
-  width: 850px;
 }
 
 .dropdown-list {
@@ -454,6 +601,8 @@
   font-size: 14px;
   color: #333;
   text-decoration: none;
+  font-weight: 400;
+  text-transform: none;
 }
 
 .dropdown-list li a:hover {
@@ -467,13 +616,9 @@
 
 .themes-img p {
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 400;
   color: #111;
   margin-top: 8px;
-}
-
-.headwear-dropdown {
-  width: 650px;
 }
 
 .hat-img-col {
@@ -483,15 +628,17 @@
 
 .hat-img-box {
   position: relative;
-  width: 160px;
+  width: 145px;
+  height: 205px;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
+  background: #b9d4f1;
 }
 
 .hat-img-box img {
   width: 100%;
-  height: 180px;
+  height: 165px;
   object-fit: cover;
   display: block;
 }
@@ -501,21 +648,101 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #1a73e8;
+  min-height: 40px;
+  background: #2455a8;
   color: white;
   text-align: center;
-  padding: 8px;
+  padding: 6px;
 }
 
 .hat-img-label strong {
-  font-size: 12px;
+  font-size: 14px;
   display: block;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   letter-spacing: 1px;
+  line-height: 1;
 }
 
 .hat-img-label p {
-  font-size: 11px;
-  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  font-family: "Bebas Neue", sans-serif;
   letter-spacing: 1px;
+  line-height: 1.05;
+  margin: 2px 0 0;
+}
+
+.community-dropdown {
+  width: 980px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Social icons styling */
+.social-icons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.social-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.social-circle:hover {
+  background: #1a73e8;
+  color: white;
+}
+
+.social-icons {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.social-icons svg {
+  width: 28px;
+  height: 28px;
+  color: #1a73e8;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.social-icons svg:hover {
+  transform: scale(1.15);
+  color: #1557b0;
+}
+.community-dropdown .dropdown-grid {
+  align-items: flex-start;
+}
+
+.community-dropdown .dropdown-col {
+  flex: 1 1 140px;
+  min-width: 135px;
+}
+
+.community-dropdown .dropdown-list li a {
+  white-space: nowrap;
+}
+
+.community-dropdown .social-icons {
+  max-width: 120px;
+}
+
+.community-dropdown .sell-col {
+  flex: 0 0 120px;
+}
+
+.community-dropdown .sell-col {
+  margin-left: 0;
 }

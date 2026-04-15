@@ -4,6 +4,7 @@ import Header from '../components/Header/Header'
 import Cart from '../components/cart/cart'
 import Checkout from '../components/cart/Checkout'
 import Login from '../components/login/Login'
+import Resources from '../pages/Resources/Resources'
 import Home from '../pages/home/Home'
 import Shop from '../pages/shop/Shop'
 
@@ -17,6 +18,7 @@ export default function AppRoutes() {
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/resources" element={<Resources />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />

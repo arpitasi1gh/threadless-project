@@ -41,27 +41,19 @@ function Footer() {
       <div className="links">
 
         <div className="column">
-          <h3><a href="#">SHOP</a></h3>
+          <h3><a href="#">ARTISTS</a></h3>
           <ul>
-            <li><a href="#">Artists</a></li>
-            <li><a href="#">Themes</a></li>
-            <li><a href="#">Apparel</a></li>
-            <li><a href="#">Headwear</a></li>
-            <li><a href="#">Accessories</a></li>
-            <li><a href="#">Wall Art</a></li>
-            <li><a href="#">Home Decor</a></li>
-            <li><a href="#">Gift Cards</a></li>
+            <li><a href="#">New Designs</a></li>
+            <li><a href="#">Populr Picks</a></li>
           </ul>
         </div>
 
         <div className="column">
           <h3><a href="#">COMMUNITY</a></h3>
           <ul>
-            <li><a href="#">Sell Merch</a></li>
-            <li><a href="#">Resources</a></li>
-            <li><a href="#">Community</a></li>
-            <li><a href="#">Social</a></li>
-            <li><a href="#">Promo</a></li>
+            <li><a href="#">Vote Designs</a></li>
+            <li><a href="#">Submit Design</a></li>
+            
           </ul>
         </div>
 
@@ -69,22 +61,15 @@ function Footer() {
           <h3><a href="#">INFO</a></h3>
           <ul>
             <li><a href="#">About Us</a></li>
-            <li><a href="#">Sustainability</a></li>
-            <li><a href="#">Our Values</a></li>
-            <li><a href="#">Diversity & Inclusion</a></li>
-            <li><a href="#">Order Status</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Reviews</a></li>
-            <li><a href="#">Help</a></li>
-            <li><a href="#">Students</a></li>
+            <li><a href="#">Resources</a></li>
           </ul>
         </div>
       
         <div className="Happy">
-          <a href="#" className="brand-link">
+          {/* <a href="#" className="brand-link"> */}
             <img src="/Pictures/happiness.png" alt="happiness" />
             <p>Your Happiness,<br /> Guaranteed</p>
-          </a>
+          {/* </a> */}
         </div>
 
         <div className="artist">

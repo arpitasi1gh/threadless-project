@@ -1,6 +1,6 @@
 .footer{
   background:#EBEAEB;
-  padding:40px;
+  padding:20px;
   font-family:Arial;
 }
 
@@ -11,10 +11,10 @@
 }
 
 .footer {
-  padding: 2rem 1rem;
+  padding: 1.25rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
   text-align: center;
 }
@@ -108,7 +108,7 @@
   width: 87%;
   height: 5px;
   background: #ccc;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .links{
@@ -117,6 +117,10 @@
   flex-wrap:wrap;
   gap: 60px;
   margin-bottom: 2rem;
+}
+
+.column{
+  margin-top: 60px;
 }
 
 .column h3{
@@ -156,17 +160,7 @@
   margin-top: 2rem;
 }
 
-.Happy .brand-link,
-.Happy .brand-link p {
-  text-decoration: none;
-  color: #3b82e5;
-  cursor: pointer;
-}
 
-
-.Happy .brand-link p:hover {
-  text-decoration: underline;
-}
 
 .artist{
   text-align:center;

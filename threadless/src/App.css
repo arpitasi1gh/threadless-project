@@ -1,0 +1,58 @@
+.route-transition-shell {
+  animation: page-enter 440ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+@keyframes page-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.992);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+a,
+button,
+[role='button'],
+svg,
+input,
+select {
+  transition:
+    color 260ms ease,
+    background-color 260ms ease,
+    border-color 260ms ease,
+    box-shadow 320ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 260ms ease;
+}
+
+a:hover,
+button:hover,
+[role='button']:hover {
+  transition-duration: 320ms;
+}
+
+a:active,
+button:active,
+[role='button']:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-transition-shell {
+    animation: none;
+  }
+
+  a,
+  button,
+  [role='button'],
+  svg,
+  input,
+  select {
+    transition: none;
+  }
+}

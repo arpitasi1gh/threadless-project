@@ -1,15 +1,12 @@
-import React from 'react'
 import './App.css'
-import Header from './components/Header/Header'
-import Footer from './components/footer/Footer'
+import { DataProvider } from './context/DataProvider'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
-
   return (
-    <>
-      <Header />
-      <Footer />
-    </>
+    <DataProvider>
+      <AppRoutes />
+    </DataProvider>
   )
 }
 

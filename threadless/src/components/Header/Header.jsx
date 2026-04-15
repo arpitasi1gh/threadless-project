@@ -1,12 +1,34 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./Header.css";
 import { FaInstagram, FaFacebookF, FaDiscord, FaTiktok, FaPinterestP, FaYoutube } from "react-icons/fa";
 
 function Header() {
+  const [cartCount, setCartCount] = useState(0);
   const truckerHatImage =
     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 190 214'%3E%3Crect width='190' height='214' fill='%23b7d3ef'/%3E%3Cpath d='M16 0h52l-18 76H0V16c0-9 7-16 16-16z' fill='%23a7c7ea' opacity='.72'/%3E%3Cpath d='M83 0h107v86c-23-14-47-19-72-9-18 7-34 4-47-7L83 0z' fill='%23a7c7ea' opacity='.78'/%3E%3Cpath d='M28 91c7-38 33-60 67-60s60 22 67 60v48H28V91z' fill='%23f4f4f2'/%3E%3Cpath d='M28 91c7-38 33-60 67-60v108H28V91z' fill='%23ffffff' opacity='.42'/%3E%3Cpath d='M45 139h100c10 0 21 7 28 21-48 12-104 12-156 0 7-14 18-21 28-21z' fill='%23131313'/%3E%3Cpath d='M78 78c7-10 22-11 33-1 10 10 9 25-2 32-11 8-29 1-34-12-3-7-2-14 3-19z' fill='none' stroke='%23c7ad72' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='113' cy='69' r='7' fill='none' stroke='%23828282' stroke-width='2'/%3E%3Ctext x='115' y='72' font-family='Arial' font-size='7' text-anchor='middle' fill='%23828282'%3Eok%3C/text%3E%3C/svg%3E";
   const beanieImage =
     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 190 214'%3E%3Crect width='190' height='214' fill='%23b7d3ef'/%3E%3Cpath d='M0 86c28-23 55-25 82-7 30 20 58 16 108-6V0H0v86z' fill='%23a7c7ea' opacity='.72'/%3E%3Cpath d='M37 87c0-43 24-71 58-71s58 28 58 71v57H37V87z' fill='%23131313'/%3E%3Cpath d='M37 128h116v32c0 7-6 13-13 13H50c-7 0-13-6-13-13v-32z' fill='%23101010'/%3E%3Cpath d='M55 126V72M75 126V45M95 126V30M115 126V45M135 126V72' stroke='%23272727' stroke-width='5'/%3E%3Cpath d='M79 130c10-11 25-11 36 0-3 17-33 17-36 0z' fill='%23f3f3f3'/%3E%3Cpath d='M89 130l16 12M105 130l-16 12' stroke='%23111111' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='97' cy='137' r='5' fill='%23111111'/%3E%3C/svg%3E";
+
+  useEffect(() => {
+    const updateCartCount = () => {
+      const storedItems = JSON.parse(localStorage.getItem("threadless_cart_items") || "[]");
+      const nextCount = storedItems.reduce(
+        (total, item) => total + (Number(item.quantity) || 0),
+        0,
+      );
+      setCartCount(nextCount);
+    };
+
+    updateCartCount();
+    window.addEventListener("storage", updateCartCount);
+    window.addEventListener("threadless-cart-updated", updateCartCount);
+
+    return () => {
+      window.removeEventListener("storage", updateCartCount);
+      window.removeEventListener("threadless-cart-updated", updateCartCount);
+    };
+  }, []);
 
   return (
     <nav className="navbar">
@@ -53,6 +75,7 @@ function Header() {
               src="https://img.icons8.com/material/24/shopping-cart--v1.png"
               alt="shopping-cart--v1"
             />
+            {cartCount > 0 ? <span className="badge cart-badge">{cartCount}</span> : null}
           </Link>
 
           <div className="icon-wrap">

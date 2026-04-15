@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaChevronDown, FaHeart, FaPlus, FaTimes } from 'react-icons/fa'
 import './ProductCard.css'
 

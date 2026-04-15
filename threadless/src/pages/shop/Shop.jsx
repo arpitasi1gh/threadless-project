@@ -3,10 +3,13 @@ import React, { useContext, useState } from 'react'
 import { FaHeart, FaPlus } from 'react-icons/fa'
 import Banner from '../../components/banner/Banner'
 import ProductCard from '../../components/cards/ProductCard'
+import Topbar from '../../components/topbar/Topbar'
 import { DataContext } from '../../context/DataContext'
+import { useTopbar } from '../../context/TopbarContext'
 
 export default function Shop() {
-  const { items, loading } = useContext(DataContext)
+  const { loading } = useContext(DataContext)
+  const { filteredItems } = useTopbar()
   const [selectedItem, setSelectedItem] = useState(null)
 
   if (loading) {
@@ -16,8 +19,9 @@ export default function Shop() {
   return (
     <div className="shop-page">
       <Banner />
+      <Topbar />
       <div className="card-grid">
-        {items.map((item) => (
+        {filteredItems.map((item) => (
           <article
             key={item.id}
             className="card"
@@ -76,3 +80,4 @@ export default function Shop() {
     </div>
   )
 }
+

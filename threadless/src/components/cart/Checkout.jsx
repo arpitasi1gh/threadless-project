@@ -1,17 +1,15 @@
 import { useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaCheck, FaCreditCard, FaLock, FaShieldAlt } from 'react-icons/fa'
 import gpayQrImage from '../../assets/gpay-qr.jpeg'
 import './cart.css'
 
 const CART_KEY = 'threadless_cart_items'
-const USER_KEY = 'threadless_cart_user'
-const PROMO_KEY = 'threadless_cart_promo'
 
 const promoCodes = {
-  THREAD10: { type: 'percent', value: 10 },
-  ART20: { type: 'percent', value: 20 },
-  FREESHIP: { type: 'shipping', value: 5.99 },
+  THREAD10: { type: 'percent', value: 10, label: '10% off your cart' },
+  ART20: { type: 'percent', value: 20, label: '20% collector discount' },
+  FREESHIP: { type: 'shipping', value: 5.99, label: 'Free standard shipping' },
 }
 
 function readJson(key, fallback) {
@@ -27,16 +25,33 @@ function formatCurrency(value) {
   return `$${value.toFixed(2)}`
 }
 
+function getItemBasePrice(item) {
+  return item.regularPrice || item.price
+}
+
+function getItemPromoDiscount(item, promoCode) {
+  const promo = promoCode ? promoCodes[promoCode] : null
+  const basePrice = getItemBasePrice(item)
+
+  if (!promo) {
+    return 0
+  }
+
+  if (promo.type === 'percent') {
+    return basePrice * (promo.value / 100)
+  }
+
+  return 0
+}
+
 function getTotals(items, promoCode) {
   const shipping = items.length > 0 ? 5.99 : 0
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const regularSubtotal = items.reduce(
-    (sum, item) => sum + (item.regularPrice || item.price) * item.quantity,
-    0,
-  )
-  const saleSavings = Math.max(regularSubtotal - subtotal, 0)
+  const subtotal = items.reduce((sum, item) => sum + getItemBasePrice(item) * item.quantity, 0)
   const promo = promoCode ? promoCodes[promoCode] : null
-  const promoSavings = promo?.type === 'percent' ? subtotal * (promo.value / 100) : 0
+  const promoSavings =
+    promo?.type === 'percent'
+      ? items.reduce((sum, item) => sum + getItemPromoDiscount(item, promoCode) * item.quantity, 0)
+      : 0
   const shippingSavings = promo?.type === 'shipping' ? Math.min(shipping, promo.value) : 0
   const estimatedShipping = Math.max(shipping - shippingSavings, 0)
   const total = Math.max(subtotal - promoSavings + estimatedShipping, 0)
@@ -44,16 +59,19 @@ function getTotals(items, promoCode) {
   return {
     subtotal,
     estimatedShipping,
-    totalSavings: saleSavings + promoSavings + shippingSavings,
+    totalSavings: promoSavings + shippingSavings,
     total,
   }
 }
 
 function Checkout() {
+  const location = useLocation()
   const navigate = useNavigate()
   const [cartItems, setCartItems] = useState(() => readJson(CART_KEY, []))
-  const [user, setUser] = useState(() => readJson(USER_KEY, null))
-  const [email, setEmail] = useState(user?.email || '')
+  const [user, setUser] = useState(() =>
+    location.state?.userEmail ? { email: location.state.userEmail } : null,
+  )
+  const [email, setEmail] = useState(location.state?.userEmail || '')
   const [message, setMessage] = useState('')
   const [checkoutStep, setCheckoutStep] = useState('shipping')
   const [shippingDetails, setShippingDetails] = useState({
@@ -70,7 +88,7 @@ function Checkout() {
     sms: false,
   })
 
-  const promoCode = localStorage.getItem(PROMO_KEY) || ''
+  const promoCode = location.state?.promoCode || ''
   const totals = useMemo(() => getTotals(cartItems, promoCode), [cartItems, promoCode])
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
 
@@ -85,7 +103,6 @@ function Checkout() {
 
     const nextUser = { email: nextEmail }
     setUser(nextUser)
-    localStorage.setItem(USER_KEY, JSON.stringify(nextUser))
     setMessage('Signed in. Complete shipping to continue.')
   }
 
@@ -117,7 +134,6 @@ function Checkout() {
     setCheckoutStep('confirmed')
     setCartItems([])
     localStorage.setItem(CART_KEY, JSON.stringify([]))
-    localStorage.removeItem(PROMO_KEY)
     window.dispatchEvent(new Event('threadless-cart-updated'))
     setMessage('Payment received. Your order is confirmed and will be processed shortly.')
   }
@@ -423,9 +439,15 @@ function Checkout() {
               <span>Order Total</span>
               <strong>{formatCurrency(totals.total)}</strong>
             </div>
-            <p>
-              <FaCheck /> Promo and shipping are included.
-            </p>
+            {promoCode ? (
+              <p>
+                <FaCheck /> Coupon applied: {promoCode} ({promoCodes[promoCode].label})
+              </p>
+            ) : (
+              <p>
+                <FaCheck /> No coupon applied yet.
+              </p>
+            )}
           </aside>
         </section>
       </section>

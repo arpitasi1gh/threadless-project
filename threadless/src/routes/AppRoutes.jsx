@@ -7,6 +7,7 @@ import Login from '../components/login/Login'
 import Resources from '../pages/Resources/Resources'
 import Home from '../pages/home/Home'
 import Shop from '../pages/shop/Shop'
+import Aboutus from '../components/aboutus/Aboutus'
 
 export default function AppRoutes() {
   const location = useLocation()
@@ -22,6 +23,7 @@ export default function AppRoutes() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/about" element={<Aboutus />} />
         </Routes>
       </div>
       <Footer />

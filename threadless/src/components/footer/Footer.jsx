@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Footer.css";
 import { FaInstagram, FaFacebook, FaDiscord, FaTiktok, FaPinterest, FaYoutube } from "react-icons/fa";
 
@@ -59,7 +58,7 @@ function Footer() {
           <h3><a href="#">COMMUNITY</a></h3>
           <ul>
             <li><a href="#">Sell Merch</a></li>
-            <li><Link to="/resources">Resources</Link></li>
+            <li><a href="#">Resources</a></li>
             <li><a href="#">Community</a></li>
             <li><a href="#">Social</a></li>
             <li><a href="#">Promo</a></li>

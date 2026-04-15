@@ -1,18 +1,12 @@
 import './App.css'
-import Footer from './components/footer/Footer'
-import Community from './pages/Community/Community'
-import Home from './pages/home/home'
-import Resources from './pages/Resources/Resources'
-
+import { DataProvider } from './context/DataProvider'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
   return (
-    <>
-    <Community/>
-    {/* <Resources/> */}
-      {/* <Home /> */}
-      {/* <Footer /> */}
-    </>
+    <DataProvider>
+      <AppRoutes />
+    </DataProvider>
   )
 }
 

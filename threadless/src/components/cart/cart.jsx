@@ -5,8 +5,6 @@ import data from '../../data/data.json'
 import './cart.css'
 
 const CART_KEY = 'threadless_cart_items'
-const USER_KEY = 'threadless_cart_user'
-const PROMO_KEY = 'threadless_cart_promo'
 
 const promoCodes = {
   THREAD10: { type: 'percent', value: 10, label: '10% off your cart' },
@@ -41,27 +39,49 @@ function formatCurrency(value) {
   return `$${value.toFixed(2)}`
 }
 
+function getItemBasePrice(item) {
+  return item.regularPrice || item.price
+}
+
+function getItemPromoDiscount(item, promoCode) {
+  const promo = promoCode ? promoCodes[promoCode] : null
+  const basePrice = getItemBasePrice(item)
+
+  if (!promo) {
+    return 0
+  }
+
+  if (promo.type === 'percent') {
+    return basePrice * (promo.value / 100)
+  }
+
+  return 0
+}
+
+function getItemFinalPrice(item, promoCode) {
+  const basePrice = getItemBasePrice(item)
+  const promoDiscount = getItemPromoDiscount(item, promoCode)
+  return Math.max(basePrice - promoDiscount, 0)
+}
+
 function getTotals(items, promoCode) {
   const shipping = items.length > 0 ? 5.99 : 0
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const regularSubtotal = items.reduce(
-    (sum, item) => sum + (item.regularPrice || item.price) * item.quantity,
-    0,
-  )
-  const saleSavings = Math.max(regularSubtotal - subtotal, 0)
+  const subtotal = items.reduce((sum, item) => sum + getItemBasePrice(item) * item.quantity, 0)
   const promo = promoCode ? promoCodes[promoCode] : null
-  const promoSavings = promo?.type === 'percent' ? subtotal * (promo.value / 100) : 0
+  const promoSavings =
+    promo?.type === 'percent'
+      ? items.reduce((sum, item) => sum + getItemPromoDiscount(item, promoCode) * item.quantity, 0)
+      : 0
   const shippingSavings = promo?.type === 'shipping' ? Math.min(shipping, promo.value) : 0
   const estimatedShipping = Math.max(shipping - shippingSavings, 0)
   const total = Math.max(subtotal - promoSavings + estimatedShipping, 0)
 
   return {
     subtotal,
-    saleSavings,
     promoSavings,
     shippingSavings,
     estimatedShipping,
-    totalSavings: saleSavings + promoSavings + shippingSavings,
+    totalSavings: promoSavings + shippingSavings,
     total,
   }
 }
@@ -69,10 +89,10 @@ function getTotals(items, promoCode) {
 function Cart() {
   const navigate = useNavigate()
   const [cartItems, setCartItems] = useState(() => readJson(CART_KEY, []))
-  const [user, setUser] = useState(() => readJson(USER_KEY, null))
-  const [email, setEmail] = useState(user?.email || '')
-  const [promoInput, setPromoInput] = useState(localStorage.getItem(PROMO_KEY) || '')
-  const [appliedPromo, setAppliedPromo] = useState(localStorage.getItem(PROMO_KEY) || '')
+  const [user, setUser] = useState(null)
+  const [email, setEmail] = useState('')
+  const [promoInput, setPromoInput] = useState('')
+  const [appliedPromo, setAppliedPromo] = useState('')
   const [notice, setNotice] = useState('')
 
   const isLoggedIn = Boolean(user)
@@ -96,7 +116,6 @@ function Cart() {
 
     const nextUser = { email: nextEmail }
     setUser(nextUser)
-    localStorage.setItem(USER_KEY, JSON.stringify(nextUser))
     setNotice('Signed in. Your cart is ready.')
 
     if (cartItems.length === 0) {
@@ -114,7 +133,6 @@ function Cart() {
 
     const nextUser = { email: nextEmail }
     setUser(nextUser)
-    localStorage.setItem(USER_KEY, JSON.stringify(nextUser))
 
     if (cartItems.length === 0) {
       persistCart([starterItem])
@@ -125,7 +143,7 @@ function Cart() {
 
   const handleLogout = () => {
     setUser(null)
-    localStorage.removeItem(USER_KEY)
+    setEmail('')
     setNotice('Logged out. Sign in again before adding items.')
   }
 
@@ -165,6 +183,7 @@ function Cart() {
     const code = promoInput.trim().toUpperCase()
 
     if (!code) {
+      setAppliedPromo('')
       setNotice('Enter a promo code.')
       return
     }
@@ -172,13 +191,11 @@ function Cart() {
     if (!promoCodes[code]) {
       setNotice('Try THREAD10, ART20, or FREESHIP.')
       setAppliedPromo('')
-      localStorage.removeItem(PROMO_KEY)
       return
     }
 
     setAppliedPromo(code)
     setPromoInput(code)
-    localStorage.setItem(PROMO_KEY, code)
     setNotice(`${code} applied: ${promoCodes[code].label}.`)
   }
 
@@ -196,7 +213,12 @@ function Cart() {
       return
     }
 
-    navigate('/checkout')
+    navigate('/checkout', {
+      state: {
+        promoCode: appliedPromo,
+        userEmail: user?.email || email.trim(),
+      },
+    })
   }
 
   return (
@@ -285,8 +307,8 @@ function Cart() {
                     </div>
                     <div className="cart-item-price">
                       <div>
-                        <span>{formatCurrency(item.regularPrice)}</span>
-                        <strong>{formatCurrency(item.price)}</strong>
+                        {appliedPromo ? <span>{formatCurrency(getItemBasePrice(item))}</span> : null}
+                        <strong>{formatCurrency(getItemFinalPrice(item, appliedPromo))}</strong>
                       </div>
                       <div className="cart-quantity" aria-label={`Quantity for ${item.title}`}>
                         <button type="button" onClick={() => updateQuantity(item.id, -1)}>
@@ -318,10 +340,16 @@ function Cart() {
                 type="text"
                 value={promoInput}
                 onChange={(event) => setPromoInput(event.target.value)}
-                placeholder="THREAD10"
+                placeholder="Enter coupon code"
               />
               <button type="submit">Apply</button>
             </form>
+
+            {appliedPromo ? (
+              <p className="cart-promo-message">
+                Coupon applied: <strong>{appliedPromo}</strong> ({promoCodes[appliedPromo].label})
+              </p>
+            ) : null}
 
             {notice ? <p className="cart-promo-message">{notice}</p> : null}
 
@@ -355,7 +383,7 @@ function Cart() {
 
             <div className="cart-trust-row">
               <FaShieldAlt />
-              <span>Discounts are saved and carried to checkout.</span>
+              <span>Discount applies only after you enter a valid code and click Apply.</span>
             </div>
           </aside>
         </section>

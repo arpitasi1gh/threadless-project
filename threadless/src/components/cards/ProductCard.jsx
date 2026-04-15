@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaChevronDown, FaHeart, FaPlus, FaTimes } from 'react-icons/fa'
 import './ProductCard.css'
 
@@ -36,6 +36,38 @@ export default function ProductCard({ item, onClose }) {
   const selectedProduct = products[selectedProductIndex] || products[0]
   const price = selectedProduct?.variants?.[0]?.price ?? null
   const selectedStyleLabel = selectedProduct?.type || ''
+  const selectedVariant = selectedProduct?.variants?.[selectedSizeIndex] || selectedProduct?.variants?.[0]
+
+  const addSelectedToCart = () => {
+    const cartKey = 'threadless_cart_items'
+    const storedItems = JSON.parse(localStorage.getItem(cartKey) || '[]')
+    const cartItemId = `${item.id}-${selectedProduct.type}-${selectedVariant.size}`
+    const nextItem = {
+      id: cartItemId,
+      designId: item.id,
+      title: item.design.title,
+      artist: item.design.artist,
+      productType: selectedProduct.type,
+      size: selectedVariant.size,
+      color: 'Artist print',
+      image: selectedProduct.image,
+      price: selectedVariant.price,
+      regularPrice: Number((selectedVariant.price * 1.35).toFixed(2)),
+      quantity: 1,
+    }
+    const existingItem = storedItems.find((cartItem) => cartItem.id === cartItemId)
+    const nextItems = existingItem
+      ? storedItems.map((cartItem) =>
+          cartItem.id === cartItemId
+            ? { ...cartItem, quantity: Math.min(9, cartItem.quantity + 1) }
+            : cartItem,
+        )
+      : [...storedItems, nextItem]
+
+    localStorage.setItem(cartKey, JSON.stringify(nextItems))
+    window.dispatchEvent(new Event('threadless-cart-updated'))
+    onClose()
+  }
 
   if (!item || !selectedProduct) {
     return null
@@ -140,7 +172,12 @@ export default function ProductCard({ item, onClose }) {
                 <button type="button" className="product-circle-button favorite" aria-label="Add to favorites">
                   <FaHeart />
                 </button>
-                <button type="button" className="product-circle-button add" aria-label="Add item">
+                <button
+                  type="button"
+                  className="product-circle-button add"
+                  aria-label="Add item"
+                  onClick={addSelectedToCart}
+                >
                   <FaPlus />
                 </button>
               </div>
@@ -168,7 +205,7 @@ export default function ProductCard({ item, onClose }) {
               <p className="product-card-price-label">Starting at</p>
               <p className="product-card-price">{price ? `$${price}` : 'See options'}</p>
             </div>
-            <button type="button" className="product-card-cta">
+            <button type="button" className="product-card-cta" onClick={addSelectedToCart}>
               Add to Cart
             </button>
           </div>

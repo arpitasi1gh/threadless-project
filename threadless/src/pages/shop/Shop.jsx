@@ -5,6 +5,44 @@ import Banner from '../../components/banner/Banner'
 import ProductCard from '../../components/cards/ProductCard'
 import { DataContext } from '../../context/DataContext'
 
+const CART_KEY = 'threadless_cart_items'
+
+function addItemToCart(item) {
+  const defaultProduct = item.products?.[0]
+  const defaultVariant = defaultProduct?.variants?.[0]
+
+  if (!defaultProduct || !defaultVariant) {
+    return
+  }
+
+  const storedItems = JSON.parse(localStorage.getItem(CART_KEY) || '[]')
+  const cartItemId = `${item.id}-${defaultProduct.type}-${defaultVariant.size}`
+  const nextItem = {
+    id: cartItemId,
+    designId: item.id,
+    title: item.design.title,
+    artist: item.design.artist,
+    productType: defaultProduct.type,
+    size: defaultVariant.size,
+    color: 'Artist print',
+    image: defaultProduct.image,
+    price: defaultVariant.price,
+    regularPrice: Number((defaultVariant.price * 1.35).toFixed(2)),
+    quantity: 1,
+  }
+
+  const nextItems = storedItems.some((cartItem) => cartItem.id === cartItemId)
+    ? storedItems.map((cartItem) =>
+        cartItem.id === cartItemId
+          ? { ...cartItem, quantity: Math.min(9, cartItem.quantity + 1) }
+          : cartItem,
+      )
+    : [...storedItems, nextItem]
+
+  localStorage.setItem(CART_KEY, JSON.stringify(nextItems))
+  window.dispatchEvent(new Event('threadless-cart-updated'))
+}
+
 export default function Shop() {
   const { items, loading } = useContext(DataContext)
   const [selectedItem, setSelectedItem] = useState(null)
@@ -52,10 +90,10 @@ export default function Shop() {
                 </button>
                 <button
                   className="icon-button add-button"
-                  aria-label="View item"
+                  aria-label="Add item to cart"
                   onClick={(event) => {
                     event.stopPropagation()
-                    setSelectedItem(item)
+                    addItemToCart(item)
                   }}
                 >
                   <FaPlus />

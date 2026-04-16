@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import localData from '../data/data.json'
 import { DataContext } from './DataContext'
 
@@ -29,8 +29,10 @@ export const DataProvider = ({ children }) => {
   }, [])
 
   return (
-    <DataContext.Provider value={{ items, loading }}>
+    <DataContext.Provider value={{ items, products: items, loading }}>
       {children}
     </DataContext.Provider>
   )
 }
+
+export const useData = () => useContext(DataContext)

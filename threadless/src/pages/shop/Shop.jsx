@@ -102,11 +102,13 @@ export default function Shop() {
               }
             }}
           >
-            <img
-              className="card-image"
-              src={item.design.image}
-              alt={item.design.title}
-            />
+            <div className="card-image-wrap">
+              <img
+                className="card-image"
+                src={item.design.image}
+                alt={item.design.title}
+              />
+            </div>
             <div className="card-meta">
               <div className="card-copy">
                 <h3 className="cardTitle">

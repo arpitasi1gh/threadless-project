@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import "./Header.css";
 import {
   FaInstagram,
@@ -12,10 +12,7 @@ import {
 
 function Header() {
   const [cartCount, setCartCount] = useState(0);
-  const truckerHatImage =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 190 214'%3E%3Crect width='190' height='214' fill='%23b7d3ef'/%3E%3Cpath d='M16 0h52l-18 76H0V16c0-9 7-16 16-16z' fill='%23a7c7ea' opacity='.72'/%3E%3Cpath d='M83 0h107v86c-23-14-47-19-72-9-18 7-34 4-47-7L83 0z' fill='%23a7c7ea' opacity='.78'/%3E%3Cpath d='M28 91c7-38 33-60 67-60s60 22 67 60v48H28V91z' fill='%23f4f4f2'/%3E%3Cpath d='M28 91c7-38 33-60 67-60v108H28V91z' fill='%23ffffff' opacity='.42'/%3E%3Cpath d='M45 139h100c10 0 21 7 28 21-48 12-104 12-156 0 7-14 18-21 28-21z' fill='%23131313'/%3E%3Cpath d='M78 78c7-10 22-11 33-1 10 10 9 25-2 32-11 8-29 1-34-12-3-7-2-14 3-19z' fill='none' stroke='%23c7ad72' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='113' cy='69' r='7' fill='none' stroke='%23828282' stroke-width='2'/%3E%3Ctext x='115' y='72' font-family='Arial' font-size='7' text-anchor='middle' fill='%23828282'%3Eok%3C/text%3E%3C/svg%3E";
-  const beanieImage =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 190 214'%3E%3Crect width='190' height='214' fill='%23b7d3ef'/%3E%3Cpath d='M0 86c28-23 55-25 82-7 30 20 58 16 108-6V0H0v86z' fill='%23a7c7ea' opacity='.72'/%3E%3Cpath d='M37 87c0-43 24-71 58-71s58 28 58 71v57H37V87z' fill='%23131313'/%3E%3Cpath d='M37 128h116v32c0 7-6 13-13 13H50c-7 0-13-6-13-13v-32z' fill='%23101010'/%3E%3Cpath d='M55 126V72M75 126V45M95 126V30M115 126V45M135 126V72' stroke='%23272727' stroke-width='5'/%3E%3Cpath d='M79 130c10-11 25-11 36 0-3 17-33 17-36 0z' fill='%23f3f3f3'/%3E%3Cpath d='M89 130l16 12M105 130l-16 12' stroke='%23111111' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='97' cy='137' r='5' fill='%23111111'/%3E%3C/svg%3E";
+  const { items = [] } = useContext(DataContext);
 
   useEffect(() => {
     const updateCartCount = () => {
@@ -38,6 +35,34 @@ function Header() {
       window.removeEventListener("threadless-cart-updated", updateCartCount);
     };
   }, []);
+
+  const artistColumns = useMemo(() => {
+    const safeItems = Array.isArray(items) ? items : [];
+    const fallback = safeItems.slice(0, 9);
+    const byTag = (tag) =>
+      safeItems
+        .filter((item) => item?.design?.tags?.includes(tag))
+        .slice(0, 3);
+
+    const newDesigns = byTag("new");
+    const trending = byTag("trending");
+    const popular = byTag("popular");
+
+    return [
+      {
+        title: "New Designs",
+        items: newDesigns.length ? newDesigns : fallback.slice(0, 3),
+      },
+      {
+        title: "Trending",
+        items: trending.length ? trending : fallback.slice(3, 6),
+      },
+      {
+        title: "Popular Picks",
+        items: popular.length ? popular : fallback.slice(6, 9),
+      },
+    ];
+  }, [items]);
 
   return (
     <nav className="navbar">
@@ -67,13 +92,8 @@ function Header() {
         </div>
 
         <div className="right-icons">
-          <div className="icon-wrap">
-            <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/ios-filled/50/europe.png"
-              alt="globe"
-            />
+          <div className="icon-wrap icon-circle" aria-label="region">
+            <FaGlobeAmericas />
             <span className="badge">1</span>
           </div>
 
@@ -89,13 +109,8 @@ function Header() {
             ) : null}
           </Link>
 
-          <div className="icon-wrap">
-            <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/ios-filled/50/like.png"
-              alt="wishlist"
-            />
+          <div className="icon-wrap icon-circle" aria-label="wishlist">
+            <FaHeart />
           </div>
           <div className="divider"></div>
 
@@ -119,274 +134,49 @@ function Header() {
 
       <div className="nav-menu">
         <div className="nav-item">
-          <Link to="/artists">ARTISTS</Link>
-          <div className="dropdown artist-dropdown">
-            <div className="dropdown-grid">
-              <div className="dropdown-col">
-                <h4>
-                  New Artists <span className="new-badge">NEW</span>
-                </h4>
-                <div className="artist-grid">
-                  <Link to="/artists">
-                    <div className="artist-box">Jenny Prison</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Muto Pops</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Today Noticed</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">MYI</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Love Sticky</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">She Content</div>
-                  </Link>
-                </div>
-              </div>
-              <div className="dropdown-col">
-                <h4>Freshly Updated</h4>
-                <div className="artist-grid">
-                  <Link to="/artists">
-                    <div className="artist-box">Nola</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Macular</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Gintron</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">DeGrand Land</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Valentina</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Brad Phillips</div>
-                  </Link>
-                </div>
-              </div>
-              <div className="dropdown-col">
-                <h4>Popular</h4>
-                <div className="artist-grid">
-                  <Link to="/artists">
-                    <div className="artist-box pop">KilkennyArt</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box pop dark">●</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box pop">Hands</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box pop">Bird</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box pop">S</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box pop">Sommerset</div>
-                  </Link>
-                </div>
-              </div>
-              <div className="dropdown-col">
-                <h4>Staff Picks</h4>
-                <div className="artist-grid">
-                  <Link to="/artists">
-                    <div className="artist-box">Hey Sivi</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Ben Ashton</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box dark">UJ</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Eye</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Peach Fuzz</div>
-                  </Link>
-                  <Link to="/artists">
-                    <div className="artist-box">Slinch</div>
-                  </Link>
-                </div>
-              </div>
-              <div className="dropdown-col sell-col">
-                <div className="sell-art-box">
-                  <div className="sell-art-icon">🎨</div>
-                  <p>
-                    <strong>SELL YOUR ART</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
+          <Link to="/shop">Shop</Link>
+          <div className="dropdown compact-dropdown">
+            <ul className="dropdown-list compact-list">
+              <li><Link to="/shop">All Products</Link></li>
+              <li><Link to="/shop">T-Shirts</Link></li>
+              <li><Link to="/shop">Hoodies</Link></li>
+              <li><Link to="/shop">Mugs</Link></li>
+              <li><Link to="/shop">Headwear</Link></li>
+              <li><Link to="/shop">Phone Cases</Link></li>
+            </ul>
           </div>
         </div>
+        <span className="nav-separator">|</span>
 
         <div className="nav-item">
-          <Link to="/shop">THEMES</Link>
-          <div className="dropdown themes-dropdown">
-            <div className="dropdown-grid">
-              <div className="dropdown-col">
-                <h4>Themes</h4>
-                <ul className="dropdown-list">
-                  <li>
-                    <Link to="/shop">Animals</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Humor</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Fantasy</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Cute</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Nature</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Horror</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Space</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Memes</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Music</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Food</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Video Games</Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="dropdown-col">
-                <h4>Art Styles</h4>
-                <ul className="dropdown-list">
-                  <li>
-                    <Link to="/shop">Abstract</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Graphic Design</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Typography</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Lowbrow</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Comics</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Patterns</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Illustration</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Tattoo</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Dark Art</Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="dropdown-col">
-                <h4>Design Challenges</h4>
-                <ul className="dropdown-list">
-                  <li>
-                    <Link to="/shop">Retail Trends</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Environment</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Birds</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">25 Years of Art Trends</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Strange Creature</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Iconic Designs</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Pets</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Doodlecore</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Travel</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Botanical Bauhaus</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">5 Words or Less</Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="dropdown-col">
-                <h4>Causes</h4>
-                <ul className="dropdown-list">
-                  <li>
-                    <Link to="/shop">Human Rights</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Pride / LGBTQIA+</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Environment</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Mental Health Awareness</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Racial Injustice</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Animal Welfare</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Community</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Humanitarian Aid</Link>
-                  </li>
-                  <li>
-                    <Link to="/shop">Suicide Prevention</Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="dropdown-col sell-col">
-                <div className="sell-art-box themes-img">
-                  <img
-                    src="https://via.placeholder.com/100x120/4CAF50/white?text=SUBMIT"
-                    alt="submit"
-                    style={{ width: "100%", borderRadius: "8px" }}
-                  />
-                  <p>
-                    <strong>SUBMIT TO A DESIGN CHALLENGE</strong>
-                  </p>
+          <Link to="/shop">Artists</Link>
+          <div className="dropdown artist-dropdown compact-artist-dropdown">
+            <div className="dropdown-grid artist-image-columns">
+              {artistColumns.map((column) => (
+                <div className="dropdown-col" key={column.title}>
+                  <h4>{column.title}</h4>
+                  <div className="artist-image-grid">
+                    {column.items.map((artistItem) => (
+                      <Link
+                        key={`${column.title}-${artistItem.id}`}
+                        to={`/shop?design=${artistItem.id}`}
+                        className="artist-image-link"
+                        title={`${artistItem.design.title} by ${artistItem.design.artist}`}
+                      >
+                        <img
+                          src={artistItem.design.image}
+                          alt={artistItem.design.title}
+                          loading="lazy"
+                        />
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
+        <span className="nav-separator">|</span>
 
         <div className="nav-item">
           <Link to="/shop">APPAREL</Link>

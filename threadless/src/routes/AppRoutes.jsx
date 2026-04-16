@@ -18,6 +18,7 @@ export default function AppRoutes() {
       <div key={location.pathname} className="route-transition-shell">
         <Routes location={location}>
           <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/cart" element={<Cart />} />

@@ -222,3 +222,28 @@
     width: 100%;
   }
 }
+
+.topbar-select-trigger {
+  position: relative;
+  padding-right: 2rem;
+}
+
+.topbar-select-trigger::after {
+  content: "";
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+
+  width: 6px;
+  height: 6px;
+
+  border-right: 1.2px solid rgba(107, 114, 128, 0.9);
+  border-bottom: 1.2px solid rgba(107, 114, 128, 0.9);
+
+  transform: translateY(-60%) rotate(45deg); /* clean ⌄ look */
+  transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.topbar-select.open .topbar-select-trigger::after {
+  transform: translateY(-40%) rotate(-135deg);
+}

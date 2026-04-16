@@ -114,7 +114,10 @@ const TopbarSelect = ({ id, label, value, onChange, options }) => {
   }
 
   return (
-    <div className="topbar-control topbar-select" ref={wrapperRef}>
+    <div
+  className={`topbar-control topbar-select ${open ? "open" : ""}`}
+  ref={wrapperRef}
+>
       <span className="topbar-control-label" id={labelId}>
         {label}
       </span>

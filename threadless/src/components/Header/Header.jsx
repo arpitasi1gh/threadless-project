@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useContext, useEffect, useMemo, useState } from "react";
 import "./Header.css";
 import {
@@ -15,6 +15,7 @@ import {
 import { DataContext } from "../../context/DataContext";
 
 function Header() {
+  const location = useLocation();
   const [cartCount, setCartCount] = useState(0);
   const { items = [] } = useContext(DataContext);
 
@@ -117,10 +118,10 @@ function Header() {
           </div>
 
           <div className="join-login-group">
-            <Link to="/login" className="join-btn">
+            <Link to="/signup" state={{ backgroundLocation: location }} className="join-btn">
               JOIN NOW
             </Link>
-            <Link to="/login" className="login-lnk">
+            <Link to="/login" state={{ backgroundLocation: location }} className="login-lnk">
               Login
             </Link>
           </div>

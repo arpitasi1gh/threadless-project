@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import "./Login.css";
 import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  return (
-    <div className="modal-overlay">
-      <div className="modal">
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
+  const close = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+    navigate("/");
+  };
+
+  const content = (
+    <div className="modal-overlay" role="presentation" onClick={close}>
+      <div className="modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
 
         {/* Header */}
         <div className="modal-header">
           <h2>LOG IN</h2>
           <p>
-            Don't have an account? <span className="link">Sign up now.</span>
+            Don't have an account?{" "}
+            <span className="link" role="button" tabIndex={0} onClick={() => navigate("/signup")}>
+              Sign up now.
+            </span>
           </p>
-          <span className="close">×</span>
+          <span className="close" role="button" tabIndex={0} onClick={close} aria-label="Close">
+            ×
+          </span>
         </div>
 
         {/* Form */}
@@ -53,6 +78,9 @@ function Login() {
       </div>
     </div>
   );
+
+  if (typeof document === "undefined") return null;
+  return createPortal(content, document.body);
 }
 
 export default Login;

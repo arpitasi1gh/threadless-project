@@ -4,6 +4,7 @@ import Header from '../components/Header/Header'
 import Cart from '../components/cart/cart'
 import Checkout from '../components/cart/Checkout'
 import Login from '../components/login/Login'
+import Signup from '../components/signup/Signup'
 import Resources from '../pages/Resources/Resources'
 import Community from '../pages/Community/Community'
 import Home from '../pages/home/Home'
@@ -12,12 +13,14 @@ import ArtistShop from '../components/sellyourart/ArtistShop'
 
 export default function AppRoutes() {
   const location = useLocation()
+  const backgroundLocation = location.state?.backgroundLocation
+  const routeLocation = backgroundLocation || location
 
   return (
     <>
       <Header />
-      <div key={location.pathname} className="route-transition-shell">
-        <Routes location={location}>
+      <div key={routeLocation.pathname} className="route-transition-shell">
+        <Routes location={routeLocation}>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
@@ -27,8 +30,15 @@ export default function AppRoutes() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
+      {backgroundLocation ? (
+        <Routes location={location}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      ) : null}
       <Footer />
     </>
   )

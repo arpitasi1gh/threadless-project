@@ -3,7 +3,9 @@ import { useContext, useMemo } from 'react'
 import { FaHeart, FaPlus } from 'react-icons/fa'
 import { useSearchParams } from 'react-router-dom'
 import Banner from '../../components/banner/Banner'
+import Topbar from '../../components/topbar/Topbar'
 import ProductCard from '../../components/cards/ProductCard'
+import { useTopbar } from '../../context/TopbarContext'
 import { DataContext } from '../../context/DataContext'
 
 const CART_KEY = 'threadless_cart_items'
@@ -46,7 +48,9 @@ function addItemToCart(item) {
 
 export default function Shop() {
   const { items, loading } = useContext(DataContext)
+  const { filteredItems } = useTopbar()
   const [searchParams, setSearchParams] = useSearchParams()
+  const displayItems = Array.isArray(filteredItems) ? filteredItems : items
 
   const selectedDesignId = useMemo(() => {
     const rawId = searchParams.get('design')
@@ -82,8 +86,9 @@ export default function Shop() {
   return (
     <div className="shop-page">
       <Banner />
+      <Topbar />
       <div className="card-grid">
-        {items.map((item) => (
+        {displayItems.map((item) => (
           <article
             key={item.id}
             className="card"

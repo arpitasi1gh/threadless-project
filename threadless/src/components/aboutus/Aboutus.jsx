@@ -36,9 +36,9 @@ function Aboutus() {
           <img src="/Pictures/AR_icon_Sustainability_Leaf.webp" alt="Sustainability" />
           <h2>Committed to<br /> Sustainability</h2>
           <p>
-            Sustainability influences <br /> everything we do, from <br /> our partnerships to our <br />
-            printing processes. Eco-<br />friendly, ethical, and <br />socially responsible<br />
-            practices are central to <br />our culture.
+            Sustainability influences everything we do, from our partnerships to our 
+            printing processes. Eco-friendly, ethical, and socially responsible
+            practices are central to our culture.
           </p>
         </div>
 

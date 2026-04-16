@@ -25,7 +25,7 @@ function Footer() {
 
           <div className="icons">
             <a href="#" aria-label="Instagram"><FaInstagram /></a>
-            <a href="#" aria-label="Facebook"><FaFacebook /></a>
+            <a href="https://www.facebook.com/share/1FYnzLoy3y/?mibextid=wwXIfr" aria-label="Facebook"><FaFacebook /></a>
             <a href="#" aria-label="Discord"><FaDiscord /></a>
             <a href="#" aria-label="TikTok"><FaTiktok /></a>
             <a href="#" aria-label="Pinterest"><FaPinterest /></a>

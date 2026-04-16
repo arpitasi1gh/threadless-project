@@ -69,7 +69,7 @@
 .help-career-section{
   margin-top: 80px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   padding: 50px 20px;
 }
@@ -77,11 +77,13 @@
 .help-box{
   text-align: center;
   max-width: 400px;
+  margin: 0 auto;
 }
 
 .help-box img{
-  width: 200px;
-  margin-bottom: 20px;
+  display: block;
+  margin: 0 auto 20px;
+  width: 369px;
 }
 
 .help-box h2{

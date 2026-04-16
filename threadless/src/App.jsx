@@ -1,15 +1,17 @@
 import './App.css'
 import { DataProvider } from './context/DataProvider'
 import AppRoutes from './routes/AppRoutes'
-import Aboutus from './components/aboutus/Aboutus'
+import TopbarProvider from './context/TopbarProvider'
 
 function App() {
   return (
     <DataProvider>
-      <AppRoutes />
-      <Aboutus />
+      <TopbarProvider>
+        <AppRoutes />
+      </TopbarProvider>
     </DataProvider>
   )
 }
 
 export default App
+

@@ -54,23 +54,23 @@ const TopbarProvider = ({ children }) => {
       }
     }
 
-  // Sort logic
-  switch (sortBy) {
-    case 'Price:LowToHigh':
-      result.sort((a, b) => getMinPrice(a) - getMinPrice(b));
-      break;
-    case 'Price:HighToLow':
-      result.sort((a, b) => getMinPrice(b) - getMinPrice(a));
-      break;
-    case 'Name:AtoZ':
-      result.sort((a, b) => (a?.design?.title || '').localeCompare(b?.design?.title || ''));
-      break;
-    case 'Name:ZtoA':
-      result.sort((a, b) => (b?.design?.title || '').localeCompare(a?.design?.title || ''));
-      break;
-    default:
-      break;
-  }
+    // Sort logic
+    switch (sortBy) {
+      case 'Price:LowToHigh':
+        result.sort((a, b) => getMinPrice(a) - getMinPrice(b));
+        break;
+      case 'Price:HighToLow':
+        result.sort((a, b) => getMinPrice(b) - getMinPrice(a));
+        break;
+      case 'Name:AtoZ':
+        result.sort((a, b) => (a?.design?.title || '').localeCompare(b?.design?.title || ''));
+        break;
+      case 'Name:ZtoA':
+        result.sort((a, b) => (b?.design?.title || '').localeCompare(a?.design?.title || ''));
+        break;
+      default:
+        break;
+    }
 
     return result;
   }, [items, filterBy, sortBy]);

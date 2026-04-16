@@ -1,5 +1,5 @@
 import './Shop.css'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useMemo } from 'react'
 import { FaHeart, FaPlus } from 'react-icons/fa'
 import { useSearchParams } from 'react-router-dom'
 import Banner from '../../components/banner/Banner'
@@ -46,7 +46,6 @@ function addItemToCart(item) {
 
 export default function Shop() {
   const { items, loading } = useContext(DataContext)
-  const [selectedItem, setSelectedItem] = useState(null)
   const [searchParams, setSearchParams] = useSearchParams()
 
   const selectedDesignId = useMemo(() => {
@@ -54,36 +53,27 @@ export default function Shop() {
     return rawId ? Number(rawId) : null
   }, [searchParams])
 
-  const openProductCard = (item, event) => {
-    if (event?.currentTarget?.getBoundingClientRect) {
-      const anchorRect = event.currentTarget.getBoundingClientRect()
-      setSelectedItem({ item, anchorRect })
-      return
+  const selectedItem = useMemo(() => {
+    if (!selectedDesignId) {
+      return null
     }
 
-    setSelectedItem({ item })
+    return items.find((item) => item.id === selectedDesignId) || null
+  }, [items, selectedDesignId])
+
+  const openProductCard = (item) => {
+    const nextParams = new URLSearchParams(searchParams)
+    nextParams.set('design', String(item.id))
+    setSearchParams(nextParams, { replace: true })
   }
 
   const closeProductCard = () => {
-    setSelectedItem(null)
-
     if (searchParams.has('design')) {
       const nextParams = new URLSearchParams(searchParams)
       nextParams.delete('design')
       setSearchParams(nextParams, { replace: true })
     }
   }
-
-  useEffect(() => {
-    if (loading || !selectedDesignId || selectedItem) {
-      return
-    }
-
-    const nextItem = items.find((item) => item.id === selectedDesignId)
-    if (nextItem) {
-      openProductCard(nextItem)
-    }
-  }, [items, loading, selectedDesignId, selectedItem])
 
   if (loading) {
     return <div className="spinner">Loading amazing cards...</div>
@@ -99,11 +89,11 @@ export default function Shop() {
             className="card"
             role="button"
             tabIndex={0}
-            onClick={(event) => openProductCard(item, event)}
+            onClick={() => openProductCard(item)}
             onKeyDown={(event) => {
               if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault()
-                openProductCard(item, event)
+                openProductCard(item)
               }
             }}
           >
@@ -143,9 +133,8 @@ export default function Shop() {
       </div>
       {selectedItem ? (
         <ProductCard
-          key={selectedItem.item.id}
-          item={selectedItem.item}
-          anchorRect={selectedItem.anchorRect}
+          key={selectedItem.id}
+          item={selectedItem}
           onClose={closeProductCard}
         />
       ) : null}

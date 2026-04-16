@@ -1299,16 +1299,52 @@
 }
 
 .navbar .sell-login-group {
-  padding: 0;
+  padding: 0 2px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.navbar .sell-art {
+  min-width: 74px;
+  min-height: 34px;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: #fff;
+  letter-spacing: 0.4px;
+  background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6);
+  background-size: 200% 200%;
+  animation: sellGradientShift 3s ease infinite;
+  border-radius: 999px;
+  border: none;
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  flex-direction: row;
+  gap: 4px;
 }
 
-.navbar .sell-art {
-  min-width: 64px;
-  min-height: 32px;
-  padding: 2px 4px;
+.navbar .sell-art span {
+  color: #fff;
+  font-weight: 900;
   font-size: 11px;
-  color: #1662d8;
-  letter-spacing: 0.1px;
+  white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.3px;
+}
+
+.navbar .sell-art::after {
+  background: linear-gradient(90deg, #fff, rgba(255,255,255,0.6), #fff);
+}
+
+.navbar .sell-art:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.45);
+  color: #fff;
+}
+
+@keyframes sellGradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .navbar .sell-art span:last-child {
@@ -1419,18 +1455,20 @@
   padding: 6px 10px;
 }
 
-.navbar .icon-wrap.icon-circle {
-  width: 36px;
-  height: 36px;
+.navbar .right-icons {
+  padding: 6px 14px 6px 16px;
 }
 
 .navbar .sell-art {
   min-height: 34px;
-  padding: 3px 5px;
+  padding: 3px 10px;
 }
 
 .navbar .join-login-group {
-  gap: 6px;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  min-width: unset;
 }
 
 .navbar .join-btn {

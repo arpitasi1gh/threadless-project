@@ -13,7 +13,6 @@ import card2Img4 from "../../assets/images/card2-img4.jpg";
 import card2Img5 from "../../assets/images/card2-img5 (1).jpg";
 import dccThumb from "../../assets/images/dcc-thumb (1).jpg";
 import dccHeroBg from "../../assets/images/dcc-hero-bg.jpg";
-import dccInspiration from "../../assets/images/dcc-inspiration.jpg";
 import blogBanner from "../../assets/images/blog-banner.jpg";
 import artistShopBanner from "../../assets/images/artist-shop-banner.jpg";
 import artistResourcesBanner from "../../assets/images/artist-resources-banner.jpg";

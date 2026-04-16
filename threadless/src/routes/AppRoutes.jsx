@@ -5,8 +5,10 @@ import Cart from '../components/cart/cart'
 import Checkout from '../components/cart/Checkout'
 import Login from '../components/login/Login'
 import Resources from '../pages/Resources/Resources'
+import Community from '../pages/Community/Community'
 import Home from '../pages/home/Home'
 import Shop from '../pages/shop/Shop'
+import ArtistShop from '../components/sellyourart/ArtistShop'
 
 export default function AppRoutes() {
   const location = useLocation()
@@ -19,7 +21,9 @@ export default function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/sell-your-art" element={<ArtistShop />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/community" element={<Community />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />

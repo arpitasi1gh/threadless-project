@@ -110,7 +110,7 @@ function Header() {
           <div className="divider"></div>
 
           <div className="sell-login-group">
-            <Link to="/" className="sell-art">
+            <Link to="/sell-your-art" className="sell-art">
               <span>Sell</span>
               <span>Your Art</span>
             </Link>
@@ -126,8 +126,13 @@ function Header() {
           </div>
         </div>
       </div>
-
+      
       <div className="nav-menu">
+        <div className="nav-item">
+          <Link to="/">Home</Link>
+        </div>
+        <span className="nav-separator">|</span>
+
         <div className="nav-item">
           <Link to="/shop">Shop</Link>
           <div className="dropdown compact-dropdown">
@@ -190,20 +195,18 @@ function Header() {
           <Link to="/resources">Resources</Link>
           <div className="dropdown compact-dropdown">
             <ul className="dropdown-list compact-list">
-              <li><Link to="/resources">About</Link></li>
-              <li><Link to="/resources">Help / FAQ</Link></li>
-              <li><Link to="/resources">Pricing</Link></li>
+              <li><Link to="/resources">About Us</Link></li>
+              <li><Link to="/resources">Artist Resources</Link></li>
             </ul>
           </div>
         </div>
         <span className="nav-separator">|</span>
 
         <div className="nav-item">
-          <Link to="/shop">Community</Link>
+          <Link to="/community">Community</Link>
           <div className="dropdown compact-dropdown">
             <ul className="dropdown-list compact-list">
-              <li><Link to="/shop">Vote Designs</Link></li>
-              <li><Link to="/shop">Submit Design</Link></li>
+              <li><Link to="/community">Vote & Submit Designs</Link></li>
             </ul>
             <div className="social-icons compact-socials">
               <FaInstagram />

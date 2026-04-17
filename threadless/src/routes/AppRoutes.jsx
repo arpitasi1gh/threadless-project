@@ -9,7 +9,7 @@ import Resources from '../pages/Resources/Resources'
 import Community from '../pages/Community/Community'
 import Home from '../pages/home/Home'
 import AllDesigns from '../pages/all-designs/AllDesigns'
-import About from '../pages/about/About'
+import Aboutus from '../components/aboutus/Aboutus'
 import ArtistShop from '../components/sellyourart/ArtistShop'
 import All_Products from '../pages/All_Products/All_Products'
 import T_Shirts from '../pages/T_Shirts/T_Shirts'
@@ -50,7 +50,7 @@ export default function AppRoutes() {
           <Route path="/wild-spirit" element={<Wild_Spirit />} />
           <Route path="/sell-your-art" element={<ArtistShop />} />
           <Route path="/resources" element={<Resources />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<Aboutus />} />
           <Route path="/community" element={<Community />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />

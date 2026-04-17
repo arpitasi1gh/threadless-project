@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Community.css";
 
 import card1Img1 from "../../assets/images/card1-img1.jpg";
@@ -13,6 +14,7 @@ import card2Img4 from "../../assets/images/card2-img4.jpg";
 import card2Img5 from "../../assets/images/card2-img5 (1).jpg";
 import dccThumb from "../../assets/images/dcc-thumb (1).jpg";
 import dccHeroBg from "../../assets/images/dcc-hero-bg.jpg";
+import dccInspiration from "../../assets/images/dcc-inspiration.jpg";
 import blogBanner from "../../assets/images/blog-banner.jpg";
 import artistShopBanner from "../../assets/images/artist-shop-banner.jpg";
 import artistResourcesBanner from "../../assets/images/artist-resources-banner.jpg";
@@ -47,12 +49,6 @@ const TiktokIcon = () => (
 const FacebookIcon = () => (
   <svg className="social-icon" viewBox="0 0 24 24" fill="white">
     <path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0024 12z" />
-  </svg>
-);
-
-const YouTubeIcon = () => (
-  <svg className="social-icon" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-    <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.6 15.5V8.5L15.8 12l-6.2 3.5z" />
   </svg>
 );
 
@@ -242,33 +238,9 @@ const Community = () => {
                 </strong>
               </p>
 
-              <div className="dcc-divider" />
+              
 
-              <p className="dcc-featured-label">
-                <strong>Featured Artists:</strong>
-              </p>
-              <p className="dcc-featured-link">
-                "FEET FIRST" by Levi Cleeman
-              </p>
-              {/* <p className="dcc-featured-link">
-                <a href="#">"Luckiest Fucker in the Dungeon"</a> by{" "}
-                <a href="#">David DeGrand</a>
-              </p>
-              <p className="dcc-featured-link">
-                <a href="#">"PRINCESS DONUT THE QUEEN ANNE CHONK"</a> by{" "}
-                <a href="#">Poorly Cat Draw</a>
-              </p>
-              <p className="dcc-featured-link">
-                <a href="#">"Carl, Princess Donut, and Mongo"</a> by{" "}
-                <a href="#">Lucia Sancho</a>
-              </p>
-
-              <p className="dcc-featured-label">
-                <strong>Design Inspiration:</strong>
-              </p>
-              <div className="dcc-inspiration-img">
-                <img src={dccInspiration} alt="Design Inspiration" /> */}
-              {/* </div> */}
+             
             </div>
 
             <div className="dcc-right">
@@ -332,7 +304,7 @@ const Community = () => {
               </p>
               <p className="dcc-note-text">
                 Submit from:{" "}
-                <strong>March 16 – April 17, 2026 at 11:59:59</strong>
+                <strong>March 19 – April 27, 2026 at 11:59:59</strong>
               </p>
             </div>
           </div>
@@ -343,23 +315,23 @@ const Community = () => {
       <section className="resources-section">
         <h2>Explore Other Useful Resources</h2>
         <div className="resources-grid">
-          <a className="resource-card" href="#">
+          <Link className="resource-card" to="/resources">
             <img src={blogBanner} alt="Read Our Blog" loading="lazy" />
-          </a>
-          <a className="resource-card" href="#">
+          </Link>
+          <Link className="resource-card" to="/sell-your-art">
             <img
               src={artistShopBanner}
               alt="Start An Artist Shop"
               loading="lazy"
             />
-          </a>
-          <a className="resource-card" href="#">
+          </Link>
+          <Link className="resource-card" to="/resources">
             <img
               src={artistResourcesBanner}
               alt="Artist Resources"
               loading="lazy"
             />
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -368,29 +340,25 @@ const Community = () => {
         <div className="social-divider" />
         <h2>Connect &amp; Share on Social</h2>
         <div className="social-grid">
-          <a className="social-card social-card-discord" href="https://discord.com/invite/threadless" target="_blank" rel="noreferrer">
+          <a className="social-card social-card-discord" href="https://discord.com/invite/threadless">
             <DiscordIcon />
             <span>DISCORD</span>
           </a>
-          <a className="social-card social-card-instagram" href="https://www.instagram.com/threadless/" target="_blank" rel="noreferrer">
+          <a className="social-card social-card-instagram" href="https://www.instagram.com/threadless/">
             <InstagramIcon />
             <span>INSTAGRAM</span>
           </a>
-          <a className="social-card social-card-pinterest" href="https://in.pinterest.com/threadless/" target="_blank" rel="noreferrer">
+          <a className="social-card social-card-pinterest" href="https://in.pinterest.com/threadless/">
             <PinterestIcon />
             <span>PINTEREST</span>
           </a>
         </div>
         <div className="social-grid-bottom">
-          <a className="social-card social-card-tiktok" href="https://www.tiktok.com/@threadless" target="_blank" rel="noreferrer">
+          <a className="social-card social-card-tiktok" href="https://www.tiktok.com/in/about">
             <TiktokIcon />
             <span>TIKTOK</span>
           </a>
-          <a className="social-card social-card-youtube" href="https://www.youtube.com/threadless" target="_blank" rel="noreferrer">
-            <YouTubeIcon />
-            <span>YOUTUBE</span>
-          </a>
-          <a className="social-card social-card-facebook" href="https://www.facebook.com/threadless" target="_blank" rel="noreferrer">
+          <a className="social-card social-card-facebook" href="https://www.facebook.com/threadless">
             <FacebookIcon />
             <span>FACEBOOK</span>
           </a>

@@ -135,22 +135,37 @@ function Header() {
         <span className="nav-separator">|</span>
 
         <div className="nav-item">
-          <Link to="/shop">Shop</Link>
+          <Link to="/all-products">Shop</Link>
           <div className="dropdown compact-dropdown">
             <ul className="dropdown-list compact-list">
-              <li><Link to="/shop">All Products</Link></li>
-              <li><Link to="/shop">T-Shirts</Link></li>
-              <li><Link to="/shop">Hoodies</Link></li>
-              <li><Link to="/shop">Mugs</Link></li>
-              <li><Link to="/shop">Headwear</Link></li>
-              <li><Link to="/shop">Phone Cases</Link></li>
+              <li><Link to="/all-products">All Products</Link></li>
+              <li><Link to="/t-shirts">T-Shirts</Link></li>
+              <li><Link to="/hoodies">Hoodies</Link></li>
+              <li><Link to="/mugs">Mugs</Link></li>
+              <li><Link to="/headwear">Headwear</Link></li>
+              <li><Link to="/phone-cases">Phone Cases</Link></li>
             </ul>
           </div>
         </div>
         <span className="nav-separator">|</span>
 
         <div className="nav-item">
-          <Link to="/shop">Artists</Link>
+          <Link to="/all-designs">Themes</Link>
+          <div className="dropdown compact-dropdown">
+            <ul className="dropdown-list compact-list">
+              <li><Link to="/all-designs">All Designs</Link></li>
+              <li><Link to="/minimalist-modern">Minimalist Modern</Link></li>
+              <li><Link to="/daily-satire">Daily Satire</Link></li>
+              <li><Link to="/urban-streetart">Urban Streetart</Link></li>
+              <li><Link to="/wild-spirit">Wild Spirit</Link></li>
+              <li><Link to="/legend-abstract">Legend Abstract</Link></li>
+            </ul>
+          </div>
+        </div>
+        <span className="nav-separator">|</span>
+
+        <div className="nav-item">
+          <Link to="/all-designs">Artists</Link>
           <div className="dropdown artist-dropdown compact-artist-dropdown">
             <div className="dropdown-grid artist-image-columns">
               {artistColumns.map((column) => (
@@ -160,7 +175,7 @@ function Header() {
                     {column.items.map((artistItem) => (
                       <Link
                         key={`${column.title}-${artistItem.id}`}
-                        to={`/shop?design=${artistItem.id}`}
+                        to={`/all-designs?design=${artistItem.id}`}
                         className="artist-image-link"
                         title={`${artistItem.design.title} by ${artistItem.design.artist}`}
                       >
@@ -180,24 +195,11 @@ function Header() {
         <span className="nav-separator">|</span>
 
         <div className="nav-item">
-          <Link to="/shop">Themes</Link>
-          <div className="dropdown compact-dropdown">
-            <ul className="dropdown-list compact-list">
-              <li><Link to="/shop">Animal Kingdom</Link></li>
-              <li><Link to="/shop">Lifestyle & Humor</Link></li>
-              <li><Link to="/shop">Abstract / Minimal</Link></li>
-              <li><Link to="/shop">Geeky & Fantasy</Link></li>
-            </ul>
-          </div>
-        </div>
-        <span className="nav-separator">|</span>
-
-        <div className="nav-item">
           <Link to="/resources">Resources</Link>
           <div className="dropdown compact-dropdown">
             <ul className="dropdown-list compact-list">
-              <li><Link to="/resources">About Us</Link></li>
-              <li><Link to="/resources">Artist Resources</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/resources">Creative Blog</Link></li>
             </ul>
           </div>
         </div>

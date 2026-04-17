@@ -2,11 +2,20 @@ import React, { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { FaChevronDown, FaHeart, FaPlus, FaTimes } from 'react-icons/fa'
 import './ProductCard.css'
+import { findProductIndexByType } from '../../utils/products'
 
-export default function ProductCard({ item, onClose }) {
+export default function ProductCard({ item, onClose, initialProductType }) {
   const products = item?.products || []
-  const [selectedProductIndex, setSelectedProductIndex] = useState(0)
-  const [selectedImage, setSelectedImage] = useState(item?.products?.[0]?.image || item?.design?.image)
+  const resolvedInitialIndex = (() => {
+    if (!initialProductType) return 0
+    const index = findProductIndexByType(products, initialProductType)
+    return index >= 0 ? index : 0
+  })()
+
+  const [selectedProductIndex, setSelectedProductIndex] = useState(resolvedInitialIndex)
+  const [selectedImage, setSelectedImage] = useState(
+    products?.[resolvedInitialIndex]?.image || item?.design?.image,
+  )
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0)
   const dropdownRef = useRef(null)

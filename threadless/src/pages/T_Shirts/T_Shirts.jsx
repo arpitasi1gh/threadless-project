@@ -1,9 +1,5 @@
-import React from 'react'
+import CatalogPage from '../catalog/CatalogPage'
 
 export default function T_Shirts() {
-  return (
-    <div>
-        
-    </div>
-  )
+  return <CatalogPage productType="T-Shirt" cardImageSource="product" />
 }

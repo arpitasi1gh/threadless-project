@@ -32,9 +32,7 @@
 
 .card:hover .card-image-wrap,
 .card:focus-visible .card-image-wrap {
-  box-shadow:
-    0 14px 32px rgba(15, 29, 75, 0.14),
-    0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: none;
 }
 
 .card:hover .card-image,
@@ -98,6 +96,14 @@
   font-size: 0.95rem;
   line-height: 1.2;
   font-weight: 400;
+}
+
+.cardPrice {
+  margin: 6px 0 0;
+  color: #111;
+  font-size: 0.92rem;
+  font-weight: 800;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 .card-actions {

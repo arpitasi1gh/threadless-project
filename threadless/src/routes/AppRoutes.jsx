@@ -8,8 +8,20 @@ import Signup from '../components/signup/Signup'
 import Resources from '../pages/Resources/Resources'
 import Community from '../pages/Community/Community'
 import Home from '../pages/home/Home'
-import Shop from '../pages/shop/Shop'
+import AllDesigns from '../pages/all-designs/AllDesigns'
+import About from '../pages/about/About'
 import ArtistShop from '../components/sellyourart/ArtistShop'
+import All_Products from '../pages/All_Products/All_Products'
+import T_Shirts from '../pages/T_Shirts/T_Shirts'
+import Hoodies from '../pages/Hoodies/Hoodies'
+import Mugs from '../pages/Mugs/Mugs'
+import Phone_Cases from '../pages/Phone_Cases/Phone_Cases'
+import Headwear from '../pages/Headwear/Headwear'
+import Legend_Abstract from '../pages/Legend_Abstract/Legend_Abstract'
+import Minimalist_Modern from '../pages/Minimalist_Modern/Minimalist_Modern'
+import Daily_Satire from '../pages/Daily_Satire/Daily_Satire'
+import Wild_Spirit from '../pages/Wild_Spirit/Wild_Spirit'
+import Urban_Streetart from '../pages/Urban_Streetart/Urban_Streetart'
 
 export default function AppRoutes() {
   const location = useLocation()
@@ -23,9 +35,22 @@ export default function AppRoutes() {
         <Routes location={routeLocation}>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
+          <Route path="/all-designs" element={<AllDesigns />} />
+          <Route path="/shop" element={<AllDesigns />} />
+          <Route path="/all-products" element={<All_Products />} />
+          <Route path="/t-shirts" element={<T_Shirts />} />
+          <Route path="/hoodies" element={<Hoodies />} />
+          <Route path="/mugs" element={<Mugs />} />
+          <Route path="/phone-cases" element={<Phone_Cases />} />
+          <Route path="/headwear" element={<Headwear />} />
+          <Route path="/legend-abstract" element={<Legend_Abstract />} />
+          <Route path="/minimalist-modern" element={<Minimalist_Modern />} />
+          <Route path="/daily-satire" element={<Daily_Satire />} />
+          <Route path="/urban-streetart" element={<Urban_Streetart />} />
+          <Route path="/wild-spirit" element={<Wild_Spirit />} />
           <Route path="/sell-your-art" element={<ArtistShop />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/about" element={<About />} />
           <Route path="/community" element={<Community />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />

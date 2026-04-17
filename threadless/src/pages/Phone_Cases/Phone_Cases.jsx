@@ -1,9 +1,5 @@
-import React from 'react'
+import CatalogPage from '../catalog/CatalogPage'
 
 export default function Phone_Cases() {
-  return (
-    <div>
-        
-    </div>
-  )
+  return <CatalogPage productType="phonecase" cardImageSource="product" />
 }

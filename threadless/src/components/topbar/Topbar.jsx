@@ -186,13 +186,17 @@ const Topbar = () => {
     setFilterBy,
     totalCount,
     allCount,
+    countNoun,
     filterOptions,
     sortOptions
   } = useTopbar()
 
-  const displayText = totalCount > 0 
-    ? `Showing ${totalCount} ${totalCount === 1 ? 'product' : 'products'} out of ${allCount} ${allCount === 1 ? 'product' : 'products'}`
-    : 'No products found'
+  const noun = countNoun ?? { singular: 'product', plural: 'products' }
+  const nounFor = (value) => (value === 1 ? noun.singular : noun.plural)
+
+  const displayText = totalCount > 0
+    ? `Showing ${totalCount} ${nounFor(totalCount)} out of ${allCount} ${nounFor(allCount)}`
+    : `No ${noun.plural} found`
 
   return (
 <div className="topbar clearfix">

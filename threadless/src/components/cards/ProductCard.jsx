@@ -1,11 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { FaChevronDown, FaHeart, FaPlus, FaTimes } from 'react-icons/fa'
 import './ProductCard.css'
+import { findProductIndexByType } from '../../utils/products'
 
-export default function ProductCard({ item, onClose }) {
+export default function ProductCard({ item, onClose, initialProductType }) {
   const products = item?.products || []
-  const [selectedProductIndex, setSelectedProductIndex] = useState(0)
-  const [selectedImage, setSelectedImage] = useState(item?.products?.[0]?.image || item?.design?.image)
+  const resolvedInitialIndex = (() => {
+    if (!initialProductType) return 0
+    const index = findProductIndexByType(products, initialProductType)
+    return index >= 0 ? index : 0
+  })()
+
+  const [selectedProductIndex, setSelectedProductIndex] = useState(resolvedInitialIndex)
+  const [selectedImage, setSelectedImage] = useState(
+    products?.[resolvedInitialIndex]?.image || item?.design?.image,
+  )
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0)
   const dropdownRef = useRef(null)
@@ -21,6 +31,14 @@ export default function ProductCard({ item, onClose }) {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [onClose])
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [])
 
   useEffect(() => {
     const handlePointerDown = (event) => {
@@ -73,10 +91,12 @@ export default function ProductCard({ item, onClose }) {
     return null
   }
 
-  return (
-    <div className="product-card-backdrop" onClick={onClose}>
+  const content = (
+    <div className="product-card-backdrop" role="presentation" onClick={onClose}>
       <section
         className="product-card-modal"
+        role="dialog"
+        aria-modal="true"
         onClick={(event) => event.stopPropagation()}
       >
         <button type="button" className="product-card-close" onClick={onClose} aria-label="Close product details">
@@ -229,4 +249,7 @@ export default function ProductCard({ item, onClose }) {
       </section>
     </div>
   )
+
+  if (typeof document === 'undefined') return null
+  return createPortal(content, document.body)
 }

@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import "./Signup.css";
 import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function SignupModal() {
-  return (
-    <div className="overlay">
-      <div className="modal">
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
+  const close = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+    navigate("/");
+  };
+
+  const content = (
+    <div className="overlay" role="presentation" onClick={close}>
+      <div className="modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
 
         {/* Header */}
         <div className="header">
           <h2>CREATE YOUR ACCOUNT</h2>
           <p>
-            or <span className="link">Log in.</span>
+            or{" "}
+            <span className="link" role="button" tabIndex={0} onClick={() => navigate("/login")}>
+              Log in.
+            </span>
           </p>
-          <span className="close">×</span>
+          <span className="close" role="button" tabIndex={0} onClick={close} aria-label="Close">
+            ×
+          </span>
         </div>
 
         {/* Form */}
@@ -73,6 +98,9 @@ function SignupModal() {
       </div>
     </div>
   );
+
+  if (typeof document === "undefined") return null;
+  return createPortal(content, document.body);
 }
 
 export default SignupModal;

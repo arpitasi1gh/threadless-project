@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import "./Header.css";
 import {
   FaInstagram,
@@ -16,7 +16,25 @@ import { DataContext } from "../../context/DataContext";
 
 function Header() {
   const [cartCount, setCartCount] = useState(0);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [hasViewedNotifications, setHasViewedNotifications] = useState(false);
   const { items = [] } = useContext(DataContext);
+  const notificationRef = useRef(null);
+
+  const offerNotifications = [
+    {
+      id: "weekend-print-sale",
+      title: "Weekend print sale",
+      message: "Save 20% on art prints and wall pieces through Sunday.",
+      meta: "Use code ART20",
+    },
+    {
+      id: "sticker-bundle",
+      title: "Sticker bundle offer",
+      message: "Buy any 3 stickers and get the 4th one free this week.",
+      meta: "Auto-applied at checkout",
+    },
+  ];
 
   useEffect(() => {
     const updateCartCount = () => {
@@ -37,6 +55,41 @@ function Header() {
       window.removeEventListener("threadless-cart-updated", updateCartCount);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isNotificationOpen) {
+      return undefined;
+    }
+
+    const handlePointerDown = (event) => {
+      if (!notificationRef.current?.contains(event.target)) {
+        setIsNotificationOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsNotificationOpen(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handlePointerDown);
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("mousedown", handlePointerDown);
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [isNotificationOpen]);
+
+  const toggleNotifications = () => {
+    const nextOpen = !isNotificationOpen;
+    setIsNotificationOpen(nextOpen);
+
+    if (!hasViewedNotifications) {
+      setHasViewedNotifications(true);
+    }
+  };
 
   const artistColumns = useMemo(() => {
     const safeItems = Array.isArray(items) ? items : [];
@@ -94,9 +147,45 @@ function Header() {
         </div>
 
         <div className="right-icons">
-          <div className="icon-wrap icon-circle" aria-label="region">
-            <FaGlobeAmericas />
-            <span className="badge">1</span>
+          <div
+            className={`notification-wrap ${isNotificationOpen ? "is-open" : ""}`}
+            ref={notificationRef}
+          >
+            <button
+              type="button"
+              className="icon-wrap icon-circle notification-trigger"
+              aria-label="Offers and announcements"
+              aria-expanded={isNotificationOpen}
+              onClick={toggleNotifications}
+            >
+              <FaGlobeAmericas />
+              {!hasViewedNotifications ? <span className="badge">2</span> : null}
+            </button>
+
+            {isNotificationOpen ? (
+              <div className="notification-panel" aria-label="Offers and announcements">
+                <div className="notification-header">
+                  <div>
+                    <p className="notification-kicker">Offers</p>
+                    <h3>Latest updates</h3>
+                  </div>
+                  <span className="notification-count">{offerNotifications.length}</span>
+                </div>
+
+                <div className="notification-list">
+                  {offerNotifications.map((notification) => (
+                    <article className="notification-item" key={notification.id}>
+                      <div className="notification-dot"></div>
+                      <div className="notification-copy">
+                        <h4>{notification.title}</h4>
+                        <p>{notification.message}</p>
+                      </div>
+                      <span className="notification-meta">{notification.meta}</span>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <Link to="/cart" className="icon-wrap icon-circle" aria-label="cart">

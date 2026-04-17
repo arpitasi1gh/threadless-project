@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FaCheck, FaCreditCard, FaLock, FaShieldAlt } from 'react-icons/fa'
+import { FaCheck, FaCreditCard, FaLock, FaMoneyBillWave, FaQrcode, FaShieldAlt } from 'react-icons/fa'
 import gpayQrImage from '../../assets/gpay-qr.jpeg'
 import './cart.css'
 
@@ -67,14 +67,7 @@ function getTotals(items, promoCode) {
 function Checkout() {
   const location = useLocation()
   const navigate = useNavigate()
-  const [cartItems, setCartItems] = useState(() => readJson(CART_KEY, []))
-  const [user, setUser] = useState(() =>
-    location.state?.userEmail ? { email: location.state.userEmail } : null,
-  )
-  const [email, setEmail] = useState(location.state?.userEmail || '')
-  const [message, setMessage] = useState('')
-  const [checkoutStep, setCheckoutStep] = useState('shipping')
-  const [shippingDetails, setShippingDetails] = useState({
+  const emptyShippingDetails = {
     country: '',
     firstName: '',
     lastName: '',
@@ -86,11 +79,44 @@ function Checkout() {
     phone: '',
     offers: true,
     sms: false,
+  }
+  const [cartItems, setCartItems] = useState(() => readJson(CART_KEY, []))
+  const [user, setUser] = useState(() =>
+    location.state?.userEmail ? { email: location.state.userEmail } : null,
+  )
+  const [email, setEmail] = useState(location.state?.userEmail || '')
+  const [message, setMessage] = useState('')
+  const [checkoutStep, setCheckoutStep] = useState('shipping')
+  const [savedAddresses, setSavedAddresses] = useState([])
+  const [selectedAddressId, setSelectedAddressId] = useState('')
+  const [paymentMethod, setPaymentMethod] = useState('upi')
+  const [isQrReady, setIsQrReady] = useState(false)
+  const [shippingDetails, setShippingDetails] = useState(emptyShippingDetails)
+  const [cardDetails, setCardDetails] = useState({
+    number: '',
+    name: '',
+    expiry: '',
+    cvv: '',
+    type: 'Visa',
   })
 
   const promoCode = location.state?.promoCode || ''
   const totals = useMemo(() => getTotals(cartItems, promoCode), [cartItems, promoCode])
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
+
+  useEffect(() => {
+    if (checkoutStep !== 'payment' || paymentMethod !== 'upi') {
+      setIsQrReady(false)
+      return undefined
+    }
+
+    setIsQrReady(false)
+    const timer = window.setTimeout(() => {
+      setIsQrReady(true)
+    }, 3000)
+
+    return () => window.clearTimeout(timer)
+  }, [checkoutStep, paymentMethod])
 
   const handleLogin = (event) => {
     event.preventDefault()
@@ -110,6 +136,71 @@ function Checkout() {
     setShippingDetails((details) => ({ ...details, [field]: value }))
   }
 
+  const updateCardField = (field, value) => {
+    setCardDetails((details) => ({ ...details, [field]: value }))
+  }
+
+  const selectAddress = (addressId) => {
+    const nextAddress = savedAddresses.find((address) => address.id === addressId)
+
+    if (!nextAddress) {
+      return
+    }
+
+    setSelectedAddressId(addressId)
+    setShippingDetails((details) => ({
+      ...details,
+      ...nextAddress,
+    }))
+    setMessage(`${nextAddress.label} address selected.`)
+  }
+
+  const addAddressFromForm = () => {
+    const requiredFields = ['country', 'firstName', 'lastName', 'address', 'city', 'zip', 'phone']
+    const missingField = requiredFields.find((field) => !shippingDetails[field].trim())
+
+    if (missingField) {
+      setMessage('Complete the address form before saving another address.')
+      return
+    }
+
+    const nextAddressId = `address-${savedAddresses.length + 1}`
+    const nextAddress = {
+      id: nextAddressId,
+      label: `Address ${savedAddresses.length + 1}`,
+      country: shippingDetails.country,
+      firstName: shippingDetails.firstName,
+      lastName: shippingDetails.lastName,
+      address: shippingDetails.address,
+      address2: shippingDetails.address2,
+      city: shippingDetails.city,
+      state: shippingDetails.state,
+      zip: shippingDetails.zip,
+      phone: shippingDetails.phone,
+    }
+
+    setSavedAddresses((current) => [...current, nextAddress])
+    setSelectedAddressId(nextAddressId)
+    setMessage(`${nextAddress.label} saved. You can switch between addresses anytime.`)
+  }
+
+  const deleteSelectedAddress = () => {
+    if (!selectedAddressId) {
+      setMessage('Select an address first if you want to delete it.')
+      return
+    }
+
+    const remainingAddresses = savedAddresses.filter((address) => address.id !== selectedAddressId)
+    setSavedAddresses(remainingAddresses)
+    setSelectedAddressId('')
+    setShippingDetails((details) => ({
+      ...emptyShippingDetails,
+      offers: details.offers,
+      sms: details.sms,
+    }))
+    setMessage('Selected address deleted. You can add a new one anytime.')
+  }
+
   const continueToPayment = (event) => {
     event.preventDefault()
 
@@ -127,7 +218,7 @@ function Checkout() {
     }
 
     setCheckoutStep('payment')
-    setMessage('Shipping saved. Scan the GPay QR below and then confirm your order.')
+    setMessage('Shipping saved. Choose a payment method and confirm your order.')
   }
 
   const confirmPayment = () => {
@@ -197,6 +288,51 @@ function Checkout() {
                       <p>Step 2</p>
                       <h2>Shipping Information</h2>
                     </div>
+                  </div>
+
+                  <div className="address-book">
+                    <div className="address-book-header">
+                      <div>
+                        <p className="address-book-kicker">Saved Addresses</p>
+                        <h3>Select a delivery address</h3>
+                      </div>
+                      <div className="address-book-actions">
+                        <button type="button" className="address-add-btn" onClick={addAddressFromForm}>
+                          Add Address
+                        </button>
+                        <button
+                          type="button"
+                          className="address-delete-btn"
+                          onClick={deleteSelectedAddress}
+                        >
+                          Delete Address
+                        </button>
+                      </div>
+                    </div>
+
+                    {savedAddresses.length > 0 ? (
+                      <div className="address-book-grid">
+                        {savedAddresses.map((address) => (
+                          <button
+                            key={address.id}
+                            type="button"
+                            className={`address-card ${selectedAddressId === address.id ? 'is-selected' : ''}`}
+                            onClick={() => selectAddress(address.id)}
+                          >
+                            <span className="address-chip">{address.label}</span>
+                            <strong>{address.firstName} {address.lastName}</strong>
+                            <span>{address.address}</span>
+                            <span>{address.city}, {address.state}</span>
+                            <span>{address.country} {address.zip}</span>
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="address-empty-state">
+                        <strong>No saved addresses yet</strong>
+                        <p>Fill in the form below, then click Add Address to save one.</p>
+                      </div>
+                    )}
                   </div>
 
                   <label>
@@ -312,37 +448,173 @@ function Checkout() {
                   <FaCreditCard />
                   <div>
                     <p>Step 3</p>
-                    <h2>Scan and Pay</h2>
+                    <h2>Choose Payment</h2>
                   </div>
                 </div>
 
                 <p className="payment-copy">
-                  Scan this Google Pay QR with any UPI app, complete the payment, then confirm the
-                  order here.
+                  Pick the payment option that works best for you. UPI reveals the scanner after a
+                  short secure-loading moment.
                 </p>
 
-                <div className="payment-qr-shell">
-                  <img
-                    className="payment-qr-image"
-                    src={gpayQrImage}
-                    alt="Google Pay QR code for Manvir Singh Saran"
-                  />
+                <div className="payment-method-grid" aria-label="Payment methods">
+                  <button
+                    type="button"
+                    className={`payment-method-card ${paymentMethod === 'upi' ? 'is-active' : ''}`}
+                    onClick={() => setPaymentMethod('upi')}
+                  >
+                    <FaQrcode />
+                    <div>
+                      <strong>UPI / Scanner</strong>
+                      <span>Pay with any UPI app</span>
+                    </div>
+                  </button>
+                  <button
+                    type="button"
+                    className={`payment-method-card ${paymentMethod === 'card' ? 'is-active' : ''}`}
+                    onClick={() => setPaymentMethod('card')}
+                  >
+                    <FaCreditCard />
+                    <div>
+                      <strong>Credit / Debit Card</strong>
+                      <span>Visa, Mastercard, RuPay</span>
+                    </div>
+                  </button>
+                  <button
+                    type="button"
+                    className={`payment-method-card ${paymentMethod === 'cod' ? 'is-active' : ''}`}
+                    onClick={() => setPaymentMethod('cod')}
+                  >
+                    <FaMoneyBillWave />
+                    <div>
+                      <strong>Cash on Delivery</strong>
+                      <span>Pay when your order arrives</span>
+                    </div>
+                  </button>
                 </div>
 
-                <div className="payment-details">
-                  <div>
-                    <span>Payee</span>
-                    <strong>Manvir Singh Saran</strong>
+                {paymentMethod === 'upi' ? (
+                  <>
+                    <div className="payment-qr-shell premium-qr-shell">
+                      <div className="qr-loading-copy">
+                        <span className={`scanner-status ${isQrReady ? 'is-ready' : ''}`}>
+                          {isQrReady ? 'Scanner ready' : 'Securing scanner...'}
+                        </span>
+                      </div>
+                      <img
+                        className={`payment-qr-image ${isQrReady ? 'is-ready' : 'is-blurred'}`}
+                        src={gpayQrImage}
+                        alt="Google Pay QR code for Manvir Singh Saran"
+                      />
+                    </div>
+
+                    <div className="payment-details">
+                      <div>
+                        <span>Payee</span>
+                        <strong>Manvir Singh Saran</strong>
+                      </div>
+                      <div>
+                        <span>UPI ID</span>
+                        <strong>manvirsaran3654@okicici</strong>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+
+                {paymentMethod === 'card' ? (
+                  <div className="payment-form-card">
+                    <div className="card-payment-layout">
+                      <div className="card-form-fields">
+                        <label>
+                          Card Number
+                          <input
+                            value={cardDetails.number}
+                            onChange={(event) => updateCardField('number', event.target.value)}
+                            placeholder="1234 5678 9012 3456"
+                          />
+                        </label>
+                        <label>
+                          Name on Card
+                          <input
+                            value={cardDetails.name}
+                            onChange={(event) => updateCardField('name', event.target.value)}
+                            placeholder="Full name"
+                          />
+                        </label>
+                        <div className="checkout-three-col payment-card-grid">
+                          <label>
+                            Expiry
+                            <input
+                              value={cardDetails.expiry}
+                              onChange={(event) => updateCardField('expiry', event.target.value)}
+                              placeholder="MM/YY"
+                            />
+                          </label>
+                          <label>
+                            CVV
+                            <input
+                              value={cardDetails.cvv}
+                              onChange={(event) => updateCardField('cvv', event.target.value)}
+                              placeholder="123"
+                            />
+                          </label>
+                          <label>
+                            Card Type
+                            <select
+                              value={cardDetails.type}
+                              onChange={(event) => updateCardField('type', event.target.value)}
+                            >
+                              <option>Visa</option>
+                              <option>Mastercard</option>
+                              <option>RuPay</option>
+                              <option>Amex</option>
+                            </select>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="atm-card-preview">
+                        <span className="atm-card-chip"></span>
+                        <span className="atm-card-brand">{cardDetails.type}</span>
+                        <strong>{cardDetails.number || '•••• •••• •••• ••••'}</strong>
+                        <div className="atm-card-footer">
+                          <div>
+                            <span>Card Holder</span>
+                            <p>{cardDetails.name || 'FULL NAME'}</p>
+                          </div>
+                          <div>
+                            <span>Expires</span>
+                            <p>{cardDetails.expiry || 'MM/YY'}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="payment-note">Your card details stay encrypted and protected.</p>
                   </div>
-                  <div>
-                    <span>UPI ID</span>
-                    <strong>manvirsaran3654@okicici</strong>
+                ) : null}
+
+                {paymentMethod === 'cod' ? (
+                  <div className="payment-form-card cod-card">
+                    <strong>Cash on Delivery selected</strong>
+                    <p>
+                      Pay in cash when the package arrives at your selected shipping address.
+                      Orders over $250 may require prepaid confirmation.
+                    </p>
+                    <div className="payment-details single-detail">
+                      <div>
+                        <span>Delivery Address</span>
+                        <strong>
+                          {shippingDetails.firstName} {shippingDetails.lastName}, {shippingDetails.address},{' '}
+                          {shippingDetails.city}
+                        </strong>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ) : null}
 
                 <div className="payment-actions">
                   <button className="checkout-continue" type="button" onClick={confirmPayment}>
-                    I Have Paid
+                    {paymentMethod === 'cod' ? 'Place COD Order' : 'Confirm Payment'}
                   </button>
                   <button
                     className="payment-back-button"
@@ -382,6 +654,16 @@ function Checkout() {
                 </div>
 
                 <div className="payment-actions">
+                  <button
+                    className="payment-back-button"
+                    type="button"
+                    onClick={() => {
+                      setCheckoutStep('payment')
+                      setMessage('You are back in checkout. You can update payment details now.')
+                    }}
+                  >
+                    Back to Checkout
+                  </button>
                   <Link className="checkout-continue confirmation-link" to="/shop">
                     Continue Shopping
                   </Link>

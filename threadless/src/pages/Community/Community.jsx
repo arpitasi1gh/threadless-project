@@ -50,6 +50,12 @@ const FacebookIcon = () => (
   </svg>
 );
 
+const YouTubeIcon = () => (
+  <svg className="social-icon" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+    <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.6 15.5V8.5L15.8 12l-6.2 3.5z" />
+  </svg>
+);
+
 const Community = () => {
   const [card1Score, setCard1Score] = useState(null);
   const [card2Score, setCard2Score] = useState(null);
@@ -362,25 +368,29 @@ const Community = () => {
         <div className="social-divider" />
         <h2>Connect &amp; Share on Social</h2>
         <div className="social-grid">
-          <a className="social-card social-card-discord" href="#">
+          <a className="social-card social-card-discord" href="https://discord.com/invite/threadless" target="_blank" rel="noreferrer">
             <DiscordIcon />
             <span>DISCORD</span>
           </a>
-          <a className="social-card social-card-instagram" href="#">
+          <a className="social-card social-card-instagram" href="https://www.instagram.com/threadless/" target="_blank" rel="noreferrer">
             <InstagramIcon />
             <span>INSTAGRAM</span>
           </a>
-          <a className="social-card social-card-pinterest" href="#">
+          <a className="social-card social-card-pinterest" href="https://in.pinterest.com/threadless/" target="_blank" rel="noreferrer">
             <PinterestIcon />
             <span>PINTEREST</span>
           </a>
         </div>
         <div className="social-grid-bottom">
-          <a className="social-card social-card-tiktok" href="#">
+          <a className="social-card social-card-tiktok" href="https://www.tiktok.com/@threadless" target="_blank" rel="noreferrer">
             <TiktokIcon />
             <span>TIKTOK</span>
           </a>
-          <a className="social-card social-card-facebook" href="#">
+          <a className="social-card social-card-youtube" href="https://www.youtube.com/threadless" target="_blank" rel="noreferrer">
+            <YouTubeIcon />
+            <span>YOUTUBE</span>
+          </a>
+          <a className="social-card social-card-facebook" href="https://www.facebook.com/threadless" target="_blank" rel="noreferrer">
             <FacebookIcon />
             <span>FACEBOOK</span>
           </a>

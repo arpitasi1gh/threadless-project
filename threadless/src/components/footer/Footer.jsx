@@ -13,16 +13,20 @@ function Footer() {
             <p>Get new art every week in your inbox.</p>
           </div>
 
-          <div className="newsletter-input">
-            <input
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              placeholder="Enter your email address"
-              aria-label="Email address"
-            />
-            <button>JOIN</button>
-          </div>
+          <form className="newsletter-form">
+            <label className="newsletter-input" htmlFor="footer-email">
+              <span className="newsletter-input-label">Email address</span>
+              <input
+                id="footer-email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                placeholder="Enter your email address"
+                aria-label="Email address"
+              />
+            </label>
+            <button type="submit">JOIN</button>
+          </form>
 
           <div className="social">
             <div className="section-label">Follow Us</div>

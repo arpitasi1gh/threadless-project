@@ -24,6 +24,7 @@ import Minimalist_Modern from '../pages/Minimalist_Modern/Minimalist_Modern'
 import Daily_Satire from '../pages/Daily_Satire/Daily_Satire'
 import Wild_Spirit from '../pages/Wild_Spirit/Wild_Spirit'
 import Urban_Streetart from '../pages/Urban_Streetart/Urban_Streetart'
+import SearchResults from '../pages/Search/SearchResults'
 
 export default function AppRoutes() {
   const location = useLocation()
@@ -89,6 +90,7 @@ export default function AppRoutes() {
           <Route path="/resources" element={<Resources />} />
           <Route path="/about" element={<Aboutus />} />
           <Route path="/community" element={<Community />} />
+          <Route path="/search" element={<SearchResults />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />

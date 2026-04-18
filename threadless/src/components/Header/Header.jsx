@@ -12,13 +12,12 @@ import {
   FaShoppingCart,
   FaHeart,
   FaUserCircle,
+  FaSearch,
+  FaTimes
 } from "react-icons/fa";
 import { DataContext } from "../../context/DataContext";
 import { clearCurrentUser, getCurrentUser, getCurrentUserPhoto } from "../../utils/auth";
 import { getCurrentSeller } from "../../utils/sellerAuth";
-  FaSearch,
-  FaTimes,
-} from "react-icons/fa";
 import {
   addRecentSearch,
   getRecentSearches,
@@ -46,7 +45,6 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState(() => getRecentSearches());
-  const { items = [] } = useContext(DataContext);
   const searchRef = useRef(null);
 
   const offerNotifications = [

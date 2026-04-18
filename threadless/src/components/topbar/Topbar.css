@@ -163,7 +163,7 @@
 }
 
 .topbar-select-item, .topbar-select-option {
-  margin: 5px;
+  margin: 0px;
 }
 
 .topbar-select-item.is-active .topbar-select-option,

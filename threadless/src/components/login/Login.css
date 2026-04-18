@@ -25,8 +25,10 @@
 .modal-overlay .modal-header{
   position:relative;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:12px;
+  flex-wrap: wrap;
+  padding-right: 26px;
 }
 
 .modal-overlay .modal-header h2{
@@ -56,6 +58,9 @@
 }
 
 .modal-overlay .close{
+  position: absolute;
+  right: 0;
+  top: 0;
   cursor:pointer;
   font-size:20px;
   flex-shrink:0;
@@ -79,6 +84,45 @@
   background: #ffffff;
   box-sizing: border-box;
   font-size:16px;
+}
+
+.modal-overlay .reset-container {
+  margin: 16px 0 0;
+}
+
+.modal-overlay .reset-actions {
+  display:flex;
+  gap:10px;
+  flex-wrap: wrap;
+}
+
+.modal-overlay .reset-btn,
+.modal-overlay .reset-cancel {
+  flex: 1 1 auto;
+  min-width: 120px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.modal-overlay .reset-btn {
+  background: #0099FF;
+  color: #fff;
+}
+
+.modal-overlay .reset-btn:hover {
+  background: #0682d5;
+}
+
+.modal-overlay .reset-cancel {
+  background: #f3f4f6;
+  color: #111;
+}
+
+.modal-overlay .reset-cancel:hover {
+  background: #e2e8f0;
 }
 
 .modal-overlay .login-btn{
@@ -111,11 +155,44 @@
   text-decoration:underline;
 }
 
+.modal-overlay .form-error,
+.modal-overlay .status-message {
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.modal-overlay .form-error {
+  color: #d62828;
+}
+
+.modal-overlay .status-message {
+  color: #2a7d2a;
+}
+
 .modal-overlay .divider{
-  text-align:center;
-  margin:16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 18px 0;
   color:#555555;
   font: 13px helvetica, arial;
+  width: 100%;
+}
+
+.modal-overlay .divider::before,
+.modal-overlay .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+.modal-overlay .divider span {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .modal-overlay .social-btn{
@@ -144,6 +221,7 @@
   color:#55555599;
   margin-top:10px;
   font: 12px helvetica, arial;
+  text-align: center;
 }
 
 .modal-overlay .footer-text a{
@@ -153,4 +231,8 @@
 
 .modal-overlay .footer-text a:hover{
   text-decoration: underline;
+}
+
+.divider {
+  background-color: transparent;
 }

@@ -11,10 +11,13 @@ import {
   FaGlobeAmericas,
   FaShoppingCart,
   FaHeart,
+  FaUserCircle,
   FaSearch,
-  FaTimes,
+  FaTimes
 } from "react-icons/fa";
 import { DataContext } from "../../context/DataContext";
+import { clearCurrentUser, getCurrentUser, getCurrentUserPhoto } from "../../utils/auth";
+import { getCurrentSeller } from "../../utils/sellerAuth";
 import {
   addRecentSearch,
   getRecentSearches,
@@ -32,11 +35,16 @@ function Header() {
   const [cartCount, setCartCount] = useState(0);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [hasViewedNotifications, setHasViewedNotifications] = useState(false);
+  const [currentUser, setCurrentUser] = useState(() => getCurrentUser());
+  const [currentUserPhoto, setCurrentUserPhoto] = useState(() => getCurrentUserPhoto());
+  const [currentSeller, setCurrentSeller] = useState(() => getCurrentSeller());
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { items = [] } = useContext(DataContext);
+  const notificationRef = useRef(null);
+  const profileRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState(() => getRecentSearches());
-  const { items = [] } = useContext(DataContext);
-  const notificationRef = useRef(null);
   const searchRef = useRef(null);
 
   const offerNotifications = [
@@ -73,6 +81,59 @@ function Header() {
       window.removeEventListener("threadless-cart-updated", updateCartCount);
     };
   }, []);
+
+  useEffect(() => {
+    const syncAuth = () => {
+      setCurrentUser(getCurrentUser());
+      setCurrentUserPhoto(getCurrentUserPhoto());
+    };
+    syncAuth();
+    window.addEventListener("storage", syncAuth);
+    window.addEventListener("threadless-auth-updated", syncAuth);
+    return () => {
+      window.removeEventListener("storage", syncAuth);
+      window.removeEventListener("threadless-auth-updated", syncAuth);
+    };
+  }, []);
+
+  useEffect(() => {
+    const syncSeller = () => {
+      setCurrentSeller(getCurrentSeller());
+    };
+    syncSeller();
+    window.addEventListener("storage", syncSeller);
+    window.addEventListener("threadless-seller-auth-updated", syncSeller);
+    return () => {
+      window.removeEventListener("storage", syncSeller);
+      window.removeEventListener("threadless-seller-auth-updated", syncSeller);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isProfileOpen) {
+      return undefined;
+    }
+
+    const handlePointerDown = (event) => {
+      if (!profileRef.current?.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsProfileOpen(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handlePointerDown);
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("mousedown", handlePointerDown);
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [isProfileOpen]);
 
   useEffect(() => {
     if (!isNotificationOpen) {
@@ -371,19 +432,69 @@ function Header() {
           <div className="divider"></div>
 
           <div className="sell-login-group">
-            <Link to="/sell-your-art" className="sell-art">
-              <span>Sell</span>
-              <span>Your Art</span>
-            </Link>
+            {currentSeller ? (
+              <Link to="/seller-dashboard" className="sell-art">
+                <span>Seller</span>
+                <span>Dashboard</span>
+              </Link>
+            ) : (
+              <Link to="/sell-your-art" className="sell-art">
+                <span>Sell</span>
+                <span>Your Art</span>
+              </Link>
+            )}
           </div>
 
           <div className="join-login-group">
-            <Link to="/signup" state={{ backgroundLocation: location }} className="join-btn">
-              JOIN NOW
-            </Link>
-            <Link to="/login" state={{ backgroundLocation: location }} className="login-lnk">
-              LOG IN
-            </Link>
+            {currentUser ? (
+              <div className="auth-group" ref={profileRef}>
+                <button
+                  type="button"
+                  className="profile-trigger"
+                  aria-haspopup="menu"
+                  aria-expanded={isProfileOpen}
+                  onClick={() => setIsProfileOpen((open) => !open)}
+                  onMouseEnter={() => setIsProfileOpen(true)}
+                  onFocus={() => setIsProfileOpen(true)}
+                >
+                  {currentUserPhoto ? (
+                    <img
+                      className="profile-avatar"
+                      src={currentUserPhoto}
+                      alt="User profile"
+                    />
+                  ) : (
+                    <FaUserCircle />
+                  )}
+                </button>
+                {isProfileOpen ? (
+                  <div className="profile-dropdown" role="menu">
+                    <div className="profile-item profile-name">
+                      Signed in as <strong>{currentUser}</strong>
+                    </div>
+                    <button
+                      type="button"
+                      className="profile-menu-item"
+                      onClick={() => {
+                        clearCurrentUser();
+                        setIsProfileOpen(false);
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <>
+                <Link to="/signup" state={{ backgroundLocation: location }} className="join-btn">
+                  JOIN NOW
+                </Link>
+                <Link to="/login" state={{ backgroundLocation: location }} className="login-lnk">
+                  Login
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

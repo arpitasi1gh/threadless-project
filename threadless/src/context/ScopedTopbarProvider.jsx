@@ -39,6 +39,11 @@ const getMinPrice = (item) => {
 
 const getDesignTitle = (item) => item?.design?.title ?? item?.designTitle ?? ''
 const getDesignArtist = (item) => item?.design?.artist ?? item?.artist ?? ''
+const getStableId = (item) => {
+  const raw = item?.id ?? item?.designId ?? ''
+  const asNumber = Number(raw)
+  return Number.isFinite(asNumber) ? asNumber : String(raw)
+}
 
 function shuffleInPlace(list) {
   for (let i = list.length - 1; i > 0; i -= 1) {
@@ -72,6 +77,14 @@ export default function ScopedTopbarProvider({
     }
 
     switch (sortBy) {
+      case 'None':
+        result.sort((a, b) => {
+          const aId = getStableId(a)
+          const bId = getStableId(b)
+          if (typeof aId === 'number' && typeof bId === 'number') return aId - bId
+          return String(aId).localeCompare(String(bId))
+        })
+        break
       case 'Random':
         shuffleInPlace(result)
         break

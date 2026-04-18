@@ -91,11 +91,32 @@
   color:#555555;
   margin-bottom:10px;
   font:13px helvetica, arial;
-  margin-left: 19px;
+  margin-left: 0;
+  padding-left: 18px;
 }
 
 .overlay .rules p{
   margin:3px 0;
+}
+
+.overlay .rules.is-error{
+  color:#d62828;
+}
+
+.overlay .form-error,
+.overlay .status-message {
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #333;
+}
+
+.overlay .form-error {
+  color: #d62828;
+}
+
+.overlay .status-message {
+  color: #2a7d2a;
 }
 
 .overlay .checkbox{
@@ -105,6 +126,12 @@
   margin:10px 0;
   font:13px helvetica, arial;
   color:#555555;
+  align-items: flex-start;
+}
+
+.overlay .checkbox label {
+  line-height: 1.35;
+  margin-top: 1px;
 }
 
 .overlay .checkbox input{
@@ -132,10 +159,27 @@
 }
 
 .overlay .divider{
-  text-align:center;
-  margin:12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0;
   font:13px helvetica, arial;
   color:#555555;
+  width: 100%;
+}
+
+.overlay .divider::before,
+.overlay .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+.overlay .divider span {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .overlay .social-btn{
@@ -164,6 +208,7 @@
   color:#55555599;
   margin-top:10px;
   font: 12px helvetica, arial;
+  text-align: center;
 }
 
 .overlay .footer-text a{
@@ -173,4 +218,8 @@
 
 .overlay .footer-text a:hover{
   text-decoration: underline;
+}
+
+.divider {
+  background-color: transparent;
 }

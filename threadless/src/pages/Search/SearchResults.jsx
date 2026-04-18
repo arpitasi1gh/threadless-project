@@ -98,72 +98,74 @@ function SearchResults() {
 
   return (
     <main className="search-results-page">
-      <section className="search-results-hero">
-        <div>
-          <p className="search-results-kicker">Search</p>
-          <h1>{query ? `Results for "${query}"` : 'Search the Threadless catalog'}</h1>
-          <p className="search-results-copy">
-            {query
-              ? `${results.length} matching designs and products across the shop.`
-              : 'Start from a design title, artist, tag, or product type to discover something new.'}
-          </p>
-        </div>
-        <div className="search-results-meta">
-          <FaSearch />
-          <span>{query ? `${results.length} found` : 'Browse suggestions'}</span>
-        </div>
-      </section>
-
-      {recentSearches.length > 0 ? (
-        <section className="search-panel">
-          <div className="search-panel-header">
-            <div>
-              <p className="search-panel-kicker">Recent Searches</p>
-              <h2>Pick up where you left off</h2>
-            </div>
+      <section className="search-top-grid">
+        <section className="search-results-hero">
+          <div>
+            <p className="search-results-kicker">Search</p>
+            <h1>{query ? `Results for "${query}"` : 'Search the Threadless catalog'}</h1>
+            <p className="search-results-copy">
+              {query
+                ? `${results.length} matching designs and products across the shop.`
+                : 'Start from a design title, artist, tag, or product type to discover something new.'}
+            </p>
           </div>
-          <div className="recent-search-list">
-            {recentSearches.map((searchTerm) => (
-              <div className="recent-search-chip" key={searchTerm}>
-                <button type="button" className="recent-search-link" onClick={() => runSearch(searchTerm)}>
+          <div className="search-results-meta">
+            <FaSearch />
+            <span>{query ? `${results.length} found` : 'Browse suggestions'}</span>
+          </div>
+        </section>
+
+        {recentSearches.length > 0 ? (
+          <section className="search-panel">
+            <div className="search-panel-header">
+              <div>
+                <p className="search-panel-kicker">Recent Searches</p>
+                <h2>Pick up where you left off</h2>
+              </div>
+            </div>
+            <div className="recent-search-list">
+              {recentSearches.map((searchTerm) => (
+                <div className="recent-search-chip" key={searchTerm}>
+                  <button type="button" className="recent-search-link" onClick={() => runSearch(searchTerm)}>
+                    {searchTerm}
+                  </button>
+                  <button
+                    type="button"
+                    className="recent-search-remove"
+                    aria-label={`Remove ${searchTerm} from recent searches`}
+                    onClick={() => handleRemoveRecent(searchTerm)}
+                  >
+                    <FaTimes />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {relatedSearches.length > 0 ? (
+          <section className="search-panel search-panel-secondary">
+            <div className="search-panel-header">
+              <div>
+                <p className="search-panel-kicker">Suggestions</p>
+                <h2>{query ? 'You might also like' : 'Popular ways to explore'}</h2>
+              </div>
+            </div>
+            <div className="related-search-list">
+              {relatedSearches.map((searchTerm) => (
+                <button
+                  key={searchTerm}
+                  type="button"
+                  className="related-search-pill"
+                  onClick={() => runSearch(searchTerm)}
+                >
                   {searchTerm}
                 </button>
-                <button
-                  type="button"
-                  className="recent-search-remove"
-                  aria-label={`Remove ${searchTerm} from recent searches`}
-                  onClick={() => handleRemoveRecent(searchTerm)}
-                >
-                  <FaTimes />
-                </button>
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {relatedSearches.length > 0 ? (
-        <section className="search-panel search-panel-secondary">
-          <div className="search-panel-header">
-            <div>
-              <p className="search-panel-kicker">Suggestions</p>
-              <h2>{query ? 'You might also like' : 'Popular ways to explore'}</h2>
+              ))}
             </div>
-          </div>
-          <div className="related-search-list">
-            {relatedSearches.map((searchTerm) => (
-              <button
-                key={searchTerm}
-                type="button"
-                className="related-search-pill"
-                onClick={() => runSearch(searchTerm)}
-              >
-                {searchTerm}
-              </button>
-            ))}
-          </div>
-        </section>
-      ) : null}
+          </section>
+        ) : null}
+      </section>
 
       {query && results.length === 0 ? (
         <section className="search-empty-state">
@@ -208,11 +210,6 @@ function SearchResults() {
                       <h3 className="cardTitle">
                         {item.design.title} <span className="cardArtist">by {item.design.artist}</span>
                       </h3>
-                      <p className="search-card-type">
-                        {[matchedProductType, ...item.products.map((product) => product.type)]
-                          .filter((productType, index, list) => productType && list.indexOf(productType) === index)
-                          .join(' | ')}
-                      </p>
                       {startingPrice > 0 ? <p className="cardPrice">From ${startingPrice.toFixed(2)}</p> : null}
                     </div>
                     <div className="card-actions">
@@ -285,7 +282,6 @@ function SearchResults() {
                         <h3 className="cardTitle">
                           {item.design.title} <span className="cardArtist">by {item.design.artist}</span>
                         </h3>
-                        <p className="search-card-type">{matchedProductType}</p>
                         {startingPrice > 0 ? <p className="cardPrice">From ${startingPrice.toFixed(2)}</p> : null}
                       </div>
                     </div>

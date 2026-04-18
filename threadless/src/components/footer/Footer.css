@@ -40,10 +40,10 @@
 
 .footer-top {
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(360px, 500px) minmax(240px, 1fr);
-  gap: 32px;
-  align-items: start;
-  padding: 22px 0 16px;
+  grid-template-columns: minmax(220px, 0.95fr) minmax(260px, 360px) minmax(220px, 0.9fr);
+  gap: 24px;
+  align-items: center;
+  padding: 18px 0 12px;
 }
 
 .newsletter,
@@ -53,14 +53,15 @@
 
 .newsletter {
   justify-self: start;
+  max-width: 280px;
 }
 
 .social {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   justify-self: end;
-  width: max-content;
-  max-width: 100%;
+  width: min(100%, 310px);
+  align-content: center;
 }
 
 .newsletter h2,
@@ -92,13 +93,14 @@
 .newsletter-form {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   width: 100%;
-  max-width: 500px;
+  max-width: 360px;
   min-width: 0;
-  justify-self: center;
+  justify-self: start;
   align-self: center;
-  padding: 8px;
+  margin-left: -44px;
+  padding: 6px;
   border: 1px solid rgba(154, 175, 214, 0.72);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.88);
@@ -113,7 +115,7 @@
   align-items: center;
   width: 100%;
   min-width: 0;
-  padding-left: 8px;
+  padding-left: 10px;
 }
 
 .newsletter-input-label {
@@ -132,12 +134,12 @@
   flex: 1;
   width: 100%;
   min-width: 0;
-  padding: 12px 10px;
+  padding: 8px 4px;
   border: 0;
   border-radius: 999px;
   background: transparent;
   box-shadow: none;
-  font-size: 1rem;
+  font-size: 0.92rem;
   color: #223459;
   outline: none;
   transition:
@@ -161,14 +163,14 @@
 
 .newsletter-form button {
   flex-shrink: 0;
-  min-width: 126px;
-  padding: 14px 26px;
+  min-width: 94px;
+  padding: 10px 18px;
   border: 0;
   border-radius: 999px;
   cursor: pointer;
   background: linear-gradient(135deg, #2f7fff, #1f69dd);
   color: #fff;
-  font-size: 0.98rem;
+  font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   box-shadow: 0 10px 20px rgba(38, 107, 222, 0.2);
@@ -187,14 +189,14 @@
 .icons {
   display: flex;
   flex-wrap: nowrap;
-  gap: 12px;
-  margin-top: 8px;
+  gap: 10px;
+  margin-top: 10px;
   align-items: center;
 }
 
 .icons a {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -405,6 +407,14 @@
   .social,
   .newsletter-form {
     justify-self: stretch;
+  }
+
+  .newsletter-form {
+    margin-left: 0;
+  }
+
+  .newsletter {
+    max-width: none;
   }
 
   .social {

@@ -392,7 +392,7 @@
   font-size: 16px;
   font-weight: 700;
   margin: 0 0 8px 0;
-  font-style: italic;
+
 }
 
 .price-card p {
@@ -406,6 +406,44 @@
   border-radius: 12px;
   overflow: hidden;
   position: relative;
+  isolation: isolate;
+}
+
+.category-image-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 10, 0.1) 0%, rgba(10, 10, 10, 0.68) 100%),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 45, 138, 0.18) 0 16px,
+      rgba(255, 255, 255, 0.08) 16px 32px
+    );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.category-image-card::after {
+  content: "COMING SOON!!";
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-8deg);
+  padding: 10px 18px;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  background: rgba(255, 45, 138, 0.9);
+  color: #ffffff;
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  z-index: 2;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 .category-image-card img {
@@ -431,6 +469,7 @@
   letter-spacing: 2px;
   color: #ffffff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 2;
 }
 
 /* --- HOW IT WORKS SECTION --- */
@@ -681,6 +720,12 @@
     grid-template-columns: 1fr;
   }
 
+  .category-image-card::after {
+    top: 16px;
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -736,5 +781,12 @@
 
   .category-tabs {
     gap: 4px;
+  }
+
+  .category-image-card::after {
+    top: 14px;
+    padding: 8px 14px;
+    font-size: 12px;
+    letter-spacing: 1.6px;
   }
 }

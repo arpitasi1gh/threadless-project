@@ -1,13 +1,16 @@
 import '../all-designs/AllDesigns.css'
-import { useContext, useMemo } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { FaHeart, FaPlus } from 'react-icons/fa'
 import { useSearchParams } from 'react-router-dom'
 import Banner from '../../components/banner/Banner'
 import ProductCard from '../../components/cards/ProductCard'
+import LoadingScreen from '../../components/loading/LoadingScreen'
+import Pagination from '../../components/pagination/Pagination'
 import Topbar from '../../components/topbar/Topbar'
 import { DataContext } from '../../context/DataContext'
 import ScopedTopbarProvider from '../../context/ScopedTopbarProvider'
 import { useTopbar } from '../../context/TopbarContext'
+import useItemsPerPage from '../../hooks/useItemsPerPage'
 import { addItemToCart } from '../../utils/cart'
 import { findProductByType, hasProductType, matchesDesignKeywords } from '../../utils/products'
 
@@ -15,6 +18,7 @@ const DESIGN_NOUN = { singular: 'design', plural: 'designs' }
 const PRODUCT_NOUN = { singular: 'product', plural: 'products' }
 
 const DESIGN_SORT_OPTIONS = [
+  { value: 'None', label: 'None' },
   { value: 'Random', label: 'Random' },
   { value: 'Artist A-Z', label: 'Artist Name (A-Z)' },
   { value: 'Artist Z-A', label: 'Artist Name (Z-A)' },
@@ -23,6 +27,8 @@ const DESIGN_SORT_OPTIONS = [
 ]
 
 const PRODUCT_SORT_OPTIONS = [
+  { value: 'None', label: 'None' },
+  { value: 'Random', label: 'Random' },
   { value: 'Name A-Z', label: 'Name (A-Z)' },
   { value: 'Name Z-A', label: 'Name (Z-A)' },
   { value: 'Price:LowToHigh', label: 'Price (Low To High)' },
@@ -35,9 +41,29 @@ function CatalogPageBody({
   productType,
   disclaimer,
 }) {
-  const { filteredItems } = useTopbar()
+  const { filteredItems, sortBy, filterBy } = useTopbar()
   const [searchParams, setSearchParams] = useSearchParams()
   const displayItems = Array.isArray(filteredItems) ? filteredItems : baseItems
+  const itemsPerPage = useItemsPerPage(5)
+  const [page, setPage] = useState(1)
+
+  const pageCount = useMemo(
+    () => Math.max(1, Math.ceil(displayItems.length / itemsPerPage)),
+    [displayItems.length, itemsPerPage],
+  )
+
+  useEffect(() => {
+    setPage(1)
+  }, [sortBy, filterBy, itemsPerPage])
+
+  useEffect(() => {
+    setPage((prev) => Math.min(pageCount, Math.max(1, prev)))
+  }, [pageCount])
+
+  const pagedItems = useMemo(() => {
+    const start = (page - 1) * itemsPerPage
+    return displayItems.slice(start, start + itemsPerPage)
+  }, [displayItems, itemsPerPage, page])
 
   const selectedDesignId = useMemo(() => {
     const rawId = searchParams.get('design')
@@ -87,7 +113,7 @@ function CatalogPageBody({
       <Banner />
       <Topbar />
       <div className="card-grid">
-        {displayItems.map((item) => {
+        {pagedItems.map((item) => {
           const startingPrice = getStartingPrice(item)
           return (
             <article
@@ -120,7 +146,7 @@ function CatalogPageBody({
                   <p className="cardPrice">${startingPrice.toFixed(2)}</p>
                 ) : null}
               </div>
-              <div className="card-actions">
+              <div className="card-actions card-actions-inline">
                 <button
                   className="icon-button favorite-button"
                   aria-label="Add to favorites"
@@ -144,6 +170,7 @@ function CatalogPageBody({
           )
         })}
       </div>
+      <Pagination page={page} pageCount={pageCount} onPageChange={setPage} />
       {selectedItem ? (
         <ProductCard
           key={selectedItem.id}
@@ -176,7 +203,7 @@ export default function CatalogPage({
   }, [items, productType, designKeywords])
 
   if (loading) {
-    return <div className="spinner">Loading amazing cards...</div>
+    return <LoadingScreen />
   }
 
   return (
@@ -184,7 +211,7 @@ export default function CatalogPage({
       items={baseItems}
       countNoun={productType ? PRODUCT_NOUN : DESIGN_NOUN}
       sortOptions={productType ? PRODUCT_SORT_OPTIONS : DESIGN_SORT_OPTIONS}
-      defaultSortBy={productType ? 'Name A-Z' : designKeywords ? 'Random' : 'Design A-Z'}
+      defaultSortBy={productType ? 'Name A-Z' : designKeywords ? 'Random' : 'None'}
       allCountOverride={designKeywords || productType ? allDesignCount : undefined}
     >
       <CatalogPageBody

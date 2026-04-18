@@ -1,16 +1,13 @@
-import { useRef, useState } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ArtistShop.css";
 
-import heroClothing from "../../assets/images/hero-clothing.jpg";
 import testimonialAvatar from "../../assets/images/testimonial-avatar.png";
 import categoryAccessories from "../../assets/images/category-accessories.jpg";
 import categoryHomegoods from "../../assets/images/category-homegoods.jpg";
-import productTshirt from "../../assets/images/product-tshirt.jpg";
-import productHoodie from "../../assets/images/product-hoodie.jpg";
-import productSweatshirt from "../../assets/images/product-sweatshirt.jpg";
-import productPullover from "../../assets/images/product-pullover.jpg";
-import productBlanket from "../../assets/images/product-blanket.jpg";
-import productHeavyweight from "../../assets/images/product-heavyweight.jpg";
+import { DataContext } from "../../context/DataContext";
+import { findSellerShop, saveSellerShop, setCurrentSeller } from "../../utils/sellerAuth";
+import { validatePassword, validateUsername } from "../../utils/auth";
 
 const categories = [
   { label: "All", icon: "🌟", active: true },
@@ -21,46 +18,18 @@ const categories = [
   { label: "Headwear", icon: "🎩", active: false },
 ];
 
-const productsRow1 = [
-  {
-    image: productTshirt,
-    name: "THE essential, elevated Premium Zip-Up Hoodie",
-  },
-  {
-    image: productHoodie,
-    name: "THE essential, elevated Premium Zip-Up Hoodie",
-  },
-  {
-    image: productSweatshirt,
-    name: "Premium crew sweatshirt, refined and built to last",
-  },
-  {
-    image: productPullover,
-    name: "Premium crew sweatshirt, refined and built to last",
-  },
-];
-
-const productsRow2 = [
-  {
-    image: productPullover,
-    name: "Premium pullover hoodie with durability, comfort, and elevated details",
-  },
-  {
-    image: productHoodie,
-    name: "Premium pullover hoodie with durability, comfort, and elevated details",
-  },
-  {
-    image: productBlanket,
-    name: "100% soft cotton woven throw blanket available in three sizes",
-  },
-  {
-    image: productHeavyweight,
-    name: "Comfort Colors garment-dyed heavyweight t-shirt in 25 colors",
-  },
-];
-
 const ArtistShop = () => {
-  const [email, setEmail] = useState("");
+  const { items = [] } = useContext(DataContext);
+  const navigate = useNavigate();
+  const [sellerMode, setSellerMode] = useState("signup"); // 'signup' | 'login'
+  const [sellerEmail, setSellerEmail] = useState("");
+  const [shopName, setShopName] = useState("");
+  const [sellerUsername, setSellerUsername] = useState("");
+  const [sellerPassword, setSellerPassword] = useState("");
+  const [loginIdentifier, setLoginIdentifier] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [sellerError, setSellerError] = useState("");
+  const [sellerStatus, setSellerStatus] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const signupCardRef = useRef(null);
 
@@ -69,6 +38,144 @@ const ArtistShop = () => {
       behavior: "smooth",
       block: "start",
     });
+  };
+
+  const productShowcase = useMemo(() => {
+    const safeItems = Array.isArray(items) ? items : [];
+    const typeOrder = ["T-Shirt", "hoodie", "mug", "phonecase", "headwear"];
+
+    const headlineFromAbout = (about) => {
+      const value = String(about || "").trim();
+      if (!value) return "";
+      const firstSentence = value.split(".")[0]?.trim();
+      return firstSentence || value;
+    };
+
+    const flattened = [];
+    for (const item of safeItems) {
+      const designTitle = item?.design?.title;
+      const products = Array.isArray(item?.products) ? item.products : [];
+      for (const product of products) {
+        if (!product?.image) continue;
+        flattened.push({
+          key: `${item?.id || designTitle || "design"}-${product.type}-${product.image}`,
+          type: String(product.type || "").trim(),
+          image: product.image,
+          headline: headlineFromAbout(product.about) || `${String(product.type || "").trim()} by ${item?.design?.artist || "Threadless"}`,
+        });
+      }
+    }
+
+    flattened.sort((a, b) => {
+      const ai = typeOrder.indexOf(a.type);
+      const bi = typeOrder.indexOf(b.type);
+      const aRank = ai === -1 ? typeOrder.length : ai;
+      const bRank = bi === -1 ? typeOrder.length : bi;
+      if (aRank !== bRank) return aRank - bRank;
+      return a.headline.localeCompare(b.headline);
+    });
+
+    return flattened;
+  }, [items]);
+
+  const visibleProducts = useMemo(() => {
+    const mapLabelToType = {
+      "T-Shirt": "T-Shirt",
+      Hoodie: "hoodie",
+      Mug: "mug",
+      "Phone Case": "phonecase",
+      Headwear: "headwear",
+    };
+
+    const type = mapLabelToType[activeCategory];
+    const filtered = activeCategory === "All" ? productShowcase : productShowcase.filter((p) => p.type === type);
+    return filtered.slice(0, 8);
+  }, [activeCategory, productShowcase]);
+
+  const submitSellerSignup = (event) => {
+    event.preventDefault();
+    setSellerError("");
+    setSellerStatus("");
+
+    const emailValue = String(sellerEmail || "").trim();
+    const shopValue = String(shopName || "").trim();
+    const usernameValue = String(sellerUsername || "").trim();
+    const passwordValue = String(sellerPassword || "");
+
+    if (!emailValue || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+      setSellerError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!shopValue) {
+      setSellerError("Please enter your shop name.");
+      return;
+    }
+
+    const usernameValidation = validateUsername(usernameValue);
+    if (!usernameValidation.ok) {
+      setSellerError(usernameValidation.message);
+      return;
+    }
+
+    const passwordStatus = validatePassword(passwordValue);
+    if (!passwordStatus.ok) {
+      setSellerError("Password does not match the required criteria.");
+      return;
+    }
+
+    const existing = findSellerShop({ email: emailValue, username: usernameValue });
+    if (existing) {
+      setSellerError("This email or username already exists. Please log in instead.");
+      setSellerMode("login");
+      setLoginIdentifier(usernameValue || emailValue);
+      setLoginPassword("");
+      return;
+    }
+
+    saveSellerShop({
+      email: emailValue,
+      shopName: shopValue,
+      username: usernameValue,
+      password: passwordValue,
+    });
+    setCurrentSeller(usernameValue);
+    navigate("/seller-dashboard");
+  };
+
+  const submitSellerLogin = (event) => {
+    event.preventDefault();
+    setSellerError("");
+    setSellerStatus("");
+
+    const identifierValue = String(loginIdentifier || "").trim();
+    const passwordValue = String(loginPassword || "");
+    if (!identifierValue) {
+      setSellerError("Please enter your email or username.");
+      return;
+    }
+    if (!passwordValue) {
+      setSellerError("Please enter your password.");
+      return;
+    }
+
+    const isEmail = identifierValue.includes("@");
+    const shop = findSellerShop(isEmail ? { email: identifierValue } : { username: identifierValue });
+    if (!shop) {
+      setSellerError("Shop account not found. Please create your shop first.");
+      setSellerMode("signup");
+      setSellerEmail(isEmail ? identifierValue : "");
+      setSellerUsername(isEmail ? "" : identifierValue);
+      return;
+    }
+
+    if (String(shop.password || "") !== passwordValue) {
+      setSellerError("Password is incorrect. Please try again.");
+      return;
+    }
+
+    setCurrentSeller(shop.username);
+    navigate("/seller-dashboard");
   };
 
   return (
@@ -108,21 +215,119 @@ const ArtistShop = () => {
         <div className="hero-right">
           <div className="signup-card" ref={signupCardRef}>
             <h3>Start Your Free Shop</h3>
-            <span className="signup-step">Step 1</span>
-            <input
-              type="email"
-              className="signup-input"
-              placeholder="Enter Your Email to Get Started"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              aria-label="Enter your email to get started"
-            />
-            <button className="signup-btn" type="button">
-              CONTINUE <span>?</span>
-            </button>
-            <p className="signup-login">
-              Already have a shop? <a href="#login">Log In</a>
-            </p>
+            {sellerMode === "signup" ? (
+              <form className="seller-form" onSubmit={submitSellerSignup}>
+                <input
+                  type="email"
+                  className="signup-input"
+                  placeholder="Email ID"
+                  value={sellerEmail}
+                  onChange={(e) => setSellerEmail(e.target.value)}
+                  autoComplete="email"
+                  aria-label="Email ID"
+                />
+                <input
+                  type="text"
+                  className="signup-input"
+                  placeholder="Shop Name"
+                  value={shopName}
+                  onChange={(e) => setShopName(e.target.value)}
+                  aria-label="Shop Name"
+                />
+                <input
+                  type="text"
+                  className="signup-input"
+                  placeholder="Username"
+                  value={sellerUsername}
+                  onChange={(e) => setSellerUsername(e.target.value)}
+                  autoComplete="username"
+                  aria-label="Username"
+                />
+                <input
+                  type="password"
+                  className="signup-input"
+                  placeholder="Password"
+                  value={sellerPassword}
+                  onChange={(e) => setSellerPassword(e.target.value)}
+                  autoComplete="new-password"
+                  aria-label="Password"
+                />
+
+                {sellerError ? <p className="seller-error">{sellerError}</p> : null}
+                {sellerStatus ? <p className="seller-status">{sellerStatus}</p> : null}
+
+                <div className="seller-rules">
+                  <p>Passwords should be at least 12 characters</p>
+                  <p>Include lower and uppercase and at least one number</p>
+                  <p>Include at least one of special characters from !@#$%</p>
+                </div>
+
+                <button className="signup-btn" type="submit">
+                  CREATE MY SHOP! <span>🚀</span>
+                </button>
+
+                <p className="signup-login">
+                  Already have a shop?{" "}
+                  <button
+                    className="signup-login-link"
+                    type="button"
+                    onClick={() => {
+                      setSellerError("");
+                      setSellerStatus("");
+                      setSellerMode("login");
+                      setLoginIdentifier(sellerUsername || sellerEmail);
+                      setLoginPassword("");
+                    }}
+                  >
+                    Log In
+                  </button>
+                </p>
+              </form>
+            ) : (
+              <form className="seller-form" onSubmit={submitSellerLogin}>
+                <input
+                  type="text"
+                  className="signup-input"
+                  placeholder="Email ID or Username"
+                  value={loginIdentifier}
+                  onChange={(e) => setLoginIdentifier(e.target.value)}
+                  autoComplete="username"
+                  aria-label="Email ID or Username"
+                />
+                <input
+                  type="password"
+                  className="signup-input"
+                  placeholder="Password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  autoComplete="current-password"
+                  aria-label="Password"
+                />
+
+                {sellerError ? <p className="seller-error">{sellerError}</p> : null}
+                {sellerStatus ? <p className="seller-status">{sellerStatus}</p> : null}
+
+                <button className="signup-btn" type="submit">
+                  LOG IN
+                </button>
+
+                <p className="signup-login">
+                  New here?{" "}
+                  <button
+                    className="signup-login-link"
+                    type="button"
+                    onClick={() => {
+                      setSellerError("");
+                      setSellerStatus("");
+                      setSellerMode("signup");
+                      setLoginPassword("");
+                    }}
+                  >
+                    Create a shop
+                  </button>
+                </p>
+              </form>
+            )}
           </div>
         </div>
       </section>
@@ -289,35 +494,18 @@ const ArtistShop = () => {
         </div>
 
         <div className="products-grid">
-          {productsRow1.map((product, idx) => (
-            <div className="product-card" key={`r1-${idx}`}>
+          {visibleProducts.map((product) => (
+            <div className="product-card" key={product.key}>
               <div className="product-card-image">
                 <img
                   src={product.image}
-                  alt={product.name}
+                  alt={product.headline}
                   loading="lazy"
                   width={512}
                   height={512}
                 />
               </div>
-              <p className="product-card-name">{product.name}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="products-grid" style={{ marginTop: "24px" }}>
-          {productsRow2.map((product, idx) => (
-            <div className="product-card" key={`r2-${idx}`}>
-              <div className="product-card-image">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  loading="lazy"
-                  width={512}
-                  height={512}
-                />
-              </div>
-              <p className="product-card-name">{product.name}</p>
+              <p className="product-card-name">{product.headline}</p>
             </div>
           ))}
         </div>

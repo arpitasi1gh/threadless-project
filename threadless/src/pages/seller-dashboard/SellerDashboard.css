@@ -1,0 +1,42 @@
+.seller-dashboard {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  padding: 48px 20px;
+  background: #fafafa;
+}
+
+.seller-dashboard-card {
+  width: min(720px, 100%);
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 18px 60px rgba(18, 35, 66, 0.08);
+  padding: 28px 26px;
+  text-align: center;
+}
+
+.seller-dashboard-card h1 {
+  margin: 0;
+  font: 900 30px "futura-pt-1", "futura-pt-2", system-ui, sans-serif;
+  color: #111827;
+}
+
+.seller-dashboard-sub {
+  margin: 10px 0 0;
+  font: 14px Helvetica, Arial, sans-serif;
+  color: #475569;
+}
+
+.seller-dashboard-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: #1d67da;
+  font: 700 14px Helvetica, Arial, sans-serif;
+  text-decoration: none;
+}
+
+.seller-dashboard-link:hover {
+  text-decoration: underline;
+}
+

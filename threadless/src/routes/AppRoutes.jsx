@@ -1,4 +1,5 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import Footer from '../components/footer/Footer'
 import Header from '../components/Header/Header'
 import Cart from '../components/cart/cart'
@@ -11,6 +12,7 @@ import Home from '../pages/home/Home'
 import AllDesigns from '../pages/all-designs/AllDesigns'
 import Aboutus from '../components/aboutus/Aboutus'
 import ArtistShop from '../components/sellyourart/ArtistShop'
+import SellerDashboard from '../pages/seller-dashboard/SellerDashboard'
 import All_Products from '../pages/All_Products/All_Products'
 import T_Shirts from '../pages/T_Shirts/T_Shirts'
 import Hoodies from '../pages/Hoodies/Hoodies'
@@ -25,7 +27,41 @@ import Urban_Streetart from '../pages/Urban_Streetart/Urban_Streetart'
 
 export default function AppRoutes() {
   const location = useLocation()
-  const backgroundLocation = location.state?.backgroundLocation
+  const isAuthModalRoute = location.pathname === '/login' || location.pathname === '/signup'
+  const explicitBackgroundLocation = location.state?.backgroundLocation
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (isAuthModalRoute) return
+    window.sessionStorage.setItem(
+      'threadless:lastNonAuthRoute',
+      JSON.stringify({
+        pathname: location.pathname,
+        search: location.search,
+        hash: location.hash,
+      }),
+    )
+  }, [isAuthModalRoute, location.hash, location.pathname, location.search])
+
+  const storedBackgroundLocation = (() => {
+    if (typeof window === 'undefined') return null
+    try {
+      const raw = window.sessionStorage.getItem('threadless:lastNonAuthRoute')
+      if (!raw) return null
+      const parsed = JSON.parse(raw)
+      if (!parsed?.pathname) return null
+      return parsed
+    } catch {
+      return null
+    }
+  })()
+
+  const backgroundLocation =
+    explicitBackgroundLocation ||
+    (isAuthModalRoute
+      ? storedBackgroundLocation || { pathname: '/', search: '', hash: '' }
+      : null)
+
   const routeLocation = backgroundLocation || location
 
   return (
@@ -49,6 +85,7 @@ export default function AppRoutes() {
           <Route path="/urban-streetart" element={<Urban_Streetart />} />
           <Route path="/wild-spirit" element={<Wild_Spirit />} />
           <Route path="/sell-your-art" element={<ArtistShop />} />
+          <Route path="/seller-dashboard" element={<SellerDashboard />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/about" element={<Aboutus />} />
           <Route path="/community" element={<Community />} />
@@ -58,7 +95,7 @@ export default function AppRoutes() {
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
-      {backgroundLocation ? (
+      {isAuthModalRoute ? (
         <Routes location={location}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

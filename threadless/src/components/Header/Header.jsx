@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import "./Header.css";
 import {
@@ -11,16 +11,33 @@ import {
   FaGlobeAmericas,
   FaShoppingCart,
   FaHeart,
+  FaSearch,
+  FaTimes,
 } from "react-icons/fa";
 import { DataContext } from "../../context/DataContext";
+import {
+  addRecentSearch,
+  getRecentSearches,
+  getMatchedProduct,
+  getMatchedProductType,
+  getSuggestionImage,
+  removeRecentSearch,
+  sanitizeSearchQuery,
+  searchItems,
+} from "../../utils/search";
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [cartCount, setCartCount] = useState(0);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [hasViewedNotifications, setHasViewedNotifications] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [recentSearches, setRecentSearches] = useState(() => getRecentSearches());
   const { items = [] } = useContext(DataContext);
   const notificationRef = useRef(null);
+  const searchRef = useRef(null);
 
   const offerNotifications = [
     {
@@ -83,6 +100,32 @@ function Header() {
     };
   }, [isNotificationOpen]);
 
+  useEffect(() => {
+    if (!isSearchOpen) {
+      return undefined;
+    }
+
+    const handlePointerDown = (event) => {
+      if (!searchRef.current?.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsSearchOpen(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handlePointerDown);
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("mousedown", handlePointerDown);
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [isSearchOpen]);
+
   const toggleNotifications = () => {
     const nextOpen = !isNotificationOpen;
     setIsNotificationOpen(nextOpen);
@@ -120,6 +163,57 @@ function Header() {
     ];
   }, [items]);
 
+  const searchSuggestions = useMemo(
+    () => searchItems(items, searchQuery, 6),
+    [items, searchQuery],
+  );
+
+  const syncRecentSearches = (nextSearches) => {
+    setRecentSearches(nextSearches);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const cleanQuery = sanitizeSearchQuery(searchQuery);
+
+    if (!cleanQuery) {
+      setIsSearchOpen(true);
+      return;
+    }
+
+    syncRecentSearches(addRecentSearch(cleanQuery));
+    setIsSearchOpen(false);
+    navigate(`/search?q=${encodeURIComponent(cleanQuery)}`);
+  };
+
+  const handleSuggestionSelect = (item) => {
+    const nextQuery = sanitizeSearchQuery(item?.design?.title || searchQuery);
+    const productType = getMatchedProductType(item, searchQuery);
+    setSearchQuery(nextQuery);
+    syncRecentSearches(addRecentSearch(nextQuery));
+    setIsSearchOpen(false);
+    navigate(
+      `/search?q=${encodeURIComponent(nextQuery)}&design=${item.id}${
+        productType ? `&productType=${encodeURIComponent(productType)}` : ""
+      }`,
+    );
+  };
+
+  const handleRecentSearchSelect = (searchTerm) => {
+    const nextQuery = sanitizeSearchQuery(searchTerm);
+    setSearchQuery(nextQuery);
+    syncRecentSearches(addRecentSearch(nextQuery));
+    setIsSearchOpen(false);
+    navigate(`/search?q=${encodeURIComponent(nextQuery)}`);
+  };
+
+  const handleRecentSearchRemove = (event, searchTerm) => {
+    event.stopPropagation();
+    syncRecentSearches(removeRecentSearch(searchTerm));
+  };
+
+  const hasSearchPanelContent = searchSuggestions.length > 0 || recentSearches.length > 0;
+
   return (
     <nav className="navbar">
       <div className="top-bar">
@@ -130,22 +224,99 @@ function Header() {
           />
         </Link>
 
-        <div className="search-wrap">
+        <form className="search-wrap" ref={searchRef} onSubmit={handleSearchSubmit}>
           <div className="search-border">
-            <input type="text" placeholder="Find Art on Threadless" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(event) => {
+                setSearchQuery(event.target.value);
+                setIsSearchOpen(true);
+              }}
+              onFocus={() => setIsSearchOpen(true)}
+              placeholder="Find art, artists, tags, or products"
+              aria-label="Search Threadless products"
+            />
           </div>
-          <button className="search-icon">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#555"
-              strokeWidth="2.5"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <line x1="16.5" y1="16.5" x2="22" y2="22" />
-            </svg>
+          <button className="search-icon" type="submit" aria-label="Search">
+            <FaSearch />
           </button>
-        </div>
+
+          {isSearchOpen && hasSearchPanelContent ? (
+            <div className="search-panel-dropdown" aria-label="Search suggestions">
+              {searchSuggestions.length > 0 ? (
+                <div className="search-dropdown-section">
+                  <div className="search-dropdown-header">
+                    <p>Matching Products</p>
+                    <span>{searchSuggestions.length}</span>
+                  </div>
+                  <div className="search-suggestion-list">
+                    {searchSuggestions.map((item) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className="search-suggestion-item"
+                        onClick={() => handleSuggestionSelect(item)}
+                      >
+                        <img
+                          src={getMatchedProduct(item, searchQuery)?.image || getSuggestionImage(item)}
+                          alt={item.design.title}
+                        />
+                        <div className="search-suggestion-copy">
+                          <strong>{item.design.title}</strong>
+                          <span>by {item.design.artist}</span>
+                          <small>
+                            {(() => {
+                              const matchedType = getMatchedProductType(item, searchQuery);
+                              const productTypes = item.products.map((product) => product.type);
+                              const orderedTypes = matchedType
+                                ? [
+                                    matchedType,
+                                    ...productTypes.filter((productType) => productType !== matchedType),
+                                  ]
+                                : productTypes;
+                              return orderedTypes.join(" | ");
+                            })()}
+                          </small>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {recentSearches.length > 0 ? (
+                <div className="search-dropdown-section">
+                  <div className="search-dropdown-header">
+                    <p>Recent Searches</p>
+                    <span>{recentSearches.length}</span>
+                  </div>
+                  <div className="search-recent-list">
+                    {recentSearches.map((searchTerm) => (
+                      <div className="search-recent-item" key={searchTerm}>
+                        <button
+                          type="button"
+                          className="search-recent-link"
+                          onClick={() => handleRecentSearchSelect(searchTerm)}
+                        >
+                          {searchTerm}
+                        </button>
+                        <button
+                          type="button"
+                          className="search-recent-remove"
+                          aria-label={`Remove ${searchTerm} from recent searches`}
+                          onClick={(event) => handleRecentSearchRemove(event, searchTerm)}
+                        >
+                          <FaTimes />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+        </form>
 
         <div className="right-icons">
           <div
@@ -211,12 +382,12 @@ function Header() {
               JOIN NOW
             </Link>
             <Link to="/login" state={{ backgroundLocation: location }} className="login-lnk">
-              Login
+              LOG IN
             </Link>
           </div>
         </div>
       </div>
-      
+
       <div className="nav-menu">
         <div className="nav-item">
           <Link to="/">Home</Link>
@@ -314,4 +485,5 @@ function Header() {
     </nav>
   );
 }
+
 export default Header;

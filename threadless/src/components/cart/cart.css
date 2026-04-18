@@ -1061,69 +1061,82 @@
 
 .payment-form-card {
   display: grid;
-  gap: 14px;
-  padding: 22px;
+  gap: 16px;
+  padding: 26px;
   border: 1px solid #d9e3ec;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #fbfdff 0%, #f4f8ff 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top right, rgba(123, 170, 255, 0.1), transparent 24%),
+    linear-gradient(180deg, #fbfdff 0%, #f4f8ff 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 14px 34px rgba(24, 53, 104, 0.06);
 }
 
 .payment-card-grid {
-  grid-template-columns: 0.8fr 0.7fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .card-payment-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-  gap: 22px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1.55fr) minmax(220px, 300px);
+  gap: 18px;
+  align-items: start;
 }
 
 .card-form-fields {
   display: grid;
   gap: 14px;
+  min-width: 0;
 }
 
 .card-form-fields label {
   display: grid;
   gap: 7px;
   font-weight: 800;
+  min-width: 0;
 }
 
 .card-form-fields input,
 .card-form-fields select {
-  min-height: 48px;
+  min-height: 44px;
   border: 1px solid #cfdae7;
   border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 15px;
+  padding: 10px 12px;
+  font-size: 14px;
   background: rgba(255, 255, 255, 0.96);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  min-width: 0;
 }
 
 .atm-card-preview {
   position: relative;
   overflow: hidden;
-  min-height: 230px;
-  padding: 22px;
+  min-height: 198px;
+  max-width: 300px;
+  width: 100%;
+  margin-left: auto;
+  padding: 18px 18px 16px;
   border-radius: 22px;
   background:
-    radial-gradient(circle at top right, rgba(255, 255, 255, 0.26), transparent 28%),
-    radial-gradient(circle at bottom left, rgba(116, 175, 255, 0.24), transparent 34%),
-    linear-gradient(135deg, #0f254c 0%, #1e5dc8 52%, #77b9ff 100%);
-  box-shadow: 0 24px 42px rgba(15, 37, 76, 0.24);
+    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.2), transparent 22%),
+    radial-gradient(circle at bottom left, rgba(116, 175, 255, 0.16), transparent 34%),
+    linear-gradient(135deg, #17366e 0%, #2458b3 55%, #68abf6 100%);
+  box-shadow: 0 20px 36px rgba(15, 37, 76, 0.18);
   color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  align-self: start;
 }
 
 .atm-card-preview::before {
   content: "";
   position: absolute;
-  inset: auto -30px -60px auto;
-  width: 180px;
-  height: 180px;
+  inset: auto -22px -72px auto;
+  width: 190px;
+  height: 190px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .atm-card-preview strong,
@@ -1135,36 +1148,37 @@
 
 .atm-card-chip {
   display: inline-block;
-  width: 46px;
-  height: 34px;
-  border-radius: 10px;
+  width: 40px;
+  height: 30px;
+  border-radius: 8px;
   background: linear-gradient(135deg, #f8dc8b, #d9a441);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .atm-card-brand {
   position: absolute !important;
-  top: 22px;
-  right: 22px;
-  font-size: 14px;
+  top: 18px;
+  right: 18px;
+  font-size: 0.86rem;
   font-weight: 900;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .atm-card-preview strong {
   display: block;
-  margin-top: 46px;
-  font-size: 1.35rem;
+  margin-top: 38px;
+  font-size: 1rem;
   font-weight: 900;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
 }
 
 .atm-card-footer {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  margin-top: 34px;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .atm-card-footer span {
@@ -1179,7 +1193,7 @@
 
 .atm-card-footer p {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.84rem;
   font-weight: 800;
 }
 
@@ -1188,6 +1202,7 @@
   color: #5e6976;
   line-height: 1.5;
   font-weight: 700;
+  padding-top: 4px;
 }
 
 .cod-card strong {
@@ -1329,6 +1344,11 @@
 
   .card-payment-layout {
     grid-template-columns: 1fr;
+  }
+
+  .atm-card-preview {
+    max-width: none;
+    margin-left: 0;
   }
 
   .cart-login-row button,

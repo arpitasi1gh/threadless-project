@@ -12,6 +12,25 @@ const promoCodes = {
   FREESHIP: { type: 'shipping', value: 5.99, label: 'Free standard shipping' },
 }
 
+const SHIPPING_FIELD_LIMITS = {
+  country: 40,
+  firstName: 30,
+  lastName: 30,
+  address: 120,
+  address2: 120,
+  city: 40,
+  state: 40,
+  zip: 6,
+  phone: 10,
+}
+
+const CARD_FIELD_LIMITS = {
+  number: 19,
+  name: 40,
+  expiry: 5,
+  cvv: 4,
+}
+
 function readJson(key, fallback) {
   try {
     const value = JSON.parse(localStorage.getItem(key) || 'null')
@@ -23,6 +42,25 @@ function readJson(key, fallback) {
 
 function formatCurrency(value) {
   return `$${value.toFixed(2)}`
+}
+
+function onlyDigits(value) {
+  return value.replace(/\D/g, '')
+}
+
+function formatCardNumber(value) {
+  const digits = onlyDigits(value).slice(0, 16)
+  return digits.replace(/(.{4})/g, '$1 ').trim()
+}
+
+function formatExpiry(value) {
+  const digits = onlyDigits(value).slice(0, 4)
+
+  if (digits.length <= 2) {
+    return digits
+  }
+
+  return `${digits.slice(0, 2)}/${digits.slice(2)}`
 }
 
 function getItemBasePrice(item) {
@@ -64,6 +102,46 @@ function getTotals(items, promoCode) {
   }
 }
 
+function UpiScannerPanel() {
+  const [isQrReady, setIsQrReady] = useState(false)
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setIsQrReady(true)
+    }, 3000)
+
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  return (
+    <>
+      <div className="payment-qr-shell premium-qr-shell">
+        <div className="qr-loading-copy">
+          <span className={`scanner-status ${isQrReady ? 'is-ready' : ''}`}>
+            {isQrReady ? 'Scanner ready' : 'Securing scanner...'}
+          </span>
+        </div>
+        <img
+          className={`payment-qr-image ${isQrReady ? 'is-ready' : 'is-blurred'}`}
+          src={gpayQrImage}
+          alt="Google Pay QR code for Manvir Singh Saran"
+        />
+      </div>
+
+      <div className="payment-details">
+        <div>
+          <span>Payee</span>
+          <strong>Manvir Singh Saran</strong>
+        </div>
+        <div>
+          <span>UPI ID</span>
+          <strong>manvirsaran3654@okicici</strong>
+        </div>
+      </div>
+    </>
+  )
+}
+
 function Checkout() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -90,7 +168,6 @@ function Checkout() {
   const [savedAddresses, setSavedAddresses] = useState([])
   const [selectedAddressId, setSelectedAddressId] = useState('')
   const [paymentMethod, setPaymentMethod] = useState('upi')
-  const [isQrReady, setIsQrReady] = useState(false)
   const [shippingDetails, setShippingDetails] = useState(emptyShippingDetails)
   const [cardDetails, setCardDetails] = useState({
     number: '',
@@ -103,20 +180,6 @@ function Checkout() {
   const promoCode = location.state?.promoCode || ''
   const totals = useMemo(() => getTotals(cartItems, promoCode), [cartItems, promoCode])
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
-
-  useEffect(() => {
-    if (checkoutStep !== 'payment' || paymentMethod !== 'upi') {
-      setIsQrReady(false)
-      return undefined
-    }
-
-    setIsQrReady(false)
-    const timer = window.setTimeout(() => {
-      setIsQrReady(true)
-    }, 3000)
-
-    return () => window.clearTimeout(timer)
-  }, [checkoutStep, paymentMethod])
 
   const handleLogin = (event) => {
     event.preventDefault()
@@ -133,12 +196,34 @@ function Checkout() {
   }
 
   const updateShippingField = (field, value) => {
-    setShippingDetails((details) => ({ ...details, [field]: value }))
+    let nextValue = value
+
+    if (field === 'phone' || field === 'zip') {
+      nextValue = onlyDigits(value).slice(0, SHIPPING_FIELD_LIMITS[field])
+    } else if (typeof value === 'string' && SHIPPING_FIELD_LIMITS[field]) {
+      nextValue = value.slice(0, SHIPPING_FIELD_LIMITS[field])
+    }
+
+    setShippingDetails((details) => ({ ...details, [field]: nextValue }))
   }
 
   const updateCardField = (field, value) => {
-    setCardDetails((details) => ({ ...details, [field]: value }))
+    let nextValue = value
+
+    if (field === 'number') {
+      nextValue = formatCardNumber(value)
+    } else if (field === 'expiry') {
+      nextValue = formatExpiry(value)
+    } else if (field === 'cvv') {
+      nextValue = onlyDigits(value).slice(0, CARD_FIELD_LIMITS.cvv)
+    } else if (field === 'name') {
+      nextValue = value.slice(0, CARD_FIELD_LIMITS.name)
+    }
+
+    setCardDetails((details) => ({ ...details, [field]: nextValue }))
   }
+
+  const hasValidShippingPhone = shippingDetails.phone.length === 10
 
   const selectAddress = (addressId) => {
     const nextAddress = savedAddresses.find((address) => address.id === addressId)
@@ -161,6 +246,11 @@ function Checkout() {
 
     if (missingField) {
       setMessage('Complete the address form before saving another address.')
+      return
+    }
+
+    if (!hasValidShippingPhone) {
+      setMessage('Phone number must be exactly 10 digits.')
       return
     }
 
@@ -214,6 +304,11 @@ function Checkout() {
 
     if (missingField) {
       setMessage('Please complete every required shipping field.')
+      return
+    }
+
+    if (!hasValidShippingPhone) {
+      setMessage('Phone number must be exactly 10 digits.')
       return
     }
 
@@ -367,6 +462,7 @@ function Checkout() {
                         value={shippingDetails.firstName}
                         onChange={(event) => updateShippingField('firstName', event.target.value)}
                         placeholder="First Name"
+                        maxLength={SHIPPING_FIELD_LIMITS.firstName}
                       />
                     </label>
                     <label>
@@ -375,6 +471,7 @@ function Checkout() {
                         value={shippingDetails.lastName}
                         onChange={(event) => updateShippingField('lastName', event.target.value)}
                         placeholder="Last Name"
+                        maxLength={SHIPPING_FIELD_LIMITS.lastName}
                       />
                     </label>
                   </div>
@@ -384,6 +481,7 @@ function Checkout() {
                       value={shippingDetails.address}
                       onChange={(event) => updateShippingField('address', event.target.value)}
                       placeholder="Street Address"
+                      maxLength={SHIPPING_FIELD_LIMITS.address}
                     />
                   </label>
                   <label>
@@ -392,6 +490,7 @@ function Checkout() {
                       value={shippingDetails.address2}
                       onChange={(event) => updateShippingField('address2', event.target.value)}
                       placeholder="Apt, suite, etc. optional"
+                      maxLength={SHIPPING_FIELD_LIMITS.address2}
                     />
                   </label>
                   <div className="checkout-three-col">
@@ -401,6 +500,7 @@ function Checkout() {
                         value={shippingDetails.city}
                         onChange={(event) => updateShippingField('city', event.target.value)}
                         placeholder="City"
+                        maxLength={SHIPPING_FIELD_LIMITS.city}
                       />
                     </label>
                     <label>
@@ -409,6 +509,7 @@ function Checkout() {
                         value={shippingDetails.state}
                         onChange={(event) => updateShippingField('state', event.target.value)}
                         placeholder="State"
+                        maxLength={SHIPPING_FIELD_LIMITS.state}
                       />
                     </label>
                     <label>
@@ -417,6 +518,8 @@ function Checkout() {
                         value={shippingDetails.zip}
                         onChange={(event) => updateShippingField('zip', event.target.value)}
                         placeholder="Postal code"
+                        inputMode="numeric"
+                        maxLength={SHIPPING_FIELD_LIMITS.zip}
                       />
                     </label>
                   </div>
@@ -426,6 +529,8 @@ function Checkout() {
                       value={shippingDetails.phone}
                       onChange={(event) => updateShippingField('phone', event.target.value)}
                       placeholder="Required"
+                      inputMode="numeric"
+                      maxLength={SHIPPING_FIELD_LIMITS.phone}
                     />
                   </label>
                   <label className="checkbox-row">
@@ -494,31 +599,7 @@ function Checkout() {
                 </div>
 
                 {paymentMethod === 'upi' ? (
-                  <>
-                    <div className="payment-qr-shell premium-qr-shell">
-                      <div className="qr-loading-copy">
-                        <span className={`scanner-status ${isQrReady ? 'is-ready' : ''}`}>
-                          {isQrReady ? 'Scanner ready' : 'Securing scanner...'}
-                        </span>
-                      </div>
-                      <img
-                        className={`payment-qr-image ${isQrReady ? 'is-ready' : 'is-blurred'}`}
-                        src={gpayQrImage}
-                        alt="Google Pay QR code for Manvir Singh Saran"
-                      />
-                    </div>
-
-                    <div className="payment-details">
-                      <div>
-                        <span>Payee</span>
-                        <strong>Manvir Singh Saran</strong>
-                      </div>
-                      <div>
-                        <span>UPI ID</span>
-                        <strong>manvirsaran3654@okicici</strong>
-                      </div>
-                    </div>
-                  </>
+                  <UpiScannerPanel />
                 ) : null}
 
                 {paymentMethod === 'card' ? (
@@ -531,6 +612,8 @@ function Checkout() {
                             value={cardDetails.number}
                             onChange={(event) => updateCardField('number', event.target.value)}
                             placeholder="1234 5678 9012 3456"
+                            inputMode="numeric"
+                            maxLength={CARD_FIELD_LIMITS.number}
                           />
                         </label>
                         <label>
@@ -539,6 +622,7 @@ function Checkout() {
                             value={cardDetails.name}
                             onChange={(event) => updateCardField('name', event.target.value)}
                             placeholder="Full name"
+                            maxLength={CARD_FIELD_LIMITS.name}
                           />
                         </label>
                         <div className="checkout-three-col payment-card-grid">
@@ -548,6 +632,8 @@ function Checkout() {
                               value={cardDetails.expiry}
                               onChange={(event) => updateCardField('expiry', event.target.value)}
                               placeholder="MM/YY"
+                              inputMode="numeric"
+                              maxLength={CARD_FIELD_LIMITS.expiry}
                             />
                           </label>
                           <label>
@@ -556,6 +642,8 @@ function Checkout() {
                               value={cardDetails.cvv}
                               onChange={(event) => updateCardField('cvv', event.target.value)}
                               placeholder="123"
+                              inputMode="numeric"
+                              maxLength={CARD_FIELD_LIMITS.cvv}
                             />
                           </label>
                           <label>

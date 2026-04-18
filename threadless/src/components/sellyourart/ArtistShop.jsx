@@ -126,7 +126,7 @@ const ArtistShop = () => {
 
     const existing = findSellerShop({ email: emailValue, username: usernameValue });
     if (existing) {
-      setSellerError("This email or username already exists. Please log in instead.");
+      setSellerError("This email or username already exists, please log in instead.");
       setSellerMode("login");
       setLoginIdentifier(usernameValue || emailValue);
       setLoginPassword("");
@@ -162,7 +162,7 @@ const ArtistShop = () => {
     const isEmail = identifierValue.includes("@");
     const shop = findSellerShop(isEmail ? { email: identifierValue } : { username: identifierValue });
     if (!shop) {
-      setSellerError("Shop account not found. Please create your shop first.");
+      setSellerError("Shop account not found, please create your shop first.");
       setSellerMode("signup");
       setSellerEmail(isEmail ? identifierValue : "");
       setSellerUsername(isEmail ? "" : identifierValue);
@@ -170,7 +170,7 @@ const ArtistShop = () => {
     }
 
     if (String(shop.password || "") !== passwordValue) {
-      setSellerError("Password is incorrect. Please try again.");
+      setSellerError("Password is incorrect, please try again.");
       return;
     }
 
@@ -445,7 +445,7 @@ const ArtistShop = () => {
             <div>
               <h4>Create Your Free Shop</h4>
               <p>
-                Sign up in seconds. Name your shop, pick a custom URL, and
+                Sign up in seconds. Choose your email id, name your shop and
                 you're in.
               </p>
             </div>
@@ -455,7 +455,7 @@ const ArtistShop = () => {
             <div>
               <h4>Upload Your Designs</h4>
               <p>
-                Add your artwork. Pick from 100s of products to put them on.
+                Add your artwork. Pick from 5 products to put them on. More coming soon!
               </p>
             </div>
           </div>
@@ -464,7 +464,7 @@ const ArtistShop = () => {
             <div>
               <h4>Start Earning</h4>
               <p>
-                Share your shop link. We print, ship, and handle customer
+                Share your email id and shop name. We print, ship, and handle customer
                 service.
               </p>
             </div>
@@ -475,8 +475,8 @@ const ArtistShop = () => {
       <section className="products-section">
         <h2 className="section-title">Sell On 100s of Products</h2>
         <p className="section-subtitle">
-          T-shirts, hoodies, mugs, stickers, posters, phone cases, and more. No
-          minimum orders. Unlimited designs.
+          T-shirts, hoodies, mugs, headwear, phone cases, and more. No
+          minimum orders. Unlimited designs and products to explore!
         </p>
 
         <div className="category-tabs">

@@ -1,6 +1,7 @@
 import { useContext, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ArtistShop.css";
+import { FaRocket } from "react-icons/fa";
 
 import testimonialAvatar from "../../assets/images/testimonial-avatar.png";
 import categoryAccessories from "../../assets/images/category-accessories.jpg";
@@ -54,6 +55,7 @@ const ArtistShop = () => {
     const flattened = [];
     for (const item of safeItems) {
       const designTitle = item?.design?.title;
+      const designArtist = item?.design?.artist;
       const products = Array.isArray(item?.products) ? item.products : [];
       for (const product of products) {
         if (!product?.image) continue;
@@ -61,7 +63,8 @@ const ArtistShop = () => {
           key: `${item?.id || designTitle || "design"}-${product.type}-${product.image}`,
           type: String(product.type || "").trim(),
           image: product.image,
-          headline: headlineFromAbout(product.about) || `${String(product.type || "").trim()} by ${item?.design?.artist || "Threadless"}`,
+          designTitle: String(designTitle || "").trim(),
+          designArtist: String(designArtist || "").trim(),
         });
       }
     }
@@ -72,7 +75,7 @@ const ArtistShop = () => {
       const aRank = ai === -1 ? typeOrder.length : ai;
       const bRank = bi === -1 ? typeOrder.length : bi;
       if (aRank !== bRank) return aRank - bRank;
-      return a.headline.localeCompare(b.headline);
+      return a.designTitle.localeCompare(b.designTitle);
     });
 
     return flattened;
@@ -87,9 +90,70 @@ const ArtistShop = () => {
       Headwear: "headwear",
     };
 
+    const mulberry32 = (seed) => {
+      let t = seed;
+      return () => {
+        t += 0x6d2b79f5;
+        let r = Math.imul(t ^ (t >>> 15), t | 1);
+        r ^= r + Math.imul(r ^ (r >>> 7), r | 61);
+        return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+      };
+    };
+
+    const shuffle = (list, rng) => {
+      const arr = [...list];
+      for (let i = arr.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(rng() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
+
+    const pickDiverse = (products, desiredCount) => {
+      const rng = mulberry32(1337);
+      const groups = new Map();
+      for (const product of products) {
+        const key = product.type;
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(product);
+      }
+
+      const orderedKeys = Object.values(mapLabelToType);
+      const shuffledGroups = orderedKeys.map((key) => ({
+        key,
+        items: shuffle(groups.get(key) || [], rng),
+      }));
+
+      const result = [];
+      let exhausted = 0;
+      while (result.length < desiredCount && exhausted < shuffledGroups.length) {
+        exhausted = 0;
+        for (const group of shuffledGroups) {
+          if (result.length >= desiredCount) break;
+          const next = group.items.shift();
+          if (next) {
+            result.push(next);
+          } else {
+            exhausted += 1;
+          }
+        }
+      }
+
+      if (result.length < desiredCount) {
+        const remaining = shuffle(products, rng).filter((p) => !result.some((r) => r.key === p.key));
+        result.push(...remaining.slice(0, desiredCount - result.length));
+      }
+
+      return result;
+    };
+
     const type = mapLabelToType[activeCategory];
-    const filtered = activeCategory === "All" ? productShowcase : productShowcase.filter((p) => p.type === type);
-    return filtered.slice(0, 8);
+    const filtered =
+      activeCategory === "All"
+        ? pickDiverse(productShowcase, 8)
+        : productShowcase.filter((p) => p.type === type).slice(0, 8);
+
+    return filtered;
   }, [activeCategory, productShowcase]);
 
   const submitSellerSignup = (event) => {
@@ -263,7 +327,7 @@ const ArtistShop = () => {
                 </div>
 
                 <button className="signup-btn" type="submit">
-                  CREATE MY SHOP! <span>🚀</span>
+                  CREATE MY SHOP! <FaRocket className="signup-btn-icon" aria-hidden="true" />
                 </button>
 
                 <p className="signup-login">
@@ -499,13 +563,16 @@ const ArtistShop = () => {
               <div className="product-card-image">
                 <img
                   src={product.image}
-                  alt={product.headline}
+                  alt={`${product.designTitle || "Design"} on ${product.type || "product"}`}
                   loading="lazy"
                   width={512}
                   height={512}
                 />
               </div>
-              <p className="product-card-name">{product.headline}</p>
+              <div className="product-card-meta">
+                <p className="product-card-title">{product.designTitle || "Untitled design"}</p>
+                <p className="product-card-artist">by {product.designArtist || "Threadless"}</p>
+              </div>
             </div>
           ))}
         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./SellerDashboard.css";
+import { getCurrentSellerShop } from "../../utils/sellerAuth";
 
 const CATEGORIES = ["T-shirt", "Hoodie", "Mug", "Phone Case", "Headwear"];
 
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const [showForm, setShowForm] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [toast, setToast] = useState(false);
+  const [sellerShop, setSellerShop] = useState(() => getCurrentSellerShop());
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [sizes, setSizes] = useState([]);
@@ -80,6 +82,17 @@ const Dashboard = () => {
     setSizes([]);
   }, [category]);
 
+  useEffect(() => {
+    const syncSeller = () => setSellerShop(getCurrentSellerShop());
+    syncSeller();
+    window.addEventListener("storage", syncSeller);
+    window.addEventListener("threadless-seller-auth-updated", syncSeller);
+    return () => {
+      window.removeEventListener("storage", syncSeller);
+      window.removeEventListener("threadless-seller-auth-updated", syncSeller);
+    };
+  }, []);
+
   const handleSubmit = () => {
     if (!isFormValid) return;
 
@@ -91,6 +104,7 @@ const Dashboard = () => {
       price,
       image,
       description: description.trim(),
+      reviewStatus: "This item is currently under review by our team to check its authenticity.",
     };
 
     setProducts((prev) => [newProduct, ...prev]);
@@ -121,6 +135,13 @@ const Dashboard = () => {
     }
   };
 
+  const renderSizeLabel = (product) => {
+    if (product?.sizes?.length) {
+      return product.sizes.join(" · ");
+    }
+    return SIZE_DISPLAY[product.category] || "";
+  };
+
   return (
     <div className="dashboard-root">
       <header className="dashboard-header">
@@ -139,12 +160,13 @@ const Dashboard = () => {
             <line x1="9" y1="9" x2="9.01" y2="9" />
             <line x1="15" y1="9" x2="15.01" y2="9" />
           </svg>
-          Rivera Studio
+          {sellerShop?.shopName ? sellerShop.shopName : "Your Artist Shop"}
         </div>
         <h1 className="dashboard-title">Artist Dashboard</h1>
         <p className="dashboard-welcome">
-          Welcome, <strong>Alex Rivera</strong>
+          Welcome, <strong>{sellerShop?.username ? sellerShop.username : "Artist"}</strong>
         </p>
+        {sellerShop?.email ? <p className="dashboard-email">{sellerShop.email}</p> : null}
       </header>
 
       <button
@@ -210,7 +232,18 @@ const Dashboard = () => {
                   ))}
                 </select>
                 <span className="select-arrow" aria-hidden="true">
-                  v
+                  <svg
+                    className="product-card-style-icon"
+                    stroke="currentColor"
+                    fill="currentColor"
+                    strokeWidth="0"
+                    viewBox="0 0 448 512"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" />
+                  </svg>
                 </span>
               </div>
             </div>
@@ -270,7 +303,7 @@ const Dashboard = () => {
                   onDragLeave={() => setDragOver(false)}
                   onDrop={onDrop}
                 >
-                  <div className="upload-icon">^</div>
+                  {/* <div className="upload-icon">^</div> */}
                   <div className="upload-text">Drag and drop or click to upload</div>
                 </div>
               )}
@@ -362,8 +395,11 @@ const Dashboard = () => {
               <div className="product-card-body">
                 <div className="product-card-category">{product.category}</div>
                 <div className="product-card-name">{product.name}</div>
-                <div className="product-card-size">{SIZE_DISPLAY[product.category]}</div>
+                <div className="product-card-size">{renderSizeLabel(product)}</div>
                 <div className="product-card-price">${product.price}</div>
+                {product.reviewStatus ? (
+                  <div className="product-card-status">{product.reviewStatus}</div>
+                ) : null}
               </div>
             </div>
           ))}

@@ -128,6 +128,9 @@ const Resources = () => {
         </div>
       </section>
 
+      {/* Color Bar */}
+      <div className="color-bar"></div>
+
       {/* Banner 1 */}
       <div className="banner-divider">
         <img src={banner1} alt="Banner" />
@@ -157,6 +160,11 @@ const Resources = () => {
 
       {/* Color Bar */}
       <div className="color-bar"></div>
+
+      {/* Banner 3 */}
+      <div className="banner-divider">
+        <img src={banner1} alt="Banner" />
+      </div>
 
       {/* Row 4 */}
       <section className="resources-main">

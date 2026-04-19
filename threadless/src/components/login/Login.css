@@ -87,7 +87,8 @@
 }
 
 .modal-overlay .reset-container {
-  margin: 16px 0 0;
+  margin: 16px auto 0;
+  max-width: 340px;
 }
 
 .modal-overlay .reset-actions {

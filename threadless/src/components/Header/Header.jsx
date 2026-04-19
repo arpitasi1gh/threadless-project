@@ -491,7 +491,7 @@ function Header() {
                   JOIN NOW
                 </Link>
                 <Link to="/login" state={{ backgroundLocation: location }} className="login-lnk">
-                  Login
+                  LOGIN
                 </Link>
               </>
             )}

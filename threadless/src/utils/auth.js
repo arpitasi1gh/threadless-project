@@ -65,6 +65,12 @@ export const getCurrentUser = () => {
   return value || null
 }
 
+export const getCurrentUserProfile = () => {
+  const currentUser = getCurrentUser()
+  if (!currentUser) return null
+  return findUser(currentUser)
+}
+
 export const getCurrentUserPhoto = () => {
   if (typeof window === 'undefined') return null
   const raw = window.localStorage.getItem(CURRENT_USER_PHOTO_KEY)

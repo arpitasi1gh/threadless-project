@@ -100,6 +100,25 @@ function CatalogPageBody({
     return item?.design?.image
   }
 
+  const isCloudinaryImage = (url) =>
+    typeof url === 'string' &&
+    url.includes('res.cloudinary.com') &&
+    url.includes('/image/upload/')
+
+  const withCloudinaryTransform = (url, transform) => {
+    if (!isCloudinaryImage(url)) return url
+    return url.replace('/image/upload/', `/image/upload/${transform}/`)
+  }
+
+  const getCardImageSrcSet = (url, widths) => {
+    if (!isCloudinaryImage(url)) return undefined
+    const list = Array.isArray(widths) ? widths : []
+    const entries = list
+      .filter((w) => typeof w === 'number' && w > 0)
+      .map((w) => `${withCloudinaryTransform(url, `f_auto,q_auto,w_${w}`)} ${w}w`)
+    return entries.length ? entries.join(', ') : undefined
+  }
+
   const getStartingPrice = (item) => {
     if (!productType) return null
     const product = findProductByType(item, productType)
@@ -113,7 +132,11 @@ function CatalogPageBody({
       <Banner />
       <Topbar />
       <div className="card-grid">
-        {pagedItems.map((item) => {
+        {pagedItems.map((item, index) => {
+          const rawCardImage = getCardImage(item)
+          const cardImage = withCloudinaryTransform(rawCardImage, 'f_auto,q_auto,w_800')
+          const srcSet = getCardImageSrcSet(rawCardImage, [320, 480, 640, 800, 960])
+          const isLcpCandidate = page === 1 && index === 0
           const startingPrice = getStartingPrice(item)
           return (
             <article
@@ -132,8 +155,15 @@ function CatalogPageBody({
             <div className="card-image-wrap">
               <img
                 className="card-image"
-                src={getCardImage(item)}
+                src={cardImage}
+                srcSet={srcSet}
+                sizes="(max-width: 600px) 92vw, (max-width: 1024px) 46vw, 320px"
                 alt={item.design.title}
+                width={800}
+                height={800}
+                loading={isLcpCandidate ? 'eager' : 'lazy'}
+                fetchPriority={isLcpCandidate ? 'high' : 'auto'}
+                decoding="async"
               />
             </div>
             <div className="card-meta">

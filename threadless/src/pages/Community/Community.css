@@ -413,6 +413,13 @@
   transform: scale(1.03);
 }
 
+.dcc-auth-message {
+  margin: 0 0 16px;
+  color: #d4343a;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .dcc-note-text {
   font-size: 13px;
   line-height: 1.6;
@@ -510,6 +517,122 @@
 
 .social-grid-bottom a{
   text-decoration: none;
+}
+
+.submit-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 9999;
+}
+
+.submit-modal {
+  width: min(520px, 100%);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.submit-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 0;
+}
+
+.submit-modal-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: #406389;
+}
+
+.submit-modal-close {
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #333;
+}
+
+.submit-modal-body {
+  margin-top: 15px;
+  padding: 0 24px 24px;
+  display: grid;
+  gap: 14px;
+}
+
+.submit-modal-body label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.submit-modal-body input,
+.submit-modal-body textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d5dce9;
+  border-radius: 14px;
+  background: #f8f9fb;
+  color: #1f2937;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.submit-modal-body input:disabled {
+  opacity: 0.85;
+}
+
+.submit-modal-body textarea {
+  resize: vertical;
+  min-height: 112px;
+}
+
+.design-image-preview {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  background: #f9fafb;
+}
+
+.design-image-preview img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.submit-modal-error {
+  margin: 0;
+  color: #d31728;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.submit-modal-submit {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: #2bb5e0;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.submit-modal-submit:hover {
+  transform: translateY(-1px);
+  background: #1c9fcb;
 }
 
 .social-grid-bottom {

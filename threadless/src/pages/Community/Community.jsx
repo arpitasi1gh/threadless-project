@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Community.css";
+import { getCurrentUser, getCurrentUserProfile } from "../../utils/auth";
 
 import card1Img1 from "../../assets/images/card1-img1.jpg";
 import card1Img2 from "../../assets/images/card1-img2.jpg";
@@ -14,13 +15,28 @@ import card2Img4 from "../../assets/images/card2-img4.jpg";
 import card2Img5 from "../../assets/images/card2-img5 (1).jpg";
 import dccThumb from "../../assets/images/dcc-thumb (1).jpg";
 import dccHeroBg from "../../assets/images/dcc-hero-bg.jpg";
-import dccInspiration from "../../assets/images/dcc-inspiration.jpg";
 import blogBanner from "../../assets/images/blog-banner.jpg";
 import artistShopBanner from "../../assets/images/artist-shop-banner.jpg";
 import artistResourcesBanner from "../../assets/images/artist-resources-banner.jpg";
 
 const card1Images = [card1Img1, card1Img2, card1Img3, card1Img4, card1Img5];
 const card2Images = [card2Img1, card2Img2, card2Img3, card2Img4, card2Img5];
+
+const card1DesignMeta = [
+  { title: "Carl and Princess Donut", artist: "DavenArt" },
+  { title: "Dungeon Glamour", artist: "PixelPaladin" },
+  { title: "Crawlers Unite", artist: "NeonHatch" },
+  { title: "Princess Donut Supreme", artist: "InkWarden" },
+  { title: "Loot & Chaos", artist: "RogueSketch" },
+];
+
+const card2DesignMeta = [
+  { title: "No Breaking!", artist: "Joustice" },
+  { title: "Dungeon Rules", artist: "ArcadeScribe" },
+  { title: "Boss Fight Energy", artist: "RetroRune" },
+  { title: "You Will Not Break Me", artist: "GlyphGrove" },
+  { title: "Crawler Chaos", artist: "ByteBrush" },
+];
 
 const DiscordIcon = () => (
   <svg className="social-icon" viewBox="0 0 71 55" fill="white">
@@ -55,10 +71,62 @@ const FacebookIcon = () => (
 const Community = () => {
   const [card1Score, setCard1Score] = useState(null);
   const [card2Score, setCard2Score] = useState(null);
+  const [authMessage, setAuthMessage] = useState("");
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [designName, setDesignName] = useState("");
+  const [designImage, setDesignImage] = useState(null);
+  const [designImagePreview, setDesignImagePreview] = useState("");
+  const [designAbout, setDesignAbout] = useState("");
+  const [modalError, setModalError] = useState("");
+
+  const currentUserProfile = getCurrentUserProfile();
+  const currentUsername = currentUserProfile?.username || getCurrentUser() || "";
+  const currentEmail = currentUserProfile?.email || "";
 
   const handleScore = (card, score) => {
     if (card === 1) setCard1Score(score);
     else setCard2Score(score);
+  };
+
+  const handleSubmitDesign = (event) => {
+    event.preventDefault();
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      setAuthMessage("Login or Signup to Submit a Challenge");
+      return;
+    }
+    setAuthMessage("");
+    setIsSubmitModalOpen(true);
+  };
+
+  const handleDesignImageChange = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setDesignImage(file);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setDesignImagePreview(e.target?.result || "");
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const closeModal = () => {
+    setIsSubmitModalOpen(false);
+    setModalError("");
+  };
+
+  const handleModalSubmit = () => {
+    if (!designName.trim() || !designImage || !designAbout.trim()) {
+      setModalError("Please complete all fields before submitting your design.");
+      return;
+    }
+    setModalError("");
+    setDesignName("");
+    setDesignImage(null);
+    setDesignImagePreview("");
+    setDesignAbout("");
+    setIsSubmitModalOpen(false);
+    alert("Your design is successfully submitted and is under review by our threadless team!");
   };
 
   const getCardImage = (card) => {
@@ -66,6 +134,13 @@ const Community = () => {
     const score = card === 1 ? card1Score : card2Score;
     if (score === null) return images[0];
     return images[score - 1];
+  };
+
+  const getCardMeta = (card) => {
+    const meta = card === 1 ? card1DesignMeta : card2DesignMeta;
+    const score = card === 1 ? card1Score : card2Score;
+    const index = score === null ? 0 : Math.max(0, Math.min(meta.length - 1, score - 1));
+    return meta[index] || meta[0];
   };
 
   return (
@@ -122,8 +197,8 @@ const Community = () => {
                   alt="DCC"
                 />
                 <div className="score-card-bottom-info">
-                  <h4>Carl and Princess Donut</h4>
-                  <p>Design by DavenArt</p>
+                  <h4>{getCardMeta(1).title}</h4>
+                  <p>Design by {getCardMeta(1).artist}</p>
                 </div>
               </div>
             </div>
@@ -159,8 +234,8 @@ const Community = () => {
                   alt="DCC"
                 />
                 <div className="score-card-bottom-info">
-                  <h4>No Breaking!</h4>
-                  <p>Design by Joustice</p>
+                  <h4>{getCardMeta(2).title}</h4>
+                  <p>Design by {getCardMeta(2).artist}</p>
                 </div>
               </div>
             </div>
@@ -287,15 +362,150 @@ const Community = () => {
                 </li>
               </ul>
 
-              <a href="#" className="dcc-submit-btn">
+              <button
+                type="button"
+                className="dcc-submit-btn"
+                onClick={handleSubmitDesign}
+              >
                 SUBMIT A DESIGN
-              </a>
+              </button>
+
+              {authMessage ? (
+                <p className="dcc-auth-message">{authMessage}</p>
+              ) : null}
 
               <p className="dcc-note-text">
                 An Artist Shop is required to submit. If you do not have one,
                 one will be created for you automatically when you click the
                 "Submit A Design" button.
               </p>
+
+              {isSubmitModalOpen ? (
+                <div className="submit-modal-overlay" onClick={closeModal}>
+                  <div className="submit-modal" onClick={(event) => event.stopPropagation()}>
+                    <div className="submit-modal-header">
+                      <h3>Submit Your Design</h3>
+                      <button
+                        type="button"
+                        className="submit-modal-close"
+                        onClick={closeModal}
+                        aria-label="Close"
+                      >
+                        ×
+                      </button>
+                    </div>
+
+                    <div className="submit-modal-body">
+                      <label>Username</label>
+                      <input type="text" value={currentUsername} disabled />
+
+                      <label>Email</label>
+                      <input type="email" value={currentEmail} disabled />
+
+                      <label>Design Name</label>
+                      <input
+                        type="text"
+                        value={designName}
+                        onChange={(e) => setDesignName(e.target.value)}
+                        placeholder="Enter your design name"
+                      />
+
+                      <label>Design Image</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleDesignImageChange}
+                      />
+                      {designImagePreview ? (
+                        <div className="design-image-preview">
+                          <img src={designImagePreview} alt="Design preview" />
+                        </div>
+                      ) : null}
+
+                      <label>About Design</label>
+                      <textarea
+                        value={designAbout}
+                        onChange={(e) => setDesignAbout(e.target.value)}
+                        placeholder="Tell us about your design"
+                        rows={4}
+                      />
+
+                      {modalError ? <p className="submit-modal-error">{modalError}</p> : null}
+
+                      <button
+                        type="button"
+                        className="submit-modal-submit"
+                        onClick={handleModalSubmit}
+                      >
+                        Submit a Design
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+              {isSubmitModalOpen ? (
+                <div className="submit-modal-overlay" onClick={closeModal}>
+                  <div className="submit-modal" onClick={(event) => event.stopPropagation()}>
+                    <div className="submit-modal-header">
+                      <h3>Submit Your Design</h3>
+                      <button
+                        type="button"
+                        className="submit-modal-close"
+                        onClick={closeModal}
+                        aria-label="Close"
+                      >
+                        ×
+                      </button>
+                    </div>
+
+                    <div className="submit-modal-body">
+                      <label>Username</label>
+                      <input type="text" value={currentUsername} disabled />
+
+                      <label>Email</label>
+                      <input type="email" value={currentEmail} disabled />
+
+                      <label>Design Name</label>
+                      <input
+                        type="text"
+                        value={designName}
+                        onChange={(e) => setDesignName(e.target.value)}
+                        placeholder="Enter your design name"
+                      />
+
+                      <label>Design Image</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleDesignImageChange}
+                      />
+                      {designImagePreview ? (
+                        <div className="design-image-preview">
+                          <img src={designImagePreview} alt="Design preview" />
+                        </div>
+                      ) : null}
+
+                      <label>About Design</label>
+                      <textarea
+                        value={designAbout}
+                        onChange={(e) => setDesignAbout(e.target.value)}
+                        placeholder="Tell us about your design"
+                        rows={4}
+                      />
+
+                      {modalError ? <p className="submit-modal-error">{modalError}</p> : null}
+
+                      <button
+                        type="button"
+                        className="submit-modal-submit"
+                        onClick={handleModalSubmit}
+                      >
+                        Submit a Design
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
               <p className="dcc-note-text">
                 <em>
                   Note: Designs submitted to this challenge cannot be published
@@ -340,25 +550,50 @@ const Community = () => {
         <div className="social-divider" />
         <h2>Connect &amp; Share on Social</h2>
         <div className="social-grid">
-          <a className="social-card social-card-discord" href="https://discord.com/invite/threadless">
+          <a
+            className="social-card social-card-discord"
+            href="https://discord.com/invite/threadless"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <DiscordIcon />
             <span>DISCORD</span>
           </a>
-          <a className="social-card social-card-instagram" href="https://www.instagram.com/threadless/">
+          <a
+            className="social-card social-card-instagram"
+            href="https://www.instagram.com/threadless/"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <InstagramIcon />
             <span>INSTAGRAM</span>
           </a>
-          <a className="social-card social-card-pinterest" href="https://in.pinterest.com/threadless/">
+          <a
+            className="social-card social-card-pinterest"
+            href="https://in.pinterest.com/threadless/"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <PinterestIcon />
             <span>PINTEREST</span>
           </a>
         </div>
         <div className="social-grid-bottom">
-          <a className="social-card social-card-tiktok" href="https://www.tiktok.com/in/about">
+          <a
+            className="social-card social-card-tiktok"
+            href="https://www.tiktok.com/in/about"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <TiktokIcon />
             <span>TIKTOK</span>
           </a>
-          <a className="social-card social-card-facebook" href="https://www.facebook.com/threadless">
+          <a
+            className="social-card social-card-facebook"
+            href="https://www.facebook.com/threadless"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <FacebookIcon />
             <span>FACEBOOK</span>
           </a>

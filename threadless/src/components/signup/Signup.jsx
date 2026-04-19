@@ -24,7 +24,9 @@ function SignupModal() {
       const raw = window.sessionStorage.getItem("threadless:lastNonAuthRoute");
       const parsed = raw ? JSON.parse(raw) : null;
       if (parsed?.pathname) return parsed;
-    } catch {}
+    } catch (error) {
+      void error;
+    }
     return { pathname: "/", search: "", hash: "" };
   }, [location.state]);
 
@@ -112,7 +114,7 @@ function SignupModal() {
   const showPasswordRules = attemptedSubmit || (password.length > 0 && !passwordStatus.ok);
 
   const content = (
-    <div className="overlay" role="presentation" onClick={close}>
+    <div className="signup-modal-overlay" role="presentation" onClick={close}>
       <div className="modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
 
         {/* Header */}

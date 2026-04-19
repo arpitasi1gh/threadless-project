@@ -44,6 +44,12 @@ export default function AppRoutes() {
     )
   }, [isAuthModalRoute, location.hash, location.pathname, location.search])
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (isAuthModalRoute) return
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [isAuthModalRoute, location.pathname, location.search])
+
   const storedBackgroundLocation = (() => {
     if (typeof window === 'undefined') return null
     try {

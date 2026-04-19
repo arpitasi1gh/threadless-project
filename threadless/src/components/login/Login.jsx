@@ -23,7 +23,9 @@ function Login() {
       const raw = window.sessionStorage.getItem("threadless:lastNonAuthRoute");
       const parsed = raw ? JSON.parse(raw) : null;
       if (parsed?.pathname) return parsed;
-    } catch {}
+    } catch (error) {
+      void error;
+    }
     return { pathname: "/", search: "", hash: "" };
   }, [location.state]);
 

@@ -1,11 +1,11 @@
 import '../all-designs/AllDesigns.css'
 import './SearchResults.css'
 import { useContext, useMemo, useState } from 'react'
-import { FaHeart, FaPlus, FaSearch, FaTimes } from 'react-icons/fa'
+import { FaPlus, FaSearch, FaTimes } from 'react-icons/fa'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import ProductCard from '../../components/cards/ProductCard'
+import LikeButton from '../../components/likes/LikeButton'
 import { DataContext } from '../../context/DataContext'
-import { addItemToCart } from '../../utils/cart'
 import {
   addRecentSearch,
   getRecentSearches,
@@ -184,6 +184,8 @@ function SearchResults() {
                 ...(matchedProduct?.variants?.map((variant) => variant?.price).filter(Boolean) || [0]),
               )
 
+              const likeProductType = matchedProductType || item.products?.[0]?.type
+
               return (
                 <article
                   key={item.id}
@@ -207,25 +209,18 @@ function SearchResults() {
                   </div>
                   <div className="card-meta">
                     <div className="card-copy">
-                      <h3 className="cardTitle">
-                        {item.design.title} <span className="cardArtist">by {item.design.artist}</span>
-                      </h3>
+                      <h3 className="cardTitle">{item.design.title}</h3>
+                      <p className="cardArtist">by {item.design.artist}</p>
                       {startingPrice > 0 ? <p className="cardPrice">From ${startingPrice.toFixed(2)}</p> : null}
                     </div>
                     <div className="card-actions">
-                      <button
-                        className="icon-button favorite-button"
-                        aria-label="Add to favorites"
-                        onClick={(event) => event.stopPropagation()}
-                      >
-                        <FaHeart />
-                      </button>
+                      <LikeButton designId={item.id} productType={likeProductType} />
                       <button
                         className="icon-button add-button"
-                        aria-label="Add item to cart"
+                        aria-label="Choose item options"
                         onClick={(event) => {
                           event.stopPropagation()
-                          addItemToCart(item, { productType: matchedProductType })
+                          openProduct(item, matchedProductType)
                         }}
                       >
                         <FaPlus />
@@ -279,9 +274,8 @@ function SearchResults() {
                     </div>
                     <div className="card-meta">
                       <div className="card-copy">
-                        <h3 className="cardTitle">
-                          {item.design.title} <span className="cardArtist">by {item.design.artist}</span>
-                        </h3>
+                        <h3 className="cardTitle">{item.design.title}</h3>
+                        <p className="cardArtist">by {item.design.artist}</p>
                         {startingPrice > 0 ? <p className="cardPrice">From ${startingPrice.toFixed(2)}</p> : null}
                       </div>
                     </div>

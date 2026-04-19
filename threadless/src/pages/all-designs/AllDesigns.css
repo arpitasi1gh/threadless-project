@@ -97,6 +97,10 @@
 .card-copy {
   min-width: 0;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
 }
 
 .cardTitle {
@@ -105,22 +109,25 @@
   font-size: 1.02rem;
   line-height: 1.3;
   font-weight: 700;
-  white-space: normal;
-  overflow: visible;
+  overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
 .cardArtist {
+  margin: 5px 0 0;
+  padding: 0;
   color: #7f7f7f;
-  font-size: 0.95rem;
-  line-height: 1.2;
+  font-size: 0.88rem;
+  line-height: 1.35;
   font-weight: 400;
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
 .cardPrice {
-  margin: 6px 0 0;
+  margin: 8px 0 0;
+  padding: 0;
   color: #111;
   font-size: 0.92rem;
   font-weight: 800;
@@ -158,6 +165,14 @@
 
 .favorite-button {
   color: #ff4da0;
+}
+
+.favorite-button.is-liked {
+  color: #ff4da0;
+}
+
+.favorite-button svg {
+  transition: transform 0.15s ease, color 0.15s ease;
 }
 
 .add-button {

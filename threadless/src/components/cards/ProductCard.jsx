@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { FaChevronDown, FaHeart, FaPlus, FaTimes } from 'react-icons/fa'
+import { FaChevronDown, FaPlus, FaTimes } from 'react-icons/fa'
 import './ProductCard.css'
+import LikeButton from '../likes/LikeButton'
+import { addItemToCart } from '../../utils/cart'
 import { findProductIndexByType } from '../../utils/products'
 
 export default function ProductCard({ item, onClose, initialProductType }) {
@@ -51,39 +53,20 @@ export default function ProductCard({ item, onClose, initialProductType }) {
     return () => window.removeEventListener('mousedown', handlePointerDown)
   }, [])
 
+  useEffect(() => {
+    setSelectedSizeIndex(0)
+  }, [selectedProductIndex])
+
   const selectedProduct = products[selectedProductIndex] || products[0]
   const price = selectedProduct?.variants?.[0]?.price ?? null
   const selectedStyleLabel = selectedProduct?.type || ''
   const selectedVariant = selectedProduct?.variants?.[selectedSizeIndex] || selectedProduct?.variants?.[0]
 
   const addSelectedToCart = () => {
-    const cartKey = 'threadless_cart_items'
-    const storedItems = JSON.parse(localStorage.getItem(cartKey) || '[]')
-    const cartItemId = `${item.id}-${selectedProduct.type}-${selectedVariant.size}`
-    const nextItem = {
-      id: cartItemId,
-      designId: item.id,
-      title: item.design.title,
-      artist: item.design.artist,
-      productType: selectedProduct.type,
-      size: selectedVariant.size,
-      color: 'Artist print',
-      image: selectedProduct.image,
-      price: selectedVariant.price,
-      regularPrice: Number((selectedVariant.price * 1.35).toFixed(2)),
-      quantity: 1,
-    }
-    const existingItem = storedItems.find((cartItem) => cartItem.id === cartItemId)
-    const nextItems = existingItem
-      ? storedItems.map((cartItem) =>
-          cartItem.id === cartItemId
-            ? { ...cartItem, quantity: Math.min(9, cartItem.quantity + 1) }
-            : cartItem,
-        )
-      : [...storedItems, nextItem]
-
-    localStorage.setItem(cartKey, JSON.stringify(nextItems))
-    window.dispatchEvent(new Event('threadless-cart-updated'))
+    addItemToCart(item, {
+      productType: selectedProduct?.type,
+      size: selectedVariant?.size,
+    })
     onClose()
   }
 
@@ -189,9 +172,7 @@ export default function ProductCard({ item, onClose, initialProductType }) {
               </div>
 
               <div className="product-card-top-actions style-actions">
-                <button type="button" className="product-circle-button favorite" aria-label="Add to favorites">
-                  <FaHeart />
-                </button>
+                <LikeButton designId={item.id} productType={selectedProduct?.type} variant="circle" />
                 <button
                   type="button"
                   className="product-circle-button add"

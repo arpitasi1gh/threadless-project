@@ -1565,6 +1565,8 @@
   box-shadow: none;
   display: flex;
   align-items: center;
+  border-radius: 999px;
+  overflow: hidden;
 }
 .navbar .sell-art {
   min-width: 120px;
@@ -1578,8 +1580,8 @@
   animation: sellGradientShift 3s ease infinite;
   border-radius: 999px;
   border: none;
-  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  box-shadow: none;
+  transition: transform 180ms ease;
   flex-direction: row;
   gap: 5px;
   white-space: nowrap;
@@ -1600,7 +1602,6 @@
 
 .navbar .sell-art:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.45);
   color: #fff;
 }
 

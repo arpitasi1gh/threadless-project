@@ -9,7 +9,7 @@ Design. Discover. Wear your vibe.
 <br>
 
 🔗 **Live Deployed Link:**  
-
+https://threadless-project.vercel.app/
 
 </div>
 
@@ -70,6 +70,7 @@ It’s not just a store — it’s a **community-driven marketplace** where desi
 - ⚡ Vite  
 - 🎨 CSS 
 - 💬 Chatbase
+- 🔥 Firebase
 - 🚀 Vercel  
 
 ---

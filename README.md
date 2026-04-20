@@ -9,7 +9,7 @@ Design. Discover. Wear your vibe.
 <br>
 
 🔗 **Live Deployed Link:**  
-https://threadless-project.vercel.app/
+https://threadless-project-g2.web.app/
 
 </div>
 

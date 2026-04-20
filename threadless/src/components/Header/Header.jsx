@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import "./Header.css";
+import threadlessLogo from "../../assets/threadless-logo.png";
 import {
   FaInstagram,
   FaFacebookF,
@@ -280,8 +281,8 @@ function Header() {
       <div className="top-bar">
         <Link to="/" className="logo">
           <img
-            src="https://cdn-images.threadless.com/threadless-media/images/logo.png"
-            alt="threadless"
+            src={threadlessLogo}
+            alt="threadless" className="navLogo"
           />
         </Link>
 

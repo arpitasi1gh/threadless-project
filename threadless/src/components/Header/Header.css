@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.navLogo {
+  margin-left: -55px;
+}
+
 .navbar {
   background: repeating-linear-gradient(
     -45deg,

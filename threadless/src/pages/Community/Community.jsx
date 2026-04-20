@@ -78,6 +78,7 @@ const Community = () => {
   const [designImagePreview, setDesignImagePreview] = useState("");
   const [designAbout, setDesignAbout] = useState("");
   const [modalError, setModalError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const currentUserProfile = getCurrentUserProfile();
   const currentUsername = currentUserProfile?.username || getCurrentUser() || "";
@@ -115,18 +116,33 @@ const Community = () => {
     setModalError("");
   };
 
-  const handleModalSubmit = () => {
+  const handleModalSubmit = async () => {
     if (!designName.trim() || !designImage || !designAbout.trim()) {
       setModalError("Please complete all fields before submitting your design.");
       return;
     }
+    
+    // Prevent duplicate submissions
+    if (isSubmitting) {
+      return;
+    }
+    
+    setIsSubmitting(true);
     setModalError("");
-    setDesignName("");
-    setDesignImage(null);
-    setDesignImagePreview("");
-    setDesignAbout("");
-    setIsSubmitModalOpen(false);
-    alert("Your design is successfully submitted and is under review by our threadless team!");
+    
+    try {
+      // Simulate submission delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setDesignName("");
+      setDesignImage(null);
+      setDesignImagePreview("");
+      setDesignAbout("");
+      setIsSubmitModalOpen(false);
+      alert("Your design is successfully submitted and is under review by our threadless team!");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getCardImage = (card) => {
@@ -436,71 +452,9 @@ const Community = () => {
                         type="button"
                         className="submit-modal-submit"
                         onClick={handleModalSubmit}
+                        disabled={isSubmitting}
                       >
-                        Submit a Design
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-              {isSubmitModalOpen ? (
-                <div className="submit-modal-overlay" onClick={closeModal}>
-                  <div className="submit-modal" onClick={(event) => event.stopPropagation()}>
-                    <div className="submit-modal-header">
-                      <h3>Submit Your Design</h3>
-                      <button
-                        type="button"
-                        className="submit-modal-close"
-                        onClick={closeModal}
-                        aria-label="Close"
-                      >
-                        ×
-                      </button>
-                    </div>
-
-                    <div className="submit-modal-body">
-                      <label>Username</label>
-                      <input type="text" value={currentUsername} disabled />
-
-                      <label>Email</label>
-                      <input type="email" value={currentEmail} disabled />
-
-                      <label>Design Name</label>
-                      <input
-                        type="text"
-                        value={designName}
-                        onChange={(e) => setDesignName(e.target.value)}
-                        placeholder="Enter your design name"
-                      />
-
-                      <label>Design Image</label>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleDesignImageChange}
-                      />
-                      {designImagePreview ? (
-                        <div className="design-image-preview">
-                          <img src={designImagePreview} alt="Design preview" />
-                        </div>
-                      ) : null}
-
-                      <label>About Design</label>
-                      <textarea
-                        value={designAbout}
-                        onChange={(e) => setDesignAbout(e.target.value)}
-                        placeholder="Tell us about your design"
-                        rows={4}
-                      />
-
-                      {modalError ? <p className="submit-modal-error">{modalError}</p> : null}
-
-                      <button
-                        type="button"
-                        className="submit-modal-submit"
-                        onClick={handleModalSubmit}
-                      >
-                        Submit a Design
+                        {isSubmitting ? "Submitting..." : "Submit a Design"}
                       </button>
                     </div>
                   </div>

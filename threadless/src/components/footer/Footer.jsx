@@ -3,6 +3,15 @@ import "./Footer.css";
 import { FaInstagram, FaFacebook, FaDiscord, FaTiktok, FaPinterest, FaYoutube } from "react-icons/fa";
 
 function Footer() {
+  const communityLinks = {
+    instagram: "https://www.instagram.com/threadless/",
+    facebook: "https://www.facebook.com/threadless",
+    discord: "https://discord.com/invite/threadless",
+    tiktok: "https://www.tiktok.com/in/about",
+    pinterest: "https://in.pinterest.com/threadless/",
+    youtube: "https://www.youtube.com/threadless",
+  };
+
   return (
     <footer className="footer">
       <div className="footer-shell">
@@ -33,12 +42,12 @@ function Footer() {
             <p>Join thousands of art lovers.</p>
 
             <div className="icons">
-              <a href="#" aria-label="Instagram"><FaInstagram /></a>
-              <a href="#" aria-label="Facebook"><FaFacebook /></a>
-              <a href="#" aria-label="Discord"><FaDiscord /></a>
-              <a href="#" aria-label="TikTok"><FaTiktok /></a>
-              <a href="#" aria-label="Pinterest"><FaPinterest /></a>
-              <a href="#" aria-label="YouTube"><FaYoutube /></a>
+              <a href={communityLinks.instagram} target="_blank" rel="noreferrer" aria-label="Threadless on Instagram"><FaInstagram /></a>
+              <a href={communityLinks.facebook} target="_blank" rel="noreferrer" aria-label="Threadless on Facebook"><FaFacebook /></a>
+              <a href={communityLinks.discord} target="_blank" rel="noreferrer" aria-label="Threadless on Discord"><FaDiscord /></a>
+              <a href={communityLinks.tiktok} target="_blank" rel="noreferrer" aria-label="Threadless on TikTok"><FaTiktok /></a>
+              <a href={communityLinks.pinterest} target="_blank" rel="noreferrer" aria-label="Threadless on Pinterest"><FaPinterest /></a>
+              <a href={communityLinks.youtube} target="_blank" rel="noreferrer" aria-label="Threadless on YouTube"><FaYoutube /></a>
             </div>
           </div>
         </div>

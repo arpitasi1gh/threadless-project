@@ -5,6 +5,7 @@ import data from '../../data/data.json'
 import './cart.css'
 
 const CART_KEY = 'threadless_cart_items'
+const CART_USER_KEY = 'threadless_cart_user'
 
 const promoCodes = {
   THREAD10: { type: 'percent', value: 10, label: '10% off your cart' },
@@ -33,6 +34,17 @@ function readJson(key, fallback) {
   } catch {
     return fallback
   }
+}
+
+function readStoredCartUser() {
+  const storedUser = readJson(CART_USER_KEY, null)
+  const email = String(storedUser?.email || '').trim()
+
+  if (!email || !email.includes('@')) {
+    return null
+  }
+
+  return { email }
 }
 
 function formatCurrency(value) {
@@ -89,8 +101,8 @@ function getTotals(items, promoCode) {
 function Cart() {
   const navigate = useNavigate()
   const [cartItems, setCartItems] = useState(() => readJson(CART_KEY, []))
-  const [user, setUser] = useState(null)
-  const [email, setEmail] = useState('')
+  const [user, setUser] = useState(() => readStoredCartUser())
+  const [email, setEmail] = useState(() => readStoredCartUser()?.email || '')
   const [promoInput, setPromoInput] = useState('')
   const [appliedPromo, setAppliedPromo] = useState('')
   const [notice, setNotice] = useState('')
@@ -105,6 +117,12 @@ function Cart() {
     window.dispatchEvent(new Event('threadless-cart-updated'))
   }
 
+  const persistCartUser = (nextUser) => {
+    setUser(nextUser)
+    setEmail(nextUser.email)
+    localStorage.setItem(CART_USER_KEY, JSON.stringify(nextUser))
+  }
+
   const handleLogin = (event) => {
     event.preventDefault()
     const nextEmail = email.trim()
@@ -115,12 +133,8 @@ function Cart() {
     }
 
     const nextUser = { email: nextEmail }
-    setUser(nextUser)
+    persistCartUser(nextUser)
     setNotice('Signed in. Your cart is ready.')
-
-    if (cartItems.length === 0) {
-      persistCart([starterItem])
-    }
   }
 
   const unlockCartWithEmail = () => {
@@ -132,11 +146,7 @@ function Cart() {
     }
 
     const nextUser = { email: nextEmail }
-    setUser(nextUser)
-
-    if (cartItems.length === 0) {
-      persistCart([starterItem])
-    }
+    persistCartUser(nextUser)
 
     return true
   }
@@ -144,6 +154,7 @@ function Cart() {
   const handleLogout = () => {
     setUser(null)
     setEmail('')
+    localStorage.removeItem(CART_USER_KEY)
     setNotice('Logged out. Sign in again before adding items.')
   }
 

@@ -5,7 +5,10 @@ const CART_KEY = 'threadless_cart_items'
 export function addItemToCart(item, options = {}) {
   const desiredType = options.productType
   const selectedProduct = desiredType ? findProductByType(item, desiredType) : item?.products?.[0]
-  const selectedVariant = selectedProduct?.variants?.[0]
+  const desiredSize = String(options.size || '').trim()
+  const selectedVariant = desiredSize
+    ? selectedProduct?.variants?.find((variant) => variant?.size === desiredSize) || selectedProduct?.variants?.[0]
+    : selectedProduct?.variants?.[0]
 
   if (!selectedProduct || !selectedVariant) {
     return

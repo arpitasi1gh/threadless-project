@@ -12,6 +12,7 @@ import {
   FaGlobeAmericas,
   FaShoppingCart,
   FaHeart,
+  FaRegHeart,
   FaUserCircle,
   FaSearch,
   FaTimes
@@ -29,6 +30,7 @@ import {
   sanitizeSearchQuery,
   searchItems,
 } from "../../utils/search";
+import { useLikes } from "../../hooks/useLikes";
 
 function Header() {
   const location = useLocation();
@@ -41,6 +43,7 @@ function Header() {
   const [currentSeller, setCurrentSeller] = useState(() => getCurrentSeller());
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { items = [] } = useContext(DataContext);
+  const { count: likedCount } = useLikes();
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -62,6 +65,14 @@ function Header() {
       meta: "Auto-applied at checkout",
     },
   ];
+
+  const communityLinks = {
+    instagram: "https://www.instagram.com/threadless/",
+    facebook: "https://www.facebook.com/threadless",
+    discord: "https://discord.com/channels/784520691621691402/784520691621691404",
+    pinterest: "https://in.pinterest.com/threadless/",
+    youtube: "https://www.youtube.com/threadless",
+  };
 
   useEffect(() => {
     const updateCartCount = () => {
@@ -427,9 +438,14 @@ function Header() {
             {cartCount > 0 ? <span className="badge cart-badge">{cartCount}</span> : null}
           </Link>
 
-          <div className="icon-wrap icon-circle" aria-label="wishlist">
-            <FaHeart />
-          </div>
+          <Link
+            to="/liked"
+            className="icon-wrap icon-circle icon-likes"
+            aria-label="Liked designs"
+          >
+            {likedCount > 0 ? <FaHeart /> : <FaRegHeart />}
+            {likedCount > 0 ? <span className="badge cart-badge">{likedCount}</span> : null}
+          </Link>
           <div className="divider"></div>
 
           <div className="sell-login-group">
@@ -584,12 +600,22 @@ function Header() {
               <li><Link to="/community">Vote & Submit Designs</Link></li>
             </ul>
             <div className="social-icons compact-socials">
-              <FaInstagram />
-              <FaFacebookF />
-              <FaDiscord />
+              <a href={communityLinks.instagram} target="_blank" rel="noreferrer" aria-label="Threadless on Instagram">
+                <FaInstagram />
+              </a>
+              <a href={communityLinks.facebook} target="_blank" rel="noreferrer" aria-label="Threadless on Facebook">
+                <FaFacebookF />
+              </a>
+              <a href={communityLinks.discord} target="_blank" rel="noreferrer" aria-label="Threadless on Discord">
+                <FaDiscord />
+              </a>
               <FaTiktok />
-              <FaPinterestP />
-              <FaYoutube />
+              <a href={communityLinks.pinterest} target="_blank" rel="noreferrer" aria-label="Threadless on Pinterest">
+                <FaPinterestP />
+              </a>
+              <a href={communityLinks.youtube} target="_blank" rel="noreferrer" aria-label="Threadless on YouTube">
+                <FaYoutube />
+              </a>
             </div>
           </div>
         </div>

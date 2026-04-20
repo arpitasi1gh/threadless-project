@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import { FaInstagram, FaFacebook, FaDiscord, FaTiktok, FaPinterest, FaYoutube } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Footer() {
   const communityLinks = {
@@ -10,6 +11,11 @@ function Footer() {
     tiktok: "https://www.tiktok.com/in/about",
     pinterest: "https://in.pinterest.com/threadless/",
     youtube: "https://www.youtube.com/threadless",
+  };
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    alert("Thanks for subscribing to our newsletter!");
   };
 
   return (
@@ -22,7 +28,7 @@ function Footer() {
             <p>Get new art every week in your inbox.</p>
           </div>
 
-          <form className="newsletter-form">
+          <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
             <label className="newsletter-input" htmlFor="footer-email">
               <span className="newsletter-input-label">Email address</span>
               <input
@@ -32,6 +38,7 @@ function Footer() {
                 autoComplete="email"
                 placeholder="Enter your email address"
                 aria-label="Email address"
+                required
               />
             </label>
             <button type="submit">JOIN</button>
@@ -56,26 +63,26 @@ function Footer() {
 
         <div className="links">
           <div className="column">
-            <h3><a href="#">ARTISTS</a></h3>
+            <h3><Link to="/all-designs">ARTISTS</Link></h3>
             <ul>
-              <li><a href="#">New Designs</a></li>
-              <li><a href="#">Popular Picks</a></li>
+              <li><Link to="/all-designs">New Designs</Link></li>
+              <li><Link to="/all-products">Popular Picks</Link></li>
             </ul>
           </div>
 
           <div className="column">
-            <h3><a href="#">COMMUNITY</a></h3>
+            <h3><Link to="/community">COMMUNITY</Link></h3>
             <ul>
-              <li><a href="#">Vote Designs</a></li>
-              <li><a href="#">Submit Design</a></li>
+              <li><Link to="/community">Vote Designs</Link></li>
+              <li><Link to="/sell-your-art">Submit Design</Link></li>
             </ul>
           </div>
 
           <div className="column">
-            <h3><a href="#">INFO</a></h3>
+            <h3><Link to="/about">INFO</Link></h3>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Resources</a></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/resources">Resources</Link></li>
             </ul>
           </div>
 
@@ -85,10 +92,10 @@ function Footer() {
           </div>
 
           <div className="artist">
-            <a href="#" className="brand-link">
+            <Link to="/sell-your-art" className="brand-link">
               <img src="/Pictures/artistshops.png" alt="artistshops" />
               <p>The Easiest Way To Sell Art Online</p>
-            </a>
+            </Link>
           </div>
         </div>
 

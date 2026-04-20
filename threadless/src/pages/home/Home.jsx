@@ -1,47 +1,80 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Home.css'
-import img1 from './images/1.webp'
-import img2 from './images/2.webp'
-import img3 from './images/3.webp'
-import img4 from './images/4.webp'
-import img5 from './images/5.webp'
-import img6 from './images/6.webp'
-import img7 from './images/7.webp'
-import img8 from './images/8.webp'
-import img9 from './images/9.webp'
-
-const gridItems = [
-  { src: img1, to: '/product/1' },
-  { src: img2, to: '/shop' },
-  { src: img3, to: '/product/3' },
-  { src: img4, to: '/product/4' },
-  { src: img5, to: '/product/5' },
-  { src: img6, to: '/product/6' },
-  { src: img7, to: '/product/7' },
-  { src: img8, to: '/product/8' },
-  { src: img9, to: '/product/9' },
-]
+import Banner from '../../components/banner/Banner'
 
 export default function Home() {
   return (
-    <div>
-      <div className="grid-01">
-        {gridItems.map(({ src, to }, index) => (
-          <div key={index} className={`sub-grid-0${index + 1}`}>
-            {src && (
-              <Link to={to} className="grid-link">
-                <img src={src} alt={`Grid item ${index + 1}`} />
-              </Link>
-            )}
+    <main className="home-page">
+      <Banner />
+
+      <section className="home-hero">
+        <div className="hero-content">
+          <span className="hero-kicker">Threadless</span>
+          <h1>Express your style with premium community art.</h1>
+          <p>
+            Discover bold designs from independent creators, shop exclusive drops,
+            and bring your next favorite tee, mug, or accessory home.
+          </p>
+          <div className="hero-actions">
+            <Link to="/all-products" className="hero-button hero-button-primary">
+              Shop best sellers
+            </Link>
+            <Link to="/community" className="hero-button hero-button-secondary">
+              Join the community
+            </Link>
           </div>
-        ))}
-      </div>
-      <p className="bottom-para">
-        **$15 price applies to select tee styles where available. Sale prices as marked. For a limited time only.
-        <br />
-        *Savings percentage and strikethrough pricing based on comparison to regular prices of the same items at full-price in Artist Shops or third party retail locations and may vary over time.
-      </p>
-    </div>
+        </div>
+      </section>
+
+      <section className="home-features">
+        <div className="features-grid">
+          <div className="feature-card">
+            <div className="feature-icon">🎨</div>
+            <h3>Artist Community</h3>
+            <p>Join thousands of creators sharing their unique designs and building their careers.</p>
+            <Link to="/community" className="feature-link">Learn more →</Link>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">🛍️</div>
+            <h3>Premium Products</h3>
+            <p>High-quality apparel, accessories, and home goods featuring community designs.</p>
+            <Link to="/all-products" className="feature-link">Shop now →</Link>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">🏆</div>
+            <h3>Design Challenges</h3>
+            <p>Participate in exciting challenges and get your designs featured on Threadless.</p>
+            <Link to="/community" className="feature-link">Get started →</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-cta">
+        <div className="cta-content">
+          <h2>Ready to start your creative journey?</h2>
+          <p>Join our community of artists and shoppers today.</p>
+          <div className="cta-actions">
+            <Link to="/sell-your-art" className="cta-button cta-button-primary">
+              Start selling
+            </Link>
+            <Link to="/signup" className="cta-button cta-button-secondary">
+              Sign up free
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-footer-note">
+        <p>
+          $15 price applies to select tee styles where available. Sale prices as marked.
+          Savings percentage and strikethrough pricing based on comparison to regular
+          prices of the same items at full-price in Artist Shops or third party retail
+          locations and may vary over time.
+        </p>
+      </section>
+    </main>
   )
 }
